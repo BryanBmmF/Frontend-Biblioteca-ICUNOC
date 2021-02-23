@@ -2,9 +2,14 @@
  * Clase para el manejo de un nuevo usuario
  */
 export class NuevoUsuario {
-    nombre:string;
-    usuario:string;
-    registroAcademico:string;
+    nombre: string;
+    nombreUsuario: string;
+    email: string;
     password: string;
-    authorities: string[];
+    constructor(nombre: string, nombreUsuario: string, email: string, password: string) {
+        this.nombre = nombre;
+        this.nombreUsuario = nombreUsuario;
+        this.email = email;
+        this.password = password;
+    }
 }

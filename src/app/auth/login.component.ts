@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   isLogged = false;
   isLoginFail = false;
   loginUsuario: LoginUsuario;
-  usuario: string;
+  nombreUsuario: string;
   password: string;
   roles: string[]=[];
   errMsj: string;
@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin(): void{
-    this.loginUsuario = new LoginUsuario(this.usuario,this.password);
+    this.loginUsuario = new LoginUsuario(this.nombreUsuario,this.password);
     //enviar al AuthService y setear el token
     this.authService.login(this.loginUsuario).subscribe(
       data =>{
@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
         //seteo del token
         this.tokenService.setToken(data.token)
         //almacenamiento en el sessionStorage los siguientes datos
-        this.tokenService.setUserName(data.usuario);
+        this.tokenService.setUserName(data.nombreUsuario);
         //con esta instruccion almacenamos en el navegador
         this.tokenService.setAuthorities(data.authorities);
         //con esta instruccion lo pasamos a la variale roles

@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {IndexComponent} from './index/index.component';
-import {LoginComponent} from './auth/login.component';
-import {RegistroComponent} from './auth/registro.component';
+import { IndexComponent} from './index/index.component';
+import { LoginComponent} from './auth/login.component';
+import { RegistroComponent} from './auth/registro.component';
+import { CatalogoComponent} from './catalogo/catalogo.component';
 
-
+/**
+ * Manejo de las diferentes rutas de la pagina
+ */
 const routes: Routes = [
   {
     path: '',
@@ -17,6 +20,10 @@ const routes: Routes = [
   {
     path: 'registro',
     component: RegistroComponent
+  },
+  {
+    path: 'catalogo',
+    component: CatalogoComponent
   },
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];

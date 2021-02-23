@@ -2,11 +2,11 @@
  * Clase para el manejo de login
  */
 export class LoginUsuario {
-    usuario:string;
+    nombreUsuario:string;
     password: string;
 
-    constructor(usuario: string, password: string){
-        this.usuario = usuario;
+    constructor(nombreUsuario: string, password: string){
+        this.nombreUsuario = nombreUsuario;
         this.password = password;
 
     }
