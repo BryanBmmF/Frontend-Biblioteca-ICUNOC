@@ -1,21 +1,30 @@
 import { Component, OnInit } from '@angular/core';
+import { UsersService } from "../service/users/users.service";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
+  //variables bindeadas de los imput en la vista login
   user: string;
   password: string;
 
-  constructor() { }
+  constructor(public userService: UsersService) {}
 
-  ngOnInit(): void {
-  }
+  //este metodo es para hacer algo al mostrar la pagina, pero no queremos
+  //ngOnInit(): void {
+  //}
+
+  //metodo para hacer funcionar el boton de  login
   login() {
-    console.log(this.user);
-    console.log(this.password);
+    //preparamos las credenciales
+    const user = {Authorization: 'Basic '+ this.user+';'+ this.password};
+    //las enviamos
+    this.userService.login(user).subscribe( data => {
+      console.log(data);
+    });
   }
 
 }

@@ -33,13 +33,13 @@
       src="https://th.bing.com/th/id/R357b881f7404a7510172712ba8df9b7a?rik=1F6J6d8A%2bhOR5g&riu=http%3a%2f%2fcceeusac.com%2fasignaciones%2fImagenes%2flogo_usac.png&ehk=KplsqbdMJu2aTx%2bzT5h2DGcFKOP5faojo95W%2bTVxoPM%3d&risl=&pid=ImgRaw" />
       <mat-form-field>
         <mat-label>Usuario: </mat-label>
-        <input type="text" matInput placeholder="mi usuario">
+        <input type="text" [(ngModel)]="user" name="user" matInput placeholder="mi usuario">
       </mat-form-field>
       <mat-form-field>
         <mat-label>Contraseña: </mat-label>
-        <input type="password" matInput placeholder="mi contraseña">
+        <input type="password" [(ngModel)]="password" name="password" matInput placeholder="mi contraseña">
       </mat-form-field>
-      <button mat-raised-button color="accent" style="display: block; width: 100%;">Ingresar</button>
+      <button type="submit" (click)="login()" mat-raised-button color="accent" style="display: block; width: 100%;">Ingresar</button>
     </form>
   </mat-card>  
 </main>
