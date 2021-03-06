@@ -3,12 +3,25 @@ import {MatAccordion} from '@angular/material/expansion';
 import {MatListModule} from '@angular/material/list';
 import {MatTableModule} from '@angular/material/table';
 
+import { UsersService } from "../service/users/users.service";
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-catalogo',
   templateUrl: './catalogo.component.html',
   styleUrls: ['./catalogo.component.css']
 })
 export class CatalogoComponent {
+  constructor(public userService: UsersService, public router: Router) {}
+  
+  //metodo para salir del sistema
+  logout(){
+    //borramos el token de las cookies
+    this.userService.logout();
+    //volvemos a la pantalla de login o la inicial
+    this.router.navigateByUrl('/login');
+  }
+
   @ViewChild(MatAccordion) accordion: MatAccordion;
   @ViewChild(MatListModule) list: MatListModule;
   @ViewChild(MatTableModule) table: MatTableModule;
