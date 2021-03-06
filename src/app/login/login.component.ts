@@ -14,10 +14,6 @@ export class LoginComponent {
 
   constructor(public userService: UsersService, public router: Router) {}
 
-  //este metodo es para hacer algo al mostrar la pagina, pero no queremos
-  //ngOnInit(): void {
-  //}
-
   //metodo para hacer funcionar el boton de  login
   login() {
     //preparamos las credenciales
