@@ -26,11 +26,13 @@ import {MatCardModule} from '@angular/material/card';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { IndexComponent } from './index/index.component'; 
+import { IngresoLibroComponent } from './ingresoLibro/ingresoLibro.component'; 
 
 @NgModule({
   declarations: [
     AppComponent,
     CatalogoComponent,
+    IngresoLibroComponent,
     LoginComponent,
     RegisterComponent,
     IndexComponent,
