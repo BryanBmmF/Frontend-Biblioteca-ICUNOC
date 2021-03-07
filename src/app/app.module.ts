@@ -27,7 +27,6 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatInputModule} from '@angular/material/input';
 import {MatCardModule} from '@angular/material/card';  
 import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
 import { IndexComponent } from './index/index.component';
 import { ListaUserComponent } from './user/lista-user.component';
 import { DetalleUserComponent } from './user/detalle-user.component';
@@ -39,7 +38,6 @@ import { EditarUserComponent } from './user/editar-user.component';
     AppComponent,
     CatalogoComponent,
     LoginComponent,
-    RegisterComponent,
     IndexComponent,
     ListaUserComponent,
     DetalleUserComponent,
