@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+
+import { ToastrService } from 'ngx-toastr';
 import { User } from '../models/User';
 import { UsersService } from '../service/users/users.service';
 
@@ -8,23 +11,59 @@ import { UsersService } from '../service/users/users.service';
   styleUrls: ['./editar-user.component.css']
 })
 export class EditarUserComponent implements OnInit {
-
-  users: User[] =[];
   
-  constructor(private userService: UsersService) { }
+  confirmPassword: string;
+  user: User = null;
+
+  constructor(private userService: UsersService,
+    private activatedRoute: ActivatedRoute,
+    private toastr: ToastrService,
+    private router: Router) { }
 
   ngOnInit(): void {
-  }
-
-  cargarUsuarios(): void {
-    this.userService.lista().subscribe(
+    const id = this.activatedRoute.snapshot.params.id;
+    this.userService.detailId(id).subscribe(
       data => {
-        this.users = data;
+        this.user = data;
       },
       err => {
-        console.log(err);
+        //si sucede algun fallo, mostramos el error que envia la api
+        this.toastr.error(err.error.mensaje, 'Fail!', {
+          timeOut: 5000, positionClass: 'toast-top-center'
+        });
       }
     );
   }
+
+  onUpdate(): void {
+    if (this.user.password == this.confirmPassword) {
+      const id = this.activatedRoute.snapshot.params.id;
+      this.userService.update(id, this.user).subscribe(
+        data => {
+          //si todo va bien
+          this.toastr.success('Usuario actualizado!', 'Ok!', {
+            timeOut: 5000, positionClass: 'toast-top-center'
+          });
+          //recargamos la pantalla, pero podriamos ir a otro lado
+          this.router.navigate(['/usuarios']);
+        },
+        err => {
+          //si sucede algun fallo, mostramos el error que envia la api
+          this.toastr.error(err.error.mensaje, 'Fail!', {
+            timeOut: 5000, positionClass: 'toast-top-center'
+          });
+          //recargamos la pantalla, pero podriamos ir a otro lado
+          this.router.navigate(['/usuarios']);
+        }
+      );
+    } else {
+      this.toastr.warning("Se debe especificar una nueva contraseña !", 'Fail!', {
+        timeOut: 5000, positionClass: 'toast-top-center'
+      });
+    }
+
+  }
+
+
 
 }
