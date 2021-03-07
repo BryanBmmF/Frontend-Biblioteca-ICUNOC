@@ -20,7 +20,7 @@ export class RegisterComponent {
     //antes evaluar las constraseñas si son iguales
     if (this.password == this.confirmPassword) {
       //armamos el objeto a guardar
-      let user = new User(this.numeroRegistro, this.user, this.password);
+      let user = new User("juanito", this.numeroRegistro, this.user, this.password);
       //registramos el usuario
       this.userService.register(user).subscribe(data => {
         console.log(data);
