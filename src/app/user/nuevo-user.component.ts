@@ -30,7 +30,7 @@ export class NuevoUserComponent {
         data => {
           //si todo va bien
           this.toastr.success('Usuario Registrado!', 'Ok!', {
-            timeOut: 5000
+            timeOut: 5000, positionClass: 'toast-top-center'
           });
           //recargamos la pantalla, pero podriamos ir a otro lado
           form.reset();
@@ -40,7 +40,7 @@ export class NuevoUserComponent {
         err => {
           //si sucede algun fallo, mostramos el error que envia la api
           this.toastr.error(err.error.mensaje, 'Fail!', {
-            timeOut: 3000
+            timeOut: 5000, positionClass: 'toast-top-center'
           });
           //recargamos la pantalla, pero podriamos ir a otro lado
           //form.reset();
@@ -49,7 +49,7 @@ export class NuevoUserComponent {
       );
     } else {
       this.toastr.warning("Las contraseñas no coinciden !", 'Fail!', {
-        timeOut: 3000
+        timeOut: 5000, positionClass: 'toast-top-center'
       });
     }
 
