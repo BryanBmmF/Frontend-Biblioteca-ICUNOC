@@ -27,7 +27,8 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatInputModule} from '@angular/material/input';
 import {MatCardModule} from '@angular/material/card';  
 import { LoginComponent } from './login/login.component';
-import { IndexComponent } from './index/index.component';
+import { IndexComponent } from './index/index.component'; 
+import { IngresoLibroComponent } from './ingresoLibro/ingresoLibro.component'; 
 import { ListaUserComponent } from './user/lista-user.component';
 import { DetalleUserComponent } from './user/detalle-user.component';
 import { NuevoUserComponent } from './user/nuevo-user.component';
@@ -37,6 +38,7 @@ import { EditarUserComponent } from './user/editar-user.component';
   declarations: [
     AppComponent,
     CatalogoComponent,
+    IngresoLibroComponent,
     LoginComponent,
     IndexComponent,
     ListaUserComponent,
