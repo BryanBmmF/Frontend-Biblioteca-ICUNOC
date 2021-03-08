@@ -34,22 +34,26 @@
             <h2>Datos del nuevo usuario</h2>
         </mat-label>
         <mat-form-field>
+            <mat-label>Nombre Completo: </mat-label>
+            <input type="text" [(ngModel)]="user.nombre" name="nombre" matInput placeholder="Juan Doe" required>
+        </mat-form-field>
+        <mat-form-field>
             <mat-label>Registro Academico/Personal: </mat-label>
-            <input type="text" [(ngModel)]="numeroRegistro" name="numeroRegistro" matInput placeholder="201730291">
-          </mat-form-field>
+            <input type="text" [(ngModel)]="user.numeroRegistro" name="numeroRegistro" matInput placeholder="201730291" required>
+        </mat-form-field>
         <mat-form-field>
           <mat-label>Usuario: </mat-label>
-          <input type="text" [(ngModel)]="user" name="user" matInput placeholder="mi usuario">
+          <input type="text" [(ngModel)]="user.username" name="user" matInput placeholder="mi_usuario" required>
         </mat-form-field>
         <mat-form-field>
           <mat-label>Contraseña: </mat-label>
-          <input type="password" [(ngModel)]="password" name="password" matInput placeholder="mi contraseña">
+          <input type="password" [(ngModel)]="user.password" name="password" matInput placeholder="mi contraseña" required>
         </mat-form-field>
         <mat-form-field>
             <mat-label>Repetir Contraseña: </mat-label>
-            <input type="password" [(ngModel)]="confirmPassword" name="password" matInput placeholder="mi contraseña">
+            <input type="password" [(ngModel)]="confirmPassword" name="password" matInput placeholder="mi contraseña" required>
         </mat-form-field>
-        <button type="submit" (click)="register()" mat-raised-button color="accent" style="display: block; width: 100%;">Registrar</button>
+        <button type="submit" (click)="onUpdate()" mat-raised-button color="accent" style="display: block; width: 100%;">Actualizar</button>
       </form>
     </mat-card>  
   </main>

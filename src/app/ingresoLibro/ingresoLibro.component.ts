@@ -5,7 +5,7 @@ import {MatTableModule} from '@angular/material/table';
 
 import { UsersService } from "../service/users/users.service";
 import { Router } from '@angular/router';
-import { Libro } from "./libro";
+import { Libro } from "../models/libro";
 @Component({
   selector: 'app-ingresoLibro',
   templateUrl: './ingresoLibro.component.html',

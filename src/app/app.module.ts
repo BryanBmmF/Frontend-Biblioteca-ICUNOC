@@ -4,6 +4,9 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+//external toastr
+import { ToastrModule } from 'ngx-toastr';
+
 import { HttpClientModule } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { FormsModule } from '@angular/forms';
@@ -24,9 +27,12 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatInputModule} from '@angular/material/input';
 import {MatCardModule} from '@angular/material/card';  
 import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
 import { IndexComponent } from './index/index.component'; 
 import { IngresoLibroComponent } from './ingresoLibro/ingresoLibro.component'; 
+import { ListaUserComponent } from './user/lista-user.component';
+import { DetalleUserComponent } from './user/detalle-user.component';
+import { NuevoUserComponent } from './user/nuevo-user.component';
+import { EditarUserComponent } from './user/editar-user.component'; 
 
 @NgModule({
   declarations: [
@@ -34,8 +40,11 @@ import { IngresoLibroComponent } from './ingresoLibro/ingresoLibro.component';
     CatalogoComponent,
     IngresoLibroComponent,
     LoginComponent,
-    RegisterComponent,
     IndexComponent,
+    ListaUserComponent,
+    DetalleUserComponent,
+    NuevoUserComponent,
+    EditarUserComponent,
   ],
   imports: [
     MatSliderModule,
@@ -53,7 +62,8 @@ import { IngresoLibroComponent } from './ingresoLibro/ingresoLibro.component';
     MatIconModule,
     MatTabsModule,
     MatInputModule,
-    MatCardModule
+    MatCardModule,
+    ToastrModule.forRoot(), // ToastrModule added
 
   ],
   providers: [CookieService],
