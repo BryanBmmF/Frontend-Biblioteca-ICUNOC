@@ -8,6 +8,9 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import {MatListModule} from '@angular/material/list';
 import {MatTableModule} from '@angular/material/table';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms'
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +22,9 @@ import {MatTableModule} from '@angular/material/table';
     BrowserAnimationsModule,
     MatExpansionModule,
     MatListModule,
-    MatTableModule
+    MatTableModule,
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
