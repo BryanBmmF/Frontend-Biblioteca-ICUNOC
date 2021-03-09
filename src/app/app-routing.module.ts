@@ -21,6 +21,7 @@ const routes: Routes = [
   { path: 'registro', component: NuevoUserComponent },
   { path: 'detalle/:id', component: DetalleUserComponent },
   { path: 'editar/:id', component: EditarUserComponent },
+  { path: 'ingreso', component: IngresoLibroComponent },
   //cualquier otro path inexistente, redireccionar a index va de ultimo siempre
   { path: '**', redirectTo:'', pathMatch: 'full' }
 ];
