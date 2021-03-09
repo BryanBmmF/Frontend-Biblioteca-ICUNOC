@@ -1,0 +1,137 @@
+<mat-toolbar color="primary">
+    <img width="40" alt="USAC Logo"
+      src="https://th.bing.com/th/id/R357b881f7404a7510172712ba8df9b7a?rik=1F6J6d8A%2bhOR5g&riu=http%3a%2f%2fcceeusac.com%2fasignaciones%2fImagenes%2flogo_usac.png&ehk=KplsqbdMJu2aTx%2bzT5h2DGcFKOP5faojo95W%2bTVxoPM%3d&risl=&pid=ImgRaw" />
+    <span>Biblioteca Ingeniería</span>
+    <div class="spacer"></div>
+    <button (click)="inicio()" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+        Inicio
+      </button>
+    <!--Boton para cerrar sesion-->
+    <button (click)="logout()" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+      <mat-icon>logout</mat-icon>
+    </button>
+  </mat-toolbar>
+
+  <div class="content" role="main">
+    <div class="card highlight-card card-small">
+
+        <img id="rocket" alt="Rocket Ship"
+          src="https://th.bing.com/th/id/R357b881f7404a7510172712ba8df9b7a?rik=1F6J6d8A%2bhOR5g&riu=http%3a%2f%2fcceeusac.com%2fasignaciones%2fImagenes%2flogo_usac.png&ehk=KplsqbdMJu2aTx%2bzT5h2DGcFKOP5faojo95W%2bTVxoPM%3d&risl=&pid=ImgRaw"
+          width="90">
+    
+        <h2>Registro de Datos:</h2>
+
+    
+      </div>
+
+<br><br>
+
+<form class="needs-validation" form #formularioLibro="ngForm" (ngSubmit)="formularioEnviado()" novalidate>
+  <div class="form-row">
+    <div class="col-md-4 mb-3">
+      <label for="validationTooltip02">Nombre:</label>
+      <input type="text" class="form-control" id="Nombre"  name="Titulo" placeholder="Nombre del Libro" [(ngModel)]="libroModel.titulo" required>
+      <div class="valid-tooltip">
+        Looks good!
+      </div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <label for="validationTooltip02">Autor:</label>
+      <input type="text" class="form-control" id="Autor"  name="Autor" placeholder="Nombre del Autor" [(ngModel)]="libroModel.autor" required>
+      <div class="valid-tooltip">
+        Looks good!
+      </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <label for="validationTooltip02">Edicion:</label>
+        <input type="number" class="form-control" id="Edicion"  name="Edicion" placeholder="Edicion del Libro" [(ngModel)]="libroModel.edicion" required>
+        <div class="valid-tooltip">
+          Looks good!
+        </div>
+      </div>
+  </div>
+  <div class="form-row">
+    <div class="col-md-3 mb-3">
+      <label for="validationTooltip03">Categoria</label>
+      <input type="text" class="form-control" id="Categoria"  name="Categoria" placeholder="Categoria del Libro" [(ngModel)]="libroModel.categoria" required>
+      <div class="invalid-tooltip">
+        Selecciona una categoria valida. 
+      </div>
+    </div>
+    <div class="col-md-3 mb-3">
+      <label for="validationTooltip04">Tipo</label>
+      <input type="text" class="form-control" id="Tipo"  name="Tipo" placeholder="Tipo del Libro" [(ngModel)]="libroModel.tipo" required>
+      <div class="invalid-tooltip">
+       Ingresa un tipo valido. 
+      </div>
+    </div>
+    <div class="col-md-6 mb-3">
+      <label for="validationTooltip05">Imagen</label>
+      <input type="url" class="form-control" id="Imagen"  name="Imagen" placeholder="Imagen del Libro" [(ngModel)]="libroModel.imagen" required>
+      <div class="invalid-tooltip">
+        Ingresa un enlace
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col-md-3 mb-3">
+      <label for="validationTooltip03">Idioma</label>
+      <input type="text" class="form-control" id="Idioma"  name="Idioma" placeholder="Idioma del Libro" [(ngModel)]="libroModel.idioma" required>
+      <div class="invalid-tooltip">
+        Selecciona un idioma valido. 
+      </div>
+    </div>
+    <div class="col-md-3 mb-3">
+      <label for="validationTooltip04">Stock</label>
+      <input type="number" class="form-control" id="Stock"  name="Stock" placeholder="Stock del Libro" [(ngModel)]="libroModel.stock" required>
+      <div class="invalid-tooltip">
+       Ingresa un tipo valido. 
+      </div>
+    </div>
+    <div class="col-md-6 mb-3">
+      <label for="validationTooltip05">Descripcion</label>
+      <input type="text" class="form-control" id="Descripcion"  name="Descripcion" placeholder="Descripcion del Libro" [(ngModel)]="libroModel.descripcion" required>
+      <div class="invalid-tooltip">
+        Ingresa un enlace
+      </div>
+    </div>
+  </div>
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <div class="input-group-text">
+         <input type="checkbox" aria-label="Checkbox for following text input" [(ngModel)]="libroModel.disponibilidad">
+      </div>
+    </div>
+    <input type="text" class="form-control" aria-label="Text ">
+  </div>
+  <button class="btn btn-primary" type="submit">Guardar Libro</button>
+</form>
+<br>
+<form class="needs-validation" form #formularioLibro="ngForm" (ngSubmit)="formularioCancelado()" novalidate>
+    <button class="btn btn-primary" type="submit">Cancelar</button>
+</form>
+<h2>Depurando libro:</h2>
+{{ libroModel | json }}
+
+
+
+<!-- Footer -->
+<footer>
+    Te gusta esta biblioteca?&nbsp;
+    <a href="https://github.com/BryanBmmF/Frontend-Biblioteca-ICUNOC" target="_blank" rel="noopener"> Apoyanos y danos una
+      estrella en GitHub
+      <div class="github-star-badge">
+        <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+          <path d="M0 0h24v24H0z" fill="none" />
+          <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+        </svg>
+        Star
+      </div>
+    </a>
+    <a href="https://github.com/BryanBmmF/Frontend-Biblioteca-ICUNOC" target="_blank" rel="noopener">
+      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" fill="#1976d2" />
+        <path d="M0 0h24v24H0z" fill="none" />
+      </svg>
+    </a>
+  </footer>

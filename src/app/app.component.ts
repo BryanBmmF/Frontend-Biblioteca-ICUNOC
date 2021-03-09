@@ -1,14 +1,18 @@
-import { Component, ViewChild} from '@angular/core';
+
+import { Component, ViewChild,  OnInit} from '@angular/core';
 import {MatAccordion} from '@angular/material/expansion';
 import {MatListModule} from '@angular/material/list';
 import {MatTableModule} from '@angular/material/table';
 import {Categoria} from './models/categoria'
 import {CategoryService} from './service/category.service'
+
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent {
   @ViewChild(MatAccordion) accordion: MatAccordion;
   @ViewChild(MatListModule) list: MatListModule;
@@ -33,3 +37,5 @@ export class AppComponent {
     )
   }
 }
+
+
