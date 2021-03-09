@@ -46,5 +46,11 @@ export class CatalogoComponent {
       }
     )
   }
+
+  VerDetallesLibro(libroID){
+    //console.log(libroID.idLibro);
+    localStorage.setItem("idLibro", libroID.idLibro);
+    this.router.navigate(["detalleslibro"]);
+  }
  
 }

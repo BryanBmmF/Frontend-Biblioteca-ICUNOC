@@ -20,9 +20,11 @@ export class DetalleslibroComponent implements OnInit {
   }
 
   mostrarDatos(){
-    let id = localStorage.getItem("idLibro");
-    if (id !== null){
-      this.service.getLibroId(id)
+    let libroR = localStorage.getItem("idLibro");
+    console.log(libroR);
+    
+    if (libroR !== null){
+      this.service.getLibroId(libroR)
       .subscribe(data=>{
       this.libroRecivido=data;
     })

@@ -12,7 +12,7 @@ export class LibrosService {
   Url = 'http://localhost:8082/detalleslibros';
 
   getLibroId(id:String){
-    return this.http.get<Libro>(this.Url+"/"+id);
+    return this.http.get<Libro>("http://localhost:8082/detalleslibros/"+id);
   }
 
 }
