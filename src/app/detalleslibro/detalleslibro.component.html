@@ -1,11 +1,31 @@
 <mat-toolbar color="primary">
     <img width="40" alt="USAC Logo"
-      src="https://th.bing.com/th/id/R357b881f7404a7510172712ba8df9b7a?rik=1F6J6d8A%2bhOR5g&riu=http%3a%2f%2fcceeusac.com%2fasignaciones%2fImagenes%2flogo_usac.png&ehk=KplsqbdMJu2aTx%2bzT5h2DGcFKOP5faojo95W%2bTVxoPM%3d&risl=&pid=ImgRaw" />
+        src="https://th.bing.com/th/id/R357b881f7404a7510172712ba8df9b7a?rik=1F6J6d8A%2bhOR5g&riu=http%3a%2f%2fcceeusac.com%2fasignaciones%2fImagenes%2flogo_usac.png&ehk=KplsqbdMJu2aTx%2bzT5h2DGcFKOP5faojo95W%2bTVxoPM%3d&risl=&pid=ImgRaw" />
     <span>Biblioteca Ingeniería</span>
-    <div class="spacer"></div>
-  </mat-toolbar>
-  
-  <div class="content" role="main">
+    <span class="example-spacer"></span>
+    <button mat-button [matMenuTriggerFor]="belowMenu">Prestamos</button>
+    <mat-menu #belowMenu="matMenu" yPosition="below">
+        <button mat-menu-item>Item 1</button>
+        <button mat-menu-item>Item 2</button>
+    </mat-menu>
+    <button mat-button [matMenuTriggerFor]="beforeMenu">Biblioteca</button>
+    <mat-menu #beforeMenu="matMenu" xPosition="before">
+        <button routerLink="/catalogo" mat-menu-item>Catalogo de Libros</button>
+        <button routerLink="/catalogo" mat-menu-item>Listado de Libros</button>
+        <button routerLink="/catalogo" mat-menu-item>Registrar Libro</button>
+    </mat-menu>
+    <button mat-button [matMenuTriggerFor]="afterMenu">Usuarios</button>
+    <mat-menu #afterMenu="matMenu" xPosition="after">
+        <button routerLink="/usuarios" mat-menu-item>Lista de Usuarios</button>
+        <button routerLink="/registro-usuario" mat-menu-item>Registrar Usuario</button>
+    </mat-menu>
+    <!--Boton para cerrar sesion-->
+    <button (click)="logout()" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+        <mat-icon>logout</mat-icon>
+    </button>
+</mat-toolbar>
+
+<div class="content" role="main">
     <div class="container col-md-6">
         <div class="card">
             <div class="card-header">
@@ -16,12 +36,9 @@
                     <h1>
                         {{ libroRecivido.nombre }}
                     </h1>
-                    <img
-                      width="230"
-                      alt="Angular Logo"
-                      src="https://edit.org/images/cat/portadas-libros-big-2019101610.jpg"
-                    />
-                  </div>
+                    <img width="230" alt="Angular Logo"
+                        src="https://edit.org/images/cat/portadas-libros-big-2019101610.jpg" />
+                </div>
                 <form action="">
                     <div class="form-group">
                         <label for="">Codigo:</label>
@@ -46,7 +63,7 @@
                     <div class="form-group">
                         <label for="">Idioma:</label>
                         <br>
-                        <label for="">{{ libroRecivido.idioma }}</label> 
+                        <label for="">{{ libroRecivido.idioma }}</label>
                     </div>
                     <div class="form-group">
                         <label for="">Fecha de Publicacion:</label>
@@ -58,6 +75,6 @@
             </div>
         </div>
     </div>
-  </div>
+</div>
 
 <br><br>

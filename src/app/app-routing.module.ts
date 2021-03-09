@@ -19,9 +19,9 @@ const routes: Routes = [
   { path: 'catalogo', component: CatalogoComponent },
   { path: 'detalleslibro', component: DetalleslibroComponent },
   { path: 'usuarios', component: ListaUserComponent },
-  { path: 'registro', component: NuevoUserComponent },
+  { path: 'registro-usuario', component: NuevoUserComponent },
   { path: 'detalle/:id', component: DetalleUserComponent },
-  { path: 'editar/:id', component: EditarUserComponent },
+  { path: 'editar-usuario/:id', component: EditarUserComponent },
   { path: 'ingreso', component: IngresoLibroComponent },
   //cualquier otro path inexistente, redireccionar a index va de ultimo siempre
   { path: '**', redirectTo:'', pathMatch: 'full' }
