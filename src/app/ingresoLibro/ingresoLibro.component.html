@@ -30,7 +30,7 @@
   <div class="form-row">
     <div class="col-md-4 mb-3">
       <label for="validationTooltip02">Nombre:</label>
-      <input type="text" class="form-control" id="Nombre"  name="Titulo" placeholder="Nombre del Libro" [(ngModel)]="libroModel.titulo" required>
+      <input type="text" class="form-control" id="Nombre"  name="Titulo" placeholder="Nombre del Libro" [(ngModel)]="libroModel.nombre" required>
       <div class="valid-tooltip">
         Looks good!
       </div>
@@ -53,14 +53,14 @@
   <div class="form-row">
     <div class="col-md-3 mb-3">
       <label for="validationTooltip03">Categoria</label>
-      <input type="text" class="form-control" id="Categoria"  name="Categoria" placeholder="Categoria del Libro" [(ngModel)]="libroModel.categoria" required>
+      <input type="text" class="form-control" id="Categoria"  name="Categoria" placeholder="Categoria del Libro" [(ngModel)]="libroModel.idioma" required>
       <div class="invalid-tooltip">
         Selecciona una categoria valida. 
       </div>
     </div>
     <div class="col-md-3 mb-3">
       <label for="validationTooltip04">Tipo</label>
-      <input type="text" class="form-control" id="Tipo"  name="Tipo" placeholder="Tipo del Libro" [(ngModel)]="libroModel.tipo" required>
+      <input type="text" class="form-control" id="Tipo"  name="Tipo" placeholder="Tipo del Libro" [(ngModel)]="libroModel.idioma" required>
       <div class="invalid-tooltip">
        Ingresa un tipo valido. 
       </div>
@@ -90,7 +90,7 @@
     </div>
     <div class="col-md-6 mb-3">
       <label for="validationTooltip05">Descripcion</label>
-      <input type="text" class="form-control" id="Descripcion"  name="Descripcion" placeholder="Descripcion del Libro" [(ngModel)]="libroModel.descripcion" required>
+      <input type="text" class="form-control" id="Descripcion"  name="Descripcion" placeholder="Descripcion del Libro" [(ngModel)]="libroModel.nombre" required>
       <div class="invalid-tooltip">
         Ingresa un enlace
       </div>
@@ -99,7 +99,7 @@
   <div class="input-group mb-3">
     <div class="input-group-prepend">
       <div class="input-group-text">
-         <input type="checkbox" aria-label="Checkbox for following text input" [(ngModel)]="libroModel.disponibilidad">
+         <input type="checkbox" aria-label="Checkbox for following text input" [(ngModel)]="libroModel.nombre">
       </div>
     </div>
     <input type="text" class="form-control" aria-label="Text ">
