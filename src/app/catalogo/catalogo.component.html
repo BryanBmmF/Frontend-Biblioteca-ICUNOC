@@ -35,21 +35,20 @@
 
 
   </div>
-  <mat-accordion>
+  <mat-accordion >
     <mat-expansion-panel *ngFor="let category of categories; let i = index">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          {{category.name}}
+          {{category.nombre}}
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <mat-list role="list" *ngFor="let book of category.books; let j = index">
-        <mat-list-item role="listitem"><a href="https://www.google.com.gt">{{book.name}}, {{book.author}},
-            {{book.edition}} edición.</a>
-          <div class="spacer"></div>
-          <div *ngIf="book.available; else notAvailable">Disponibilidad: <span class="availableDot"></span></div>
-          <ng-template #notAvailable>
-            Disponibilidad: <span class="notAvailableDot"></span>
-          </ng-template>
+      <mat-list role="list" *ngFor="let book of category.libros; let j = index">
+        <mat-list-item role="listitem"><a href="https://www.google.com.gt">{{book.nombre}}, {{book.autor}}, {{book.edicion}} edición.</a>
+        <div class="spacer"></div>
+        <div *ngIf="book.stock > 0; else notAvailable">Disponibilidad: <span class="availableDot"></span></div>
+        <ng-template #notAvailable>
+          Disponibilidad: <span class="notAvailableDot"></span>
+        </ng-template>
         </mat-list-item>
       </mat-list>
     </mat-expansion-panel>

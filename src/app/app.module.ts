@@ -19,6 +19,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import {MatListModule} from '@angular/material/list';
 import {MatTableModule} from '@angular/material/table';
+
 import {MatButtonModule} from '@angular/material/button'; 
 import {MatMenuModule} from '@angular/material/menu'; 
 import {MatToolbarModule} from '@angular/material/toolbar'; 
@@ -34,6 +35,7 @@ import { DetalleUserComponent } from './user/detalle-user.component';
 import { NuevoUserComponent } from './user/nuevo-user.component';
 import { EditarUserComponent } from './user/editar-user.component';
 import { DetalleslibroComponent } from './detalleslibro/detalleslibro.component'; 
+
 
 @NgModule({
   declarations: [
@@ -58,6 +60,10 @@ import { DetalleslibroComponent } from './detalleslibro/detalleslibro.component'
     MatExpansionModule,
     MatListModule,
     MatTableModule,
+
+    HttpClientModule,
+    FormsModule,
+
     MatButtonModule,
     MatMenuModule,
     MatToolbarModule,
