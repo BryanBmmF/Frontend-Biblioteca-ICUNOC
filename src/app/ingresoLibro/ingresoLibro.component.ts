@@ -28,7 +28,8 @@ export class IngresoLibroComponent {
     this.router.navigateByUrl('/catalogo');
   }
 
-  libroModel = new Libro("", "", undefined,"","","","","","",undefined);
+  //libroModel = new Libro("", "", undefined,"","","","","","",undefined);
+  libroModel:Libro;
 
   ngOnInit() {}
 

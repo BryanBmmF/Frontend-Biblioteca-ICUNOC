@@ -32,7 +32,8 @@ import { IngresoLibroComponent } from './ingresoLibro/ingresoLibro.component';
 import { ListaUserComponent } from './user/lista-user.component';
 import { DetalleUserComponent } from './user/detalle-user.component';
 import { NuevoUserComponent } from './user/nuevo-user.component';
-import { EditarUserComponent } from './user/editar-user.component'; 
+import { EditarUserComponent } from './user/editar-user.component';
+import { DetalleslibroComponent } from './detalleslibro/detalleslibro.component'; 
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { EditarUserComponent } from './user/editar-user.component';
     DetalleUserComponent,
     NuevoUserComponent,
     EditarUserComponent,
+    DetalleslibroComponent,
   ],
   imports: [
     MatSliderModule,
