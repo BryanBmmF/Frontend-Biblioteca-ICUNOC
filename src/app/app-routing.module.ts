@@ -13,22 +13,6 @@ import { EditarUserComponent } from './user/editar-user.component';
  * Manejo de las diferentes rutas de la pagina
  */
 const routes: Routes = [
-  {
-    path: '',
-    component: IndexComponent
-  },
-  {
-    path: 'login',
-    component: LoginComponent
-  },
-  {
-    path: 'catalogo',
-    component: CatalogoComponent
-  },
-  {
-    path: 'ingreso',
-    component: IngresoLibroComponent
-  },
   { path: '', component: IndexComponent },
   { path: 'login', component: LoginComponent },
   { path: 'catalogo', component: CatalogoComponent },
