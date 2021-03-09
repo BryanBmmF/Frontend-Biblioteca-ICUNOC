@@ -54,5 +54,11 @@ export class NuevoUserComponent {
     }
 
   }
+  logout(){
+    //borramos el token de las cookies
+    this.userService.logout();
+    //volvemos a la pantalla de login o la inicial
+    this.router.navigateByUrl('/login');
+  }
 
 }

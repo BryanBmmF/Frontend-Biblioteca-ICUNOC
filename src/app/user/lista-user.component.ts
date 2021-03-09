@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { User } from '../models/User';
 import { UsersService } from '../service/users/users.service';
@@ -13,7 +14,8 @@ export class ListaUserComponent implements OnInit {
   users: User[] =[];
   
   constructor(private userService: UsersService,
-    private toastr: ToastrService ) { }
+    private toastr: ToastrService,
+    private router: Router ) { }
 
   ngOnInit(): void {
     //cargar al momento de mostrar la pantalla
@@ -47,6 +49,13 @@ export class ListaUserComponent implements OnInit {
         });
       }
     );
+  }
+
+  logout(){
+    //borramos el token de las cookies
+    this.userService.logout();
+    //volvemos a la pantalla de login o la inicial
+    this.router.navigateByUrl('/login');
   }
 
 }

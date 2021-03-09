@@ -8,15 +8,16 @@
     <button mat-menu-item>Item 1</button>
     <button mat-menu-item>Item 2</button>
   </mat-menu>
-  <button mat-button [matMenuTriggerFor]="beforeMenu">Recientes</button>
+  <button mat-button [matMenuTriggerFor]="beforeMenu">Biblioteca</button>
   <mat-menu #beforeMenu="matMenu" xPosition="before">
-    <button mat-menu-item>Item 1</button>
-    <button mat-menu-item>Item 2</button>
+    <button routerLink="/catalogo" mat-menu-item>Catalogo de Libros</button>
+    <button routerLink="/catalogo" mat-menu-item>Listado de Libros</button>
+    <button routerLink="/catalogo" mat-menu-item>Registrar Libro</button>
   </mat-menu>
-  <button mat-button [matMenuTriggerFor]="afterMenu">Carreras</button>
+  <button mat-button [matMenuTriggerFor]="afterMenu">Usuarios</button>
   <mat-menu #afterMenu="matMenu" xPosition="after">
-    <button mat-menu-item>Item 1</button>
-    <button mat-menu-item>Item 2</button>
+    <button routerLink="/usuarios" mat-menu-item>Lista de Usuarios</button>
+    <button routerLink="/registro-usuario" mat-menu-item>Registrar Usuario</button>
   </mat-menu>
   <!--Boton para cerrar sesion-->
   <button (click)="logout()" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">

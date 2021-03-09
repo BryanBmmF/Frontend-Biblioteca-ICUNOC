@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Libro } from 'src/app/models/libro';
 import { LibrosService } from 'src/app/service/libros/libros.service';
+import { UsersService } from '../service/users/users.service';
 
 @Component({
   selector: 'app-detalleslibro',
@@ -13,7 +14,7 @@ export class DetalleslibroComponent implements OnInit {
   libroRecivido:Libro;
   
 
-  constructor(private router:Router, private service:LibrosService) { }
+  constructor(private router:Router, private service:LibrosService, private userService: UsersService) { }
 
   ngOnInit(): void {
     this.mostrarDatos();
@@ -29,6 +30,13 @@ export class DetalleslibroComponent implements OnInit {
       this.libroRecivido=data;
     })
     }
+  }
+
+  logout(){
+    //borramos el token de las cookies
+    this.userService.logout();
+    //volvemos a la pantalla de login o la inicial
+    this.router.navigateByUrl('/login');
   }
 
 
