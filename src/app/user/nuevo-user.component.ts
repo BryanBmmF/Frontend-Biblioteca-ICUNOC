@@ -34,7 +34,7 @@ export class NuevoUserComponent {
           });
           //recargamos la pantalla, pero podriamos ir a otro lado
           form.reset();
-          this.router.navigate(['/registro']);
+          this.router.navigate(['/registro-usuario']);
 
         },
         err => {
@@ -44,7 +44,7 @@ export class NuevoUserComponent {
           });
           //recargamos la pantalla, pero podriamos ir a otro lado
           //form.reset();
-          this.router.navigate(['/registro']);
+          this.router.navigate(['/registro-usuario']);
         }
       );
     } else {
