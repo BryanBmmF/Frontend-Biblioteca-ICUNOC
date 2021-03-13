@@ -4,7 +4,7 @@ export class Libro{
   codigo:string;
   edicion:number;
   fechaPublicacion:string;
-  idioma:number;
+  idioma:string;
   nombre:string;
   pathImagen:string;
   stock:number;
@@ -15,7 +15,7 @@ export class Libro{
     codigo: string,
     edicion: number,
     fechaPublicacion:string,
-    idioma: number,
+    idioma: string,
     nombre:string,
     pathImagen: string,
     stock: number,
@@ -30,6 +30,5 @@ export class Libro{
     this.pathImagen=pathImagen;
     this.stock=stock;
     this.idCategoria=idCategoria;
-    
   }
 }

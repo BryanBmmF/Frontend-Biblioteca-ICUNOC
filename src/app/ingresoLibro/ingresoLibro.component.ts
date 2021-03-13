@@ -3,7 +3,6 @@ import {MatAccordion} from '@angular/material/expansion';
 import {MatListModule} from '@angular/material/list';
 import {MatTableModule} from '@angular/material/table';
 
-import { UsersService } from "../service/users/users.service";
 import { Router } from '@angular/router';
 import { Libro } from "../models/libro";
 import { LibrosService } from '../service/libros/libros.service';
@@ -33,7 +32,7 @@ export class IngresoLibroComponent {
   codigo :string;
   edicion : number;
   fechaPublicacion :string;
-  idioma :number;
+  idioma :string;
   nombre:string;
   imagen :string;
   stock: number ;
@@ -43,8 +42,16 @@ export class IngresoLibroComponent {
   }
 
   onCreate(): void {
-    const libro = new Libro(this.autor,this.codigo,this.edicion,null,this.idioma,this.nombre,this.imagen,this.stock,this.categoria);
+    console.log(this.autor);
+    console.log(this.codigo);
+    console.log(this.edicion);
+    console.log(this.fechaPublicacion);
+    console.log(this.idioma);
     console.log(this.nombre);
+    console.log(this.imagen);
+    console.log(this.stock);
+    console.log(this.categoria);
+    const libro = new Libro(this.autor,this.codigo,this.edicion,"2021-02-21",this.idioma,this.nombre,this.imagen,this.stock,this.categoria);
     this.LibroService.save(libro).subscribe(
       data => {
         this.toastr.success('Libro Creado', 'OK', {
@@ -53,9 +60,9 @@ export class IngresoLibroComponent {
         this.router.navigate(['/']);
       },
       err => {
-        this.toastr.error(err.error.mensaje, 'Fail', {
+        this.toastr.error(err.error.mensaje, 'Fail, no creo nada', {
           timeOut: 3000,  positionClass: 'toast-top-center',
-        });
+        });        
         this.router.navigate(['/']);
       }
     );
