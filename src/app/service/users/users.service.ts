@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { catchError } from 'rxjs/operators';
-import { map } from 'rxjs/operators';
 import { CookieService } from "ngx-cookie-service";
-import {User} from "../../models/User";
+import { User } from "../../models/User";
 
 @Injectable({
   providedIn: 'root'
@@ -13,12 +11,16 @@ export class UsersService {
   //Url del servidor backend
   Url = "http://localhost:8082";
 
+  USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser'
+
   //Url del servidor backend api rest usuarios
   usuarioUrl = "http://localhost:8082/usuarios/";
 
+  auth: boolean = true;
+
   //constructor con httpClient para peticiones http, y cookiesService para almacenamiento de tokens de respuesta
-  constructor(private http: HttpClient, private cookies: CookieService) {}
-  
+  constructor(private http: HttpClient, private cookies: CookieService) { }
+
   /**Metodo Login para autenticacion basica http
    * @param username
    * @param password
@@ -28,15 +30,17 @@ export class UsersService {
     const headers = new HttpHeaders()
       .append('Authorization', `Basic ${btoa(username + ':' + password)}`)
       .append('X-Requested-With', 'XMLHttpRequest');
-    return this.http.post(this.Url+"/authorize", null, { headers: headers });
+    return this.http.post(this.Url + "/authorize", null, { headers: headers });
   }
 
   /**Metodos para manejo de los tokens de autenticacion
-   * SetToken: para setear el token
+   * SetToken: para setear el token, y el usuario en la sesion
    * getToken: para obtener el token
    */
-   setToken(token: string) {
+  setTokenAndUser(token: string, username: string) {
     this.cookies.set("token", token);
+    //guardamos el usuario logueado en la sesion
+    sessionStorage.setItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME, username)
   }
   getToken() {
     return this.cookies.get("token");
@@ -44,22 +48,40 @@ export class UsersService {
   getUser() {
     return this.http.get("https://reqres.in/api/users/2");
   }
-  getUserLogged() {
+  isUserLoggedIn() {
+    let user = sessionStorage.getItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME)
+    if (user === null) return false
+    return true
+  }
+  getLoggedInUserName() {
+    let user = sessionStorage.getItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME)
+    if (user === null) return ''
+    return user
+  }
+  getAdminLogged(): Observable<any> {
+    //declaramos el token a consultar guardado en cache
     const token = this.getToken();
     // Aquí iría el endpoint para devolver el usuario para un token
+    const headers = new HttpHeaders()
+      .append('authToken', this.getToken())
+      .append('X-Requested-With', 'XMLHttpRequest');
+    return this.http.get(this.Url + "/admin", { headers: headers });
   }
-  logout(){
-    //borramos las cookies
+
+  logout() {
+    //borramos el tohen de las cookies
     this.cookies.delete("token");
+    //borramos el usaurio logueado de la sesion
+    sessionStorage.removeItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
   }
 
   /**Metodo para el manejo del Crud de usuarios */
-  
+
   /**Metodo para listar usuarios
    * @returns lista de usuarios
    */
-  getUsuarios(){
-    return this.http.get<User[]>(this.Url+"/usuarios");
+  getUsuarios() {
+    return this.http.get<User[]>(this.Url + "/usuarios");
 
   }
 
@@ -67,25 +89,25 @@ export class UsersService {
    * @param user
    * @returns response server /register
    */
-   register(user: User) {
-    return this.http.post<User>(this.Url+"/usuarios", user);
+  register(user: User) {
+    return this.http.post<User>(this.Url + "/usuarios", user);
   }
 
   //metodo para listar usuarios
-  public lista(): Observable<User[]>{
-    return this.http.get<User[]>(this.usuarioUrl+"lista");
+  public lista(): Observable<User[]> {
+    return this.http.get<User[]>(this.usuarioUrl + "lista");
   }
 
   //metodos para devolver un usuario
   //IMPORTANTE: si lleva parametros usar ``  sino entonces ''
   //por id
-  public detailId(id: number): Observable<User>{
-    return this.http.get<User>(this.usuarioUrl+`detailId/${id}`);
+  public detailId(id: number): Observable<User> {
+    return this.http.get<User>(this.usuarioUrl + `detailId/${id}`);
   }
 
   //por username
-  public detailUsername(username: string): Observable<User>{
-    return this.http.get<User>(this.usuarioUrl+`detailUsername/${username}`);
+  public detailUsername(username: string): Observable<User> {
+    return this.http.get<User>(this.usuarioUrl + `detailUsername/${username}`);
   }
 
   //guardar
@@ -103,6 +125,6 @@ export class UsersService {
   public delete(id: number): Observable<any> {
     return this.http.delete<any>(this.usuarioUrl + `delete/${id}`);
   }
-  
+
 }
 

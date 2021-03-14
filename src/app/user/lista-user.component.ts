@@ -11,15 +11,32 @@ import { UsersService } from '../service/users/users.service';
 })
 export class ListaUserComponent implements OnInit {
 
-  users: User[] =[];
-  
+  users: User[] = [];
+
   constructor(private userService: UsersService,
     private toastr: ToastrService,
-    private router: Router ) { }
+    private router: Router) { }
 
   ngOnInit(): void {
-    //cargar al momento de mostrar la pantalla
-    this.cargarUsuarios()
+    //Este componente solo puede ser accedido por usuarios administradores
+    //pruebas de autenticacion de token
+    console.log("Este es el token guardado en cache: ", this.userService.getToken());
+    this.userService.getAdminLogged().subscribe(
+      data => {
+        console.log(data);
+        if (data.message == "NO_AUTORIZADO") {
+          this.router.navigateByUrl('/');
+        }
+        //el codigo que se desee cargar va aqui
+        this.cargarUsuarios();
+      },
+      //en caso de error
+      error => {
+        console.log(error);
+        this.router.navigateByUrl('/');
+      });
+
+
   }
 
   cargarUsuarios(): void {
@@ -33,7 +50,7 @@ export class ListaUserComponent implements OnInit {
     );
   }
 
-  borrar(id: number){
+  borrar(id: number) {
     this.userService.delete(id).subscribe(
       data => {
         //lanzamos el mensaje de eliminacion y cargamos la tabla
@@ -51,7 +68,7 @@ export class ListaUserComponent implements OnInit {
     );
   }
 
-  logout(){
+  logout() {
     //borramos el token de las cookies
     this.userService.logout();
     //volvemos a la pantalla de login o la inicial
