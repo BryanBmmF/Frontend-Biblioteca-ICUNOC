@@ -7,7 +7,8 @@ import { AppComponent } from './app.component';
 //external toastr
 import { ToastrModule } from 'ngx-toastr';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpInterceptorServiceService } from './service/interceptor/http-interceptor-service.service';
 import { CookieService } from 'ngx-cookie-service';
 import { FormsModule } from '@angular/forms';
 
@@ -74,7 +75,14 @@ import { DetalleslibroComponent } from './detalleslibro/detalleslibro.component'
     ToastrModule.forRoot(), // ToastrModule added
 
   ],
-  providers: [CookieService],
+  providers: [
+    CookieService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptorServiceService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

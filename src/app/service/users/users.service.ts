@@ -8,13 +8,13 @@ import { User } from "../../models/User";
   providedIn: 'root'
 })
 export class UsersService {
-  //Url del servidor backend
-  Url = "http://localhost:8082";
+  //Url de la api en el servidor backend
+  Url = "http://localhost:8082/api/v1";
 
-  USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser'
+  USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser';
 
   //Url del servidor backend api rest usuarios
-  usuarioUrl = "http://localhost:8082/usuarios/";
+  usuarioUrl = "http://localhost:8082/api/v1/admin/usuarios";
 
   auth: boolean = true;
 
@@ -40,7 +40,7 @@ export class UsersService {
   setTokenAndUser(token: string, username: string) {
     this.cookies.set("token", token);
     //guardamos el usuario logueado en la sesion
-    sessionStorage.setItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME, username)
+    sessionStorage.setItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME, username);
   }
   getToken() {
     return this.cookies.get("token");
@@ -49,23 +49,34 @@ export class UsersService {
     return this.http.get("https://reqres.in/api/users/2");
   }
   isUserLoggedIn() {
-    let user = sessionStorage.getItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME)
-    if (user === null) return false
-    return true
+    let user = sessionStorage.getItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
+    if (user === null){
+      return false;
+    } 
+    return true;
   }
   getLoggedInUserName() {
-    let user = sessionStorage.getItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME)
-    if (user === null) return ''
-    return user
+    let user = sessionStorage.getItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
+    if (user === null) {
+      return '';
+    }
+    return user;
   }
+
+  //validar acceso Admin
   getAdminLogged(): Observable<any> {
-    //declaramos el token a consultar guardado en cache
-    const token = this.getToken();
-    // Aquí iría el endpoint para devolver el usuario para un token
     const headers = new HttpHeaders()
       .append('authToken', this.getToken())
       .append('X-Requested-With', 'XMLHttpRequest');
-    return this.http.get(this.Url + "/admin", { headers: headers });
+    return this.http.get(this.Url + "/permissionAdmin", { headers: headers });
+  }
+
+  //validar acceso User
+  getUserLogged(): Observable<any> {
+    const headers = new HttpHeaders()
+      .append('authToken', this.getToken())
+      .append('X-Requested-With', 'XMLHttpRequest');
+    return this.http.get(this.Url + "/permissionUser", { headers: headers });
   }
 
   logout() {
@@ -81,7 +92,7 @@ export class UsersService {
    * @returns lista de usuarios
    */
   getUsuarios() {
-    return this.http.get<User[]>(this.Url + "/usuarios");
+    return this.http.get<User[]>(this.Url + "/api/v1/usuarios");
 
   }
 
@@ -90,40 +101,40 @@ export class UsersService {
    * @returns response server /register
    */
   register(user: User) {
-    return this.http.post<User>(this.Url + "/usuarios", user);
+    return this.http.post<User>(this.Url + "/api/v1/usuarios", user);
   }
 
   //metodo para listar usuarios
   public lista(): Observable<User[]> {
-    return this.http.get<User[]>(this.usuarioUrl + "lista");
+    return this.http.get<User[]>(this.usuarioUrl + "/lista");
   }
 
   //metodos para devolver un usuario
   //IMPORTANTE: si lleva parametros usar ``  sino entonces ''
   //por id
   public detailId(id: number): Observable<User> {
-    return this.http.get<User>(this.usuarioUrl + `detailId/${id}`);
+    return this.http.get<User>(this.usuarioUrl + `/detailId/${id}`);
   }
 
   //por username
   public detailUsername(username: string): Observable<User> {
-    return this.http.get<User>(this.usuarioUrl + `detailUsername/${username}`);
+    return this.http.get<User>(this.usuarioUrl + `/detailUsername/${username}`);
   }
 
   //guardar
   //IMPORTANTE: cuando llamamaos un post este tiene que llevar RequestBody, sino se especifica colocar {}
   public save(user: User): Observable<any> {
-    return this.http.post<any>(this.usuarioUrl + 'create', user);
+    return this.http.post<any>(this.usuarioUrl + '/create', user);
   }
 
   //actualizar
   public update(id: number, user: User): Observable<any> {
-    return this.http.put<any>(this.usuarioUrl + `update/${id}`, user);
+    return this.http.put<any>(this.usuarioUrl + `/update/${id}`, user);
   }
 
   //eliminar
   public delete(id: number): Observable<any> {
-    return this.http.delete<any>(this.usuarioUrl + `delete/${id}`);
+    return this.http.delete<any>(this.usuarioUrl + `/delete/${id}`);
   }
 
 }

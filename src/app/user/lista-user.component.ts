@@ -18,25 +18,7 @@ export class ListaUserComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
-    //Este componente solo puede ser accedido por usuarios administradores
-    //pruebas de autenticacion de token
-    console.log("Este es el token guardado en cache: ", this.userService.getToken());
-    this.userService.getAdminLogged().subscribe(
-      data => {
-        console.log(data);
-        if (data.message == "NO_AUTORIZADO") {
-          this.router.navigateByUrl('/');
-        }
-        //el codigo que se desee cargar va aqui
-        this.cargarUsuarios();
-      },
-      //en caso de error
-      error => {
-        console.log(error);
-        this.router.navigateByUrl('/');
-      });
-
-
+      this.cargarUsuarios();
   }
 
   cargarUsuarios(): void {
