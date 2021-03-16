@@ -51,7 +51,7 @@ export class IngresoLibroComponent {
     console.log(this.imagen);
     console.log(this.stock);
     console.log(this.categoria);
-    const libro = new Libro(this.autor,this.codigo,this.edicion,"2021-02-21",this.idioma,this.nombre,this.imagen,this.stock,this.categoria);
+    const libro = new Libro(this.autor,this.codigo,this.edicion,this.fechaPublicacion,this.idioma,this.nombre,this.imagen,this.stock,this.categoria);
     this.LibroService.save(libro).subscribe(
       data => {
         this.toastr.success('Libro Creado', 'OK', {
