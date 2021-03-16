@@ -3,9 +3,11 @@ import {MatAccordion} from '@angular/material/expansion';
 import {MatListModule} from '@angular/material/list';
 import {MatTableModule} from '@angular/material/table';
 
-import { UsersService } from "../service/users/users.service";
 import { Router } from '@angular/router';
 import { Libro } from "../models/libro";
+import { LibrosService } from '../service/libros/libros.service';
+import { ToastrService } from 'ngx-toastr';
+
 @Component({
   selector: 'app-ingresoLibro',
   templateUrl: './ingresoLibro.component.html',
@@ -13,41 +15,57 @@ import { Libro } from "../models/libro";
 
 })
 export class IngresoLibroComponent {
-  constructor(public userService: UsersService, public router: Router) {}
-  
-  //metodo para salir del sistema
-  logout(){
-    //borramos el token de las cookies
-    this.userService.logout();
-    //volvemos a la pantalla de login o la inicial
-    this.router.navigateByUrl('/login');
-  }
+  constructor(
+    private LibroService: LibrosService,
+    private toastr: ToastrService,
+    private router: Router
+    ) { }
+
 
   inicio(){
     //volvemos a la pantalla de index o la inicial
     this.router.navigateByUrl('/catalogo');
   }
 
-  //libroModel = new Libro("", "", undefined,"","","","","","",undefined);
-  libroModel:Libro;
 
-  ngOnInit() {}
-
-  formularioEnviado(){
-    /*
-    Aquí el formulario ha sido enviado, ya sea
-    por presionar el botón, presionar Enter, etcétera
-    */
-    console.log("El formulario fue enviado y el libro es: ", this.libroModel)
-    confirm("Guardar libro en Data Base?");
+  autor :string;
+  codigo :string;
+  edicion : number;
+  fechaPublicacion :string;
+  idioma :string;
+  nombre:string;
+  imagen :string;
+  stock: number ;
+  categoria :number;
+   
+  ngOnInit() {
   }
 
-  formularioCancelado(){
-    /*
-    Aquí el formulario ha sido enviado, ya sea
-    por presionar el botón, presionar Enter, etcétera
-    */
-    confirm("Seguro que desea cancelar la operacion?");
+  onCreate(): void {
+    console.log(this.autor);
+    console.log(this.codigo);
+    console.log(this.edicion);
+    console.log(this.fechaPublicacion);
+    console.log(this.idioma);
+    console.log(this.nombre);
+    console.log(this.imagen);
+    console.log(this.stock);
+    console.log(this.categoria);
+    const libro = new Libro(this.autor,this.codigo,this.edicion,this.fechaPublicacion,this.idioma,this.nombre,this.imagen,this.stock,this.categoria);
+    this.LibroService.save(libro).subscribe(
+      data => {
+        this.toastr.success('Libro Creado', 'OK', {
+          timeOut: 3000, positionClass: 'toast-top-center'
+        });
+        this.router.navigate(['/']);
+      },
+      err => {
+        this.toastr.error(err.error.mensaje, 'Fail, no creo nada', {
+          timeOut: 3000,  positionClass: 'toast-top-center',
+        });        
+        this.router.navigate(['/']);
+      }
+    );
   }
 }
 

@@ -22,7 +22,7 @@ const routes: Routes = [
   { path: 'registro-usuario', component: NuevoUserComponent },
   { path: 'detalle/:id', component: DetalleUserComponent },
   { path: 'editar-usuario/:id', component: EditarUserComponent },
-  { path: 'ingreso', component: IngresoLibroComponent },
+  { path: 'ingresoLibro', component: IngresoLibroComponent },
   //cualquier otro path inexistente, redireccionar a index va de ultimo siempre
   { path: '**', redirectTo:'', pathMatch: 'full' }
 ];

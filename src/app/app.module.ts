@@ -60,10 +60,6 @@ import { DetalleslibroComponent } from './detalleslibro/detalleslibro.component'
     MatExpansionModule,
     MatListModule,
     MatTableModule,
-
-    HttpClientModule,
-    FormsModule,
-
     MatButtonModule,
     MatMenuModule,
     MatToolbarModule,
