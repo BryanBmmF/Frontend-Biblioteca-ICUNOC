@@ -36,35 +36,38 @@ export class EditarUserComponent implements OnInit {
   }
 
   onUpdate(): void {
-    if (this.user.password == this.confirmPassword) {
-      const id = this.activatedRoute.snapshot.params.id;
-      this.userService.update(id, this.user).subscribe(
-        data => {
-          //si todo va bien
-          this.toastr.success('Usuario actualizado!', 'Ok!', {
-            timeOut: 5000, positionClass: 'toast-top-center'
-          });
-          //recargamos la pantalla, pero podriamos ir a otro lado
-          this.router.navigate(['/usuarios']);
-        },
-        err => {
-          //si sucede algun fallo, mostramos el error que envia la api
-          this.toastr.error(err.error.mensaje, 'Fail!', {
-            timeOut: 5000, positionClass: 'toast-top-center'
-          });
-          //recargamos la pantalla, pero podriamos ir a otro lado
-          this.router.navigate(['/usuarios']);
-        }
-      );
-    } else {
-      this.toastr.warning("Se debe especificar una nueva contraseña !", 'Fail!', {
-        timeOut: 5000, positionClass: 'toast-top-center'
-      });
+    //confirmar
+    if (confirm("Esta seguro de actualizar los datos de este usuario!")) {
+      if (this.user.password == this.confirmPassword) {
+        const id = this.activatedRoute.snapshot.params.id;
+        this.userService.update(id, this.user).subscribe(
+          data => {
+            //si todo va bien
+            this.toastr.success('Usuario actualizado!', 'Ok!', {
+              timeOut: 5000, positionClass: 'toast-top-center'
+            });
+            //recargamos la pantalla, pero podriamos ir a otro lado
+            this.router.navigate(['/usuarios']);
+          },
+          err => {
+            //si sucede algun fallo, mostramos el error que envia la api
+            this.toastr.error(err.error.mensaje, 'Fail!', {
+              timeOut: 5000, positionClass: 'toast-top-center'
+            });
+            //recargamos la pantalla, pero podriamos ir a otro lado
+            this.router.navigate(['/usuarios']);
+          }
+        );
+      } else {
+        this.toastr.warning("Se debe especificar una nueva contraseña y confirmarla!", 'Fail!', {
+          timeOut: 5000, positionClass: 'toast-top-center'
+        });
+      }
     }
 
   }
 
-  logout(){
+  logout() {
     //borramos el token de las cookies
     this.userService.logout();
     //volvemos a la pantalla de login o la inicial

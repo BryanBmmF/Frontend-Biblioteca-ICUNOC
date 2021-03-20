@@ -11,15 +11,14 @@ import { UsersService } from '../service/users/users.service';
 })
 export class ListaUserComponent implements OnInit {
 
-  users: User[] =[];
-  
+  users: User[] = [];
+
   constructor(private userService: UsersService,
     private toastr: ToastrService,
-    private router: Router ) { }
+    private router: Router) { }
 
   ngOnInit(): void {
-    //cargar al momento de mostrar la pantalla
-    this.cargarUsuarios()
+    this.cargarUsuarios();
   }
 
   cargarUsuarios(): void {
@@ -33,25 +32,29 @@ export class ListaUserComponent implements OnInit {
     );
   }
 
-  borrar(id: number){
-    this.userService.delete(id).subscribe(
-      data => {
-        //lanzamos el mensaje de eliminacion y cargamos la tabla
-        this.toastr.info('El usuario se elimino correctamente!', 'Ok!', {
-          timeOut: 5000, positionClass: 'toast-top-center'
-        });
-        this.cargarUsuarios();
-      },
-      err => {
-        //si sucede algun fallo, mostramos el error que envia la api
-        this.toastr.error(err.error.mensaje, 'Fail!', {
-          timeOut: 5000, positionClass: 'toast-top-center'
-        });
-      }
-    );
+  borrar(id: number) {
+    //confirmar
+    if (confirm("Esta seguro de eliminar permanentemente este usuario!")) {
+      this.userService.delete(id).subscribe(
+        data => {
+          //lanzamos el mensaje de eliminacion y cargamos la tabla
+          this.toastr.info('El usuario se elimino correctamente!', 'Ok!', {
+            timeOut: 5000, positionClass: 'toast-top-center'
+          });
+          this.cargarUsuarios();
+        },
+        err => {
+          //si sucede algun fallo, mostramos el error que envia la api
+          this.toastr.error(err.error.mensaje, 'Fail!', {
+            timeOut: 5000, positionClass: 'toast-top-center'
+          });
+        }
+      );
+    }
+
   }
 
-  logout(){
+  logout() {
     //borramos el token de las cookies
     this.userService.logout();
     //volvemos a la pantalla de login o la inicial
