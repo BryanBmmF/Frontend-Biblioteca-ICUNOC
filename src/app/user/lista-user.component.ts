@@ -18,7 +18,7 @@ export class ListaUserComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
-      this.cargarUsuarios();
+    this.cargarUsuarios();
   }
 
   cargarUsuarios(): void {
@@ -33,21 +33,25 @@ export class ListaUserComponent implements OnInit {
   }
 
   borrar(id: number) {
-    this.userService.delete(id).subscribe(
-      data => {
-        //lanzamos el mensaje de eliminacion y cargamos la tabla
-        this.toastr.info('El usuario se elimino correctamente!', 'Ok!', {
-          timeOut: 5000, positionClass: 'toast-top-center'
-        });
-        this.cargarUsuarios();
-      },
-      err => {
-        //si sucede algun fallo, mostramos el error que envia la api
-        this.toastr.error(err.error.mensaje, 'Fail!', {
-          timeOut: 5000, positionClass: 'toast-top-center'
-        });
-      }
-    );
+    //confirmar
+    if (confirm("Esta seguro de eliminar permanentemente este usuario!")) {
+      this.userService.delete(id).subscribe(
+        data => {
+          //lanzamos el mensaje de eliminacion y cargamos la tabla
+          this.toastr.info('El usuario se elimino correctamente!', 'Ok!', {
+            timeOut: 5000, positionClass: 'toast-top-center'
+          });
+          this.cargarUsuarios();
+        },
+        err => {
+          //si sucede algun fallo, mostramos el error que envia la api
+          this.toastr.error(err.error.mensaje, 'Fail!', {
+            timeOut: 5000, positionClass: 'toast-top-center'
+          });
+        }
+      );
+    }
+
   }
 
   logout() {

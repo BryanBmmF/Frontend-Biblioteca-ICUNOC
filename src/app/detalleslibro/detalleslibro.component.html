@@ -3,25 +3,13 @@
         src="https://th.bing.com/th/id/R357b881f7404a7510172712ba8df9b7a?rik=1F6J6d8A%2bhOR5g&riu=http%3a%2f%2fcceeusac.com%2fasignaciones%2fImagenes%2flogo_usac.png&ehk=KplsqbdMJu2aTx%2bzT5h2DGcFKOP5faojo95W%2bTVxoPM%3d&risl=&pid=ImgRaw" />
     <span>Biblioteca Ingeniería</span>
     <span class="example-spacer"></span>
-    <button mat-button [matMenuTriggerFor]="belowMenu">Prestamos</button>
-    <mat-menu #belowMenu="matMenu" yPosition="below">
-        <button mat-menu-item>Item 1</button>
-        <button mat-menu-item>Item 2</button>
-    </mat-menu>
-    <button mat-button [matMenuTriggerFor]="beforeMenu">Biblioteca</button>
-    <mat-menu #beforeMenu="matMenu" xPosition="before">
-        <button routerLink="/catalogo" mat-menu-item>Catalogo de Libros</button>
-        <button routerLink="/catalogo" mat-menu-item>Listado de Libros</button>
-        <button routerLink="/catalogo" mat-menu-item>Registrar Libro</button>
-    </mat-menu>
-    <button mat-button [matMenuTriggerFor]="afterMenu">Usuarios</button>
+    <button mat-button [matMenuTriggerFor]="afterMenu">Biblioteca</button>
     <mat-menu #afterMenu="matMenu" xPosition="after">
-        <button routerLink="/usuarios" mat-menu-item>Lista de Usuarios</button>
-        <button routerLink="/registro-usuario" mat-menu-item>Registrar Usuario</button>
+        <button routerLink="/catalogo" mat-menu-item>Catalogo</button>
+        <button routerLink="/login" mat-menu-item>Iniciar Sesion</button>
     </mat-menu>
-    <!--Boton para cerrar sesion-->
-    <button (click)="logout()" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-        <mat-icon>logout</mat-icon>
+    <button routerLink="/login" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+        <mat-icon>login</mat-icon>
     </button>
 </mat-toolbar>
 

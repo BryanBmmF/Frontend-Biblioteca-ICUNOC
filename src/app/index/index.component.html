@@ -1,15 +1,90 @@
 <!--Menu de opciones-->
 <mat-toolbar color="primary">
-    <img width="40" alt="USAC Logo"
-      src="https://th.bing.com/th/id/R357b881f7404a7510172712ba8df9b7a?rik=1F6J6d8A%2bhOR5g&riu=http%3a%2f%2fcceeusac.com%2fasignaciones%2fImagenes%2flogo_usac.png&ehk=KplsqbdMJu2aTx%2bzT5h2DGcFKOP5faojo95W%2bTVxoPM%3d&risl=&pid=ImgRaw" />
-    <span>Biblioteca Ingeniería</span>
-    <span class="example-spacer"></span>
-    <button mat-button [matMenuTriggerFor]="afterMenu">Biblioteca</button>
-    <mat-menu #afterMenu="matMenu" xPosition="after">
-      <button routerLink="/catalogo" mat-menu-item>Catalogo</button>
-      <button routerLink="/login" mat-menu-item>Iniciar Sesion</button>
-    </mat-menu>
-    <button routerLink="/login" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-      <mat-icon>login</mat-icon>
-    </button>
-  </mat-toolbar>
+  <img width="40" alt="USAC Logo"
+    src="https://th.bing.com/th/id/R357b881f7404a7510172712ba8df9b7a?rik=1F6J6d8A%2bhOR5g&riu=http%3a%2f%2fcceeusac.com%2fasignaciones%2fImagenes%2flogo_usac.png&ehk=KplsqbdMJu2aTx%2bzT5h2DGcFKOP5faojo95W%2bTVxoPM%3d&risl=&pid=ImgRaw" />
+  <span>Biblioteca Ingeniería</span>
+  <span class="example-spacer"></span>
+  <button mat-button [matMenuTriggerFor]="afterMenu">Biblioteca</button>
+  <mat-menu #afterMenu="matMenu" xPosition="after">
+    <button routerLink="/catalogo" mat-menu-item>Catalogo</button>
+    <button routerLink="/login" mat-menu-item>Iniciar Sesion</button>
+  </mat-menu>
+  <button routerLink="/login" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+    <mat-icon>login</mat-icon>
+  </button>
+</mat-toolbar>
+
+<main>
+  <mat-card class="example-card">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>Sistema de Biblioteca de la División de Ciencias de la Ingeniería CUNOC-USAC</mat-card-title>
+      <mat-card-subtitle> AEIO </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+            aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+            aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+            aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="../../assets/images/cunoc-5.jpg" class="img-fluid" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+              <h1>Bienvenido</h1>
+              <button mat-raised-button color="accent">Conoce más sobre nosotros...</button>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="../../assets/images/cunoc-5.jpg" class="img-fluid" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+              <h1>Bienvenido</h1>
+              <button mat-raised-button color="accent">Conoce más sobre nosotros...</button>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="../../assets/images/cunoc-5.jpg" class="img-fluid" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+              <h1>Bienvenido</h1>
+              <button mat-raised-button color="accent">Conoce más sobre nosotros...</button>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+          data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+          data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button routerLink="/catalogo" mat-raised-button color="primary">Ver Catalogos</button>
+      <button routerLink="/login" mat-raised-button color="primary">Iniciar Sesión</button>
+    </mat-card-actions>
+  </mat-card>
+
+</main>
+<!-- Footer -->
+<footer class="page-footer font-small blue">
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© 2021 Copyright:
+    <a href="http://www.ingenieria.cunoc.usac.edu.gt/portal/"> IngenieriaCunoc.edu.gt</a>
+    <svg id="clouds" alt="Gray Clouds Background" xmlns="http://www.w3.org/2000/svg" width="auto" height="auto"
+      viewBox="0 0 2611.084 485.677">
+      <path id="Path_39" data-name="Path 39"
+        d="M2379.709,863.793c10-93-77-171-168-149-52-114-225-105-264,15-75,3-140,59-152,133-30,2.83-66.725,9.829-93.5,26.25-26.771-16.421-63.5-23.42-93.5-26.25-12-74-77-130-152-133-39-120-212-129-264-15-54.084-13.075-106.753,9.173-138.488,48.9-31.734-39.726-84.4-61.974-138.487-48.9-52-114-225-105-264,15a162.027,162.027,0,0,0-103.147,43.044c-30.633-45.365-87.1-72.091-145.206-58.044-52-114-225-105-264,15-75,3-140,59-152,133-53,5-127,23-130,83-2,42,35,72,70,86,49,20,106,18,157,5a165.625,165.625,0,0,0,120,0c47,94,178,113,251,33,61.112,8.015,113.854-5.72,150.492-29.764a165.62,165.62,0,0,0,110.861-3.236c47,94,178,113,251,33,31.385,4.116,60.563,2.495,86.487-3.311,25.924,5.806,55.1,7.427,86.488,3.311,73,80,204,61,251-33a165.625,165.625,0,0,0,120,0c51,13,108,15,157-5a147.188,147.188,0,0,0,33.5-18.694,147.217,147.217,0,0,0,33.5,18.694c49,20,106,18,157,5a165.625,165.625,0,0,0,120,0c47,94,178,113,251,33C2446.709,1093.793,2554.709,922.793,2379.709,863.793Z"
+        transform="translate(142.69 -634.312)" fill="#eee" />
+    </svg>
+  </div>
+  <!-- Copyright -->
+</footer>
+<!-- Footer -->

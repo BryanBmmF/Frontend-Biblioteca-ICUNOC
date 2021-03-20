@@ -64,6 +64,6 @@ export class HttpInterceptorServiceService implements HttpInterceptor {
 
     //en cualquier otro caso retornar a la pantalla de inicio, ahorita no porque falta incluir bien los pats
     return next.handle(req);
-
+    
   }
 }

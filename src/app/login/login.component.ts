@@ -25,7 +25,7 @@ export class LoginComponent {
         console.log(data);
         //guardamos el token obtenido
         this.userService.setTokenAndUser(data.authToken, this.user);
-        this.router.navigateByUrl('/catalogo');
+        this.router.navigateByUrl('/usuarios');
       },
       //en caso de error
       error => {

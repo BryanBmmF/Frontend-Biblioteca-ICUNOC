@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { Libro } from "../models/libro";
 import { LibrosService } from '../service/libros/libros.service';
 import { ToastrService } from 'ngx-toastr';
+import { UsersService } from '../service/users/users.service';
 
 @Component({
   selector: 'app-ingresoLibro',
@@ -17,6 +18,7 @@ import { ToastrService } from 'ngx-toastr';
 export class IngresoLibroComponent {
   constructor(
     private LibroService: LibrosService,
+    private userService: UsersService,
     private toastr: ToastrService,
     private router: Router
     ) { }
@@ -24,7 +26,8 @@ export class IngresoLibroComponent {
 
   inicio(){
     //volvemos a la pantalla de index o la inicial
-    this.router.navigateByUrl('/catalogo');
+    /*SE TENDRIA QUE VOLVER AL LISTADO DE LIBROS REGISTRADOS NO AL CATALOGO */
+    //this.router.navigateByUrl('/catalogo');
   }
 
 
@@ -67,7 +70,16 @@ export class IngresoLibroComponent {
       }
     );
   }
+
+  logout() {
+    //borramos el token de las cookies
+    this.userService.logout();
+    //volvemos a la pantalla de login o la inicial
+    this.router.navigateByUrl('/login');
+  }
 }
+
+
 
 
 
