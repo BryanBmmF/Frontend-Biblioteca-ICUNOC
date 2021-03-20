@@ -12,6 +12,7 @@ import { DetalleslibroComponent } from './detalleslibro/detalleslibro.component'
 import { RegistrarDevolucionComponent } from './devoluciones/registrar-devolucion/registrar-devolucion.component';
 import { RevisionPrestamoComponent } from './prestamos/revision-prestamo/revision-prestamo.component';
 import { CategoryListComponent } from './category-list/category-list.component'; 
+import {CategoryCreatorComponent} from './category-creator/category-creator.component';
 /**
  * Manejo de las diferentes rutas de la pagina
  */
@@ -28,6 +29,7 @@ const routes: Routes = [
   { path: 'registrarDevolucion', component: RegistrarDevolucionComponent },
   { path: 'registrarPrestamo', component: RevisionPrestamoComponent },
   { path: 'listaCategoriasAdmin', component: CategoryListComponent },
+  { path: 'crear-categoria', component: CategoryCreatorComponent },
   //cualquier otro path inexistente, redireccionar a index va de ultimo siempre
   { path: '**', redirectTo:'', pathMatch: 'full' }
 ];

@@ -17,4 +17,8 @@ export class CategoryService {
     public lista(): Observable<Categoria[]> {
         return this.httpClient.get<Categoria[]>('http://localhost:8082/categorias/lista')
     }
+
+    public save(category: Categoria): Observable<any> {
+        return this.httpClient.post<any>('http://localhost:8082/categorias/crearCategoria', category);
+      }
 }
