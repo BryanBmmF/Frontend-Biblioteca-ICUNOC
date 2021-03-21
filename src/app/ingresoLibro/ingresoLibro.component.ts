@@ -42,6 +42,12 @@ export class IngresoLibroComponent {
   categoria :number;
    
   ngOnInit() {
+    //comprobar sesion
+    if (!(this.userService.getLoggedInUserRoleAdmin() || this.userService.getLoggedInUserRoleBibliotecario())) {
+      this.router.navigate(['/']);
+    } else {
+      /* Codigo que se quiera cargar al inicio */
+    }
   }
 
   onCreate(): void {

@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { CookieService } from "ngx-cookie-service";
 import { User } from "../../models/User";
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class UsersService {
   Url = "http://localhost:8082/api/v1";
 
   USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser';
+  USER_ROLE_SESSION_ATTRIBUTE_ROLE = 'authenticatedUserRole';
 
   //Url del servidor backend api rest usuarios
   usuarioUrl = "http://localhost:8082/api/v1/admin/usuarios";
@@ -19,7 +21,7 @@ export class UsersService {
   auth: boolean = true;
 
   //constructor con httpClient para peticiones http, y cookiesService para almacenamiento de tokens de respuesta
-  constructor(private http: HttpClient, private cookies: CookieService) { }
+  constructor(private http: HttpClient, private cookies: CookieService, private router:Router) { }
 
   /**Metodo Login para autenticacion basica http
    * @param username
@@ -39,8 +41,25 @@ export class UsersService {
    */
   setTokenAndUser(token: string, username: string) {
     this.cookies.set("token", token);
+    this.detailUsername(username).subscribe( 
+      data => {
+        //se recuperan los datos del usuario luego de haber guardado el token y se inicia la sesion
+        this.setDatosUserLogued(data)
+      });
+    
+  }
+
+  setDatosUserLogued(userLog: User){
     //guardamos el usuario logueado en la sesion
-    sessionStorage.setItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME, username);
+    sessionStorage.setItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME, userLog.username);
+    sessionStorage.setItem(this.USER_ROLE_SESSION_ATTRIBUTE_ROLE, userLog.tipo);
+    //comprobar sesion
+    if (this.getLoggedInUserRoleAdmin()) {
+      this.router.navigate(['/usuarios']);
+    } else {
+      this.router.navigateByUrl('/registrarPrestamo');
+    }
+
   }
   getToken() {
     return this.cookies.get("token");
@@ -61,6 +80,24 @@ export class UsersService {
       return '';
     }
     return user;
+  }
+  getLoggedInUserRoleAdmin() {
+    let userRole = sessionStorage.getItem(this.USER_ROLE_SESSION_ATTRIBUTE_ROLE);
+    if (userRole == "Administrador") {
+      console.log("**** Soy admin");
+      return true;
+    }
+    console.log("**** No Soy admin");
+    return false;
+  }
+  getLoggedInUserRoleBibliotecario() {
+    let userRole = sessionStorage.getItem(this.USER_ROLE_SESSION_ATTRIBUTE_ROLE);
+    if (userRole == "Bibliotecario") {
+      console.log("**** Soy Bibliotecario");
+      return true;
+    }
+    console.log("**** No Soy Bibliotecario");
+    return false;
   }
 
   //validar acceso Admin
@@ -84,25 +121,10 @@ export class UsersService {
     this.cookies.delete("token");
     //borramos el usaurio logueado de la sesion
     sessionStorage.removeItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
+    sessionStorage.removeItem(this.USER_ROLE_SESSION_ATTRIBUTE_ROLE);
   }
 
   /**Metodo para el manejo del Crud de usuarios */
-
-  /**Metodo para listar usuarios
-   * @returns lista de usuarios
-   */
-  getUsuarios() {
-    return this.http.get<User[]>(this.Url + "/api/v1/usuarios");
-
-  }
-
-  /**Metodo Register
-   * @param user
-   * @returns response server /register
-   */
-  register(user: User) {
-    return this.http.post<User>(this.Url + "/api/v1/usuarios", user);
-  }
 
   //metodo para listar usuarios
   public lista(): Observable<User[]> {

@@ -27,7 +27,8 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatInputModule} from '@angular/material/input';
-import {MatCardModule} from '@angular/material/card';  
+import {MatCardModule} from '@angular/material/card';
+import {MatSelectModule} from '@angular/material/select';   
 import { LoginComponent } from './login/login.component';
 import { IndexComponent } from './index/index.component'; 
 import { IngresoLibroComponent } from './ingresoLibro/ingresoLibro.component'; 
@@ -72,6 +73,7 @@ import { RegistrarDevolucionComponent } from './devoluciones/registrar-devolucio
     MatTabsModule,
     MatInputModule,
     MatCardModule,
+    MatSelectModule,
     ToastrModule.forRoot(), // ToastrModule added
 
   ],

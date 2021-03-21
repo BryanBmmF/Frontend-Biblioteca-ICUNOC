@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UsersService } from "../service/users/users.service";
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { User } from '../models/User';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +26,7 @@ export class LoginComponent {
         console.log(data);
         //guardamos el token obtenido
         this.userService.setTokenAndUser(data.authToken, this.user);
-        this.router.navigateByUrl('/usuarios');
+        //recuperamos los datos del usuario para guardarlos en la sesion storage
       },
       //en caso de error
       error => {
