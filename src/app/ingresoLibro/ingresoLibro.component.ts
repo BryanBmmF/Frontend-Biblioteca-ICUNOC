@@ -48,56 +48,7 @@ export class IngresoLibroComponent implements OnInit {
   ngOnInit() {
   }
 
-  onCreate(): void {
-<<<<<<< HEAD
-    const libro = new Libro(this.autor,this.codigo,this.edicion,this.fechaPublicacion,this.idioma,this.nombre,this.imagen,this.stock,this.categoria);
-    this.LibroService.save(libro).subscribe(
-      data => {
-        this.toastr.success('Libro Creado', 'OK', {
-          timeOut: 3000, positionClass: 'toast-top-center'
-        });
-        this.router.navigate(['/']);
-      },
-      err => {
-        this.toastr.error(err.error.mensaje, 'Fail, no creo nada', {
-          timeOut: 3000,  positionClass: 'toast-top-center',
-        });        
-        this.router.navigate(['/']);
-=======
-    //console.log(this.autor);
-    //console.log(this.codigo);
-    //console.log(this.edicion);
-    //console.log(this.fechaPublicacion);
-    //console.log(this.idioma);
-    //console.log(this.nombre);
-    //console.log(this.imagen);
-    //console.log(this.stock);
-    //console.log(this.categoria);
-
-    //const libro = new Libro(this.autor,this.codigo,this.edicion,this.fechaPublicacion,this.idioma,this.nombre,this.imagen,this.stock,this.categoria);
-    //this.LibroService.save(libro).subscribe(
-     // data => {
-     //   this.toastr.success('Libro registrado.', 'OK', {
-     //     timeOut: 3000, positionClass: 'toast-top-center'
-     //   });
-     //   this.router.navigate(['/']);
-     // },
-     // err => {
-     //   this.toastr.error(err.error.mensaje, 'Hubo un error, revisa los datos ingresados.', {
-     //     timeOut: 3000,  positionClass: 'toast-top-center',
-     //   });        
-     //   this.router.navigate(['/']);
-     // }
-   // );
-
-    console.log(this.autor);
-    console.log(this.codigo);
-    console.log(this.edicion);
-    console.log(this.fechaPublicacion);
-    console.log(this.idioma);
-    console.log(this.nombre);
-    console.log(this.stock);
-    console.log(this.categoria);
+  onCreate(): void {      
     const uploadData = new FormData();
     uploadData.append('imageFile', this.selectedFile, this.selectedFile.name);
     this.selectedFile.imageName = this.selectedFile.name;
@@ -115,7 +66,6 @@ export class IngresoLibroComponent implements OnInit {
         } else {
           console.log('Image not uploaded successfully');
         }
->>>>>>> develop
       }
       );
   }
