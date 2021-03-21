@@ -44,8 +44,21 @@ export class IngresoLibroComponent implements OnInit {
     imagen :string;
     stock: number ;
     categoria :number;
-   
+    buttonUsers: boolean = false;
   ngOnInit() {
+    //comprobar sesion
+    if (!(this.userService.getLoggedInUserRoleAdmin() || this.userService.getLoggedInUserRoleBibliotecario())) {
+      this.router.navigate(['/']);
+    } else {
+      /* Codigo que se quiera cargar al inicio */
+      this.validarMenu();
+    }
+  }
+
+  validarMenu() {
+    if (this.userService.getLoggedInUserRoleBibliotecario()) {
+      this.buttonUsers = !this.buttonUsers;
+    }
   }
 
   onCreate(): void {      
@@ -59,7 +72,7 @@ export class IngresoLibroComponent implements OnInit {
           this.LibroService.save(new Libro(this.autor,this.codigo,this.edicion,this.fechaPublicacion,this.idioma,this.nombre,'',this.stock,this.categoria)).subscribe(
             (book) => {
               this.bookAddedEvent.emit();
-              this.router.navigate(['/']);
+              this.router.navigate(['/ingresoLibro']);
             }
           );
           console.log('Image uploaded successfully');

@@ -19,7 +19,7 @@
       <button routerLink="/ingresoLibro" mat-menu-item>Registrar Libro</button>
       <button routerLink="/listaCategoriasAdmin" mat-menu-item>Lista de Categorias</button>
     </mat-menu>
-    <button mat-button [matMenuTriggerFor]="afterMenu">Usuarios</button>
+    <button [disabled]="buttonUsers" mat-button [matMenuTriggerFor]="afterMenu">Usuarios</button>
     <mat-menu #afterMenu="matMenu" xPosition="after">
       <button routerLink="/usuarios" mat-menu-item>Lista de Usuarios</button>
       <button routerLink="/registro-usuario" mat-menu-item>Registrar Usuario</button>
@@ -36,14 +36,14 @@
         <img width="50" alt="USAC Logo"
           src="https://th.bing.com/th/id/R357b881f7404a7510172712ba8df9b7a?rik=1F6J6d8A%2bhOR5g&riu=http%3a%2f%2fcceeusac.com%2fasignaciones%2fImagenes%2flogo_usac.png&ehk=KplsqbdMJu2aTx%2bzT5h2DGcFKOP5faojo95W%2bTVxoPM%3d&risl=&pid=ImgRaw" />
         <mat-label>
-          <h2>Nuevas credenciales de usuario</h2>
+          <h2>Actualización de Categoría</h2>
         </mat-label>
         <mat-form-field>
           <mat-label>Nombre de Categoría: </mat-label>
           <input type="text" [(ngModel)]="category.nombre" name="nombre" matInput placeholder="Juan Doe" required>
         </mat-form-field>
         <mat-form-field>
-          <mat-label>Registro Academico/Personal: </mat-label>
+          <mat-label>Descripción: </mat-label>
           <input type="text" [(ngModel)]="category.descripcion" name="numeroRegistro" matInput placeholder="201730291"
             required>
         </mat-form-field>
