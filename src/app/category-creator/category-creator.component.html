@@ -24,10 +24,33 @@
       <button routerLink="/usuarios" mat-menu-item>Lista de Usuarios</button>
       <button routerLink="/registro-usuario" mat-menu-item>Registrar Usuario</button>
     </mat-menu>
-    <!--Boton para cerrar sesion-->
     <button (click)="logout()" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
       <mat-icon>logout</mat-icon>
     </button>
   </mat-toolbar>
-
-<p>detalle-user works!</p>
+  
+  
+  <main>
+    <mat-card>
+      <form (ngSubmit)="onCreate(myForm)" novalidate #myForm="ngForm">
+        <img width="50" alt="USAC Logo"
+          src="https://th.bing.com/th/id/R357b881f7404a7510172712ba8df9b7a?rik=1F6J6d8A%2bhOR5g&riu=http%3a%2f%2fcceeusac.com%2fasignaciones%2fImagenes%2flogo_usac.png&ehk=KplsqbdMJu2aTx%2bzT5h2DGcFKOP5faojo95W%2bTVxoPM%3d&risl=&pid=ImgRaw" />
+        <mat-label>
+          <h2>Datos de la nueva Categoría</h2>
+        </mat-label>
+        <p></p>
+        <mat-form-field>
+          <mat-label>Nombre: </mat-label>
+          <input type="text" [(ngModel)]="nombre" name="nombre" matInput placeholder="Ingeniería en Sistemas" required>
+        </mat-form-field>
+        <p></p>
+        <mat-form-field>
+          <mat-label>Descripción: </mat-label>
+          <input type="text" [(ngModel)]="descripcion" name="descripcion" matInput placeholder="Área perteneciente a Ingeniería" required>
+        </mat-form-field>
+        <p></p>
+        <button [disabled]="!myForm.valid" mat-raised-button color="primary"
+          style="display: block; width: 100%;">Registrar</button>
+      </form>
+    </mat-card>
+  </main>
