@@ -33,16 +33,15 @@ export class CategoryListComponent implements OnInit {
     );
   }
 
-  /*
   borrar(id: number) {
-    if (confirm("Esta seguro de eliminar permanentemente este usuario!")) {
+    if (confirm("¿Esta seguro de eliminar permanentemente esta categoría?")) {
       this.categoryService.delete(id).subscribe(
         data => {
           //lanzamos el mensaje de eliminacion y cargamos la tabla
-          this.toastr.info('El usuario se elimino correctamente!', 'Ok!', {
+          this.toastr.info('La categoría se elimino correctamente!', 'Ok!', {
             timeOut: 5000, positionClass: 'toast-top-center'
           });
-          this.cargarUsuarios();
+          this.cargarCategorias();
         },
         err => {
           //si sucede algun fallo, mostramos el error que envia la api
@@ -54,7 +53,6 @@ export class CategoryListComponent implements OnInit {
     }
 
   }
-  */
 
   logout() {
     this.userService.logout();
