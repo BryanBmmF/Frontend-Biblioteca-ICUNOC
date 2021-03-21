@@ -1,30 +1,31 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { User } from '../models/User';
-import { UsersService } from '../service/users/users.service';
-
+import { Categoria } from '../models/categoria';
+import { CategoryService } from '../service/category.service';
+import { UsersService} from '../service/users/users.service'
 @Component({
-  selector: 'app-lista-user',
-  templateUrl: './lista-user.component.html',
-  styleUrls: ['./lista-user.component.css']
+  selector: 'app-category-list',
+  templateUrl: './category-list.component.html',
+  styleUrls: ['./category-list.component.css']
 })
-export class ListaUserComponent implements OnInit {
+export class CategoryListComponent implements OnInit {
 
-  users: User[] = [];
+  categories: Categoria[] = [];
 
-  constructor(private userService: UsersService,
+  constructor(private categoryService: CategoryService,
+    private userService: UsersService,
     private toastr: ToastrService,
     private router: Router) { }
 
   ngOnInit(): void {
-    this.cargarUsuarios();
+    this.cargarCategorias();
   }
 
-  cargarUsuarios(): void {
-    this.userService.lista().subscribe(
+  cargarCategorias(): void {
+    this.categoryService.lista().subscribe(
       data => {
-        this.users = data;
+        this.categories = data;
       },
       err => {
         console.log(err);
@@ -33,15 +34,14 @@ export class ListaUserComponent implements OnInit {
   }
 
   borrar(id: number) {
-    //confirmar
-    if (confirm("Esta seguro de eliminar permanentemente este usuario!")) {
-      this.userService.delete(id).subscribe(
+    if (confirm("¿Esta seguro de eliminar permanentemente esta categoría?")) {
+      this.categoryService.delete(id).subscribe(
         data => {
           //lanzamos el mensaje de eliminacion y cargamos la tabla
-          this.toastr.info('El usuario se elimino correctamente!', 'Ok!', {
+          this.toastr.info('La categoría se elimino correctamente!', 'Ok!', {
             timeOut: 5000, positionClass: 'toast-top-center'
           });
-          this.cargarUsuarios();
+          this.cargarCategorias();
         },
         err => {
           //si sucede algun fallo, mostramos el error que envia la api
@@ -55,9 +55,7 @@ export class ListaUserComponent implements OnInit {
   }
 
   logout() {
-    //borramos el token de las cookies
     this.userService.logout();
-    //volvemos a la pantalla de login o la inicial
     this.router.navigateByUrl('/login');
   }
 

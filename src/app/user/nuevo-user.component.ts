@@ -23,42 +23,48 @@ export class NuevoUserComponent {
 
 
   onCreate(form: NgForm): void {
-    //antes evaluar las constraseñas si son iguales
-    if (this.password == this.confirmPassword) {
-      const user = new User(this.nombre, this.numeroRegistro, this.username, this.password);
-      this.userService.save(user).subscribe(
-        data => {
-          //si todo va bien
-          this.toastr.success('Usuario Registrado!', 'Ok!', {
-            timeOut: 5000, positionClass: 'toast-top-center'
-          });
-          //recargamos la pantalla, pero podriamos ir a otro lado
-          form.reset();
-          this.router.navigate(['/registro-usuario']);
+    //confirmar
+    if (confirm("Esta seguro de registrar este usuario!")) {
+      //antes evaluar las constraseñas si son iguales
+      if (this.password == this.confirmPassword) {
+        const user = new User(this.nombre, this.numeroRegistro, this.username, this.password);
+        this.userService.save(user).subscribe(
+          data => {
+            //si todo va bien
+            this.toastr.success('Usuario Registrado!', 'Ok!', {
+              timeOut: 5000, positionClass: 'toast-top-center'
+            });
+            //recargamos la pantalla, pero podriamos ir a otro lado
+            form.reset();
+            this.router.navigate(['/usuarios']);
 
-        },
-        err => {
-          //si sucede algun fallo, mostramos el error que envia la api
-          this.toastr.error(err.error.mensaje, 'Fail!', {
-            timeOut: 5000, positionClass: 'toast-top-center'
-          });
-          //recargamos la pantalla, pero podriamos ir a otro lado
-          //form.reset();
-          this.router.navigate(['/registro-usuario']);
-        }
-      );
-    } else {
-      this.toastr.warning("Las contraseñas no coinciden !", 'Fail!', {
-        timeOut: 5000, positionClass: 'toast-top-center'
-      });
+          },
+          err => {
+            //si sucede algun fallo, mostramos el error que envia la api
+            this.toastr.error(err.error.mensaje, 'Fail!', {
+              timeOut: 5000, positionClass: 'toast-top-center'
+            });
+            //recargamos la pantalla, pero podriamos ir a otro lado
+            //form.reset();
+            this.router.navigate(['/registro-usuario']);
+          }
+        );
+      } else {
+        this.toastr.warning("Las contraseñas no coinciden !", 'Fail!', {
+          timeOut: 5000, positionClass: 'toast-top-center'
+        });
+      }
+
     }
-
+    
   }
+  
   logout(){
     //borramos el token de las cookies
     this.userService.logout();
     //volvemos a la pantalla de login o la inicial
     this.router.navigateByUrl('/login');
   }
+
 
 }

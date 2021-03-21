@@ -2,29 +2,29 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
-import { User } from '../models/User';
 import { UsersService } from '../service/users/users.service';
-
+import { Categoria } from '../models/categoria';
+import { CategoryService } from '../service/category.service';
 @Component({
-  selector: 'app-editar-user',
-  templateUrl: './editar-user.component.html',
-  styleUrls: ['./editar-user.component.css']
+  selector: 'app-category-editor',
+  templateUrl: './category-editor.component.html',
+  styleUrls: ['./category-editor.component.css']
 })
-export class EditarUserComponent implements OnInit {
+export class CategoryEditorComponent implements OnInit {
   
-  confirmPassword: string;
-  user: User = null;
+  category: Categoria = null;
 
   constructor(private userService: UsersService,
+    private categoryService: CategoryService,
     private activatedRoute: ActivatedRoute,
     private toastr: ToastrService,
     private router: Router) { }
 
   ngOnInit(): void {
     const id = this.activatedRoute.snapshot.params.id;
-    this.userService.detailId(id).subscribe(
+    this.categoryService.detailId(id).subscribe(
       data => {
-        this.user = data;
+        this.category = data;
       },
       err => {
         //si sucede algun fallo, mostramos el error que envia la api
@@ -36,33 +36,23 @@ export class EditarUserComponent implements OnInit {
   }
 
   onUpdate(): void {
-    //confirmar
-    if (confirm("Esta seguro de actualizar los datos de este usuario!")) {
-      if (this.user.password == this.confirmPassword) {
+    if (confirm("¿Esta seguro de actualizar los datos de esta categoría?")) {
         const id = this.activatedRoute.snapshot.params.id;
-        this.userService.update(id, this.user).subscribe(
+        this.categoryService.update(id, this.category).subscribe(
           data => {
-            //si todo va bien
             this.toastr.success('Usuario actualizado!', 'Ok!', {
               timeOut: 5000, positionClass: 'toast-top-center'
             });
-            //recargamos la pantalla, pero podriamos ir a otro lado
-            this.router.navigate(['/usuarios']);
+            this.router.navigate(['/listaCategoriasAdmin']);
           },
           err => {
-            //si sucede algun fallo, mostramos el error que envia la api
             this.toastr.error(err.error.mensaje, 'Fail!', {
               timeOut: 5000, positionClass: 'toast-top-center'
             });
-            //recargamos la pantalla, pero podriamos ir a otro lado
-            this.router.navigate(['/usuarios']);
+            this.router.navigate(['/actualizarCategoria']);
           }
         );
-      } else {
-        this.toastr.warning("Se debe especificar una nueva contraseña y confirmarla!", 'Fail!', {
-          timeOut: 5000, positionClass: 'toast-top-center'
-        });
-      }
+
     }
 
   }
@@ -77,3 +67,4 @@ export class EditarUserComponent implements OnInit {
 
 
 }
+

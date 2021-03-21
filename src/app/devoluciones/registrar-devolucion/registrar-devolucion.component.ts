@@ -1,22 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { UsersService } from '../service/users/users.service';
+import { UsersService } from 'src/app/service/users/users.service';
 
 @Component({
-  selector: 'app-detalle-user',
-  templateUrl: './detalle-user.component.html',
-  styleUrls: ['./detalle-user.component.css']
+  selector: 'app-registrar-devolucion',
+  templateUrl: './registrar-devolucion.component.html',
+  styleUrls: ['./registrar-devolucion.component.css']
 })
-export class DetalleUserComponent implements OnInit {
+export class RegistrarDevolucionComponent implements OnInit {
 
   constructor(private userService: UsersService,
     private toastr: ToastrService,
     private router: Router) { }
 
   ngOnInit(): void {
+
   }
-  
+
   logout() {
     //borramos el token de las cookies
     this.userService.logout();
