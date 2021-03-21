@@ -13,6 +13,7 @@ import { RegistrarDevolucionComponent } from './devoluciones/registrar-devolucio
 import { RevisionPrestamoComponent } from './prestamos/revision-prestamo/revision-prestamo.component';
 import { CategoryListComponent } from './category-list/category-list.component'; 
 import {CategoryCreatorComponent} from './category-creator/category-creator.component';
+import {CategoryEditorComponent} from './category-editor/category-editor.component';
 /**
  * Manejo de las diferentes rutas de la pagina
  */
@@ -30,6 +31,7 @@ const routes: Routes = [
   { path: 'registrarPrestamo', component: RevisionPrestamoComponent },
   { path: 'listaCategoriasAdmin', component: CategoryListComponent },
   { path: 'crear-categoria', component: CategoryCreatorComponent },
+  { path: 'actualizarCategoria/:id', component: CategoryEditorComponent },
   //cualquier otro path inexistente, redireccionar a index va de ultimo siempre
   { path: '**', redirectTo:'', pathMatch: 'full' }
 ];
