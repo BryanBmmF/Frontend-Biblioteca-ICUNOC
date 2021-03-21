@@ -9,6 +9,8 @@ import { DetalleUserComponent } from './user/detalle-user.component';
 import { NuevoUserComponent } from './user/nuevo-user.component';
 import { EditarUserComponent } from './user/editar-user.component';
 import { DetalleslibroComponent } from './detalleslibro/detalleslibro.component';
+import { PrestamoLibroComponent } from './prestamo/prestamo-libro.component';
+import { ReservaLibroComponent } from './reserva/reserva-libro.component';
 
 /**
  * Manejo de las diferentes rutas de la pagina
@@ -23,6 +25,8 @@ const routes: Routes = [
   { path: 'detalle/:id', component: DetalleUserComponent },
   { path: 'editar-usuario/:id', component: EditarUserComponent },
   { path: 'ingresoLibro', component: IngresoLibroComponent },
+  { path: 'prestamo', component: PrestamoLibroComponent },
+  { path: 'reserva', component: ReservaLibroComponent },
   //cualquier otro path inexistente, redireccionar a index va de ultimo siempre
   { path: '**', redirectTo:'', pathMatch: 'full' }
 ];

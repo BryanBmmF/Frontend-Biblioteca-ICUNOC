@@ -24,56 +24,64 @@
         <mat-icon>logout</mat-icon>
     </button>
 </mat-toolbar>
-
 <div class="content" role="main">
     <div class="container col-md-6">
         <div class="card">
             <div class="card-header">
-                <h3>Información del Libro</h3>
+                <h3>Información de Prestamo</h3>
             </div>
             <div class="card-body">
                 <div style="text-align: center">
                     <h1>
-                        {{ libroRecivido.nombre }}
+                            PRESTAMO
                     </h1>
-                    <img width="230" alt="Angular Logo"
-                        src="https://edit.org/images/cat/portadas-libros-big-2019101610.jpg" />
                 </div>
                 <form action="">
                     <div class="form-group">
-                        <label for="">Codigo:</label>
-                        <br>
-                        <label for="">{{ libroRecivido.codigo }}</label>
+                        <label for="">Nombres:</label>
+                        <input type="text" class="form-control" id="Nombre" name="Nombre" required>
                     </div>
                     <div class="form-group">
-                        <label for="">Titulo:</label>
-                        <br>
-                        <label for="">{{ libroRecivido.nombre }}</label>
+                        <label for="">Apelllidos:</label>
+                        <input type="text" class="form-control" id="Apelllidos" name="Apelllidos" required>
                     </div>
                     <div class="form-group">
-                        <label for="">Autor:</label>
-                        <br>
-                        <label for="">{{ libroRecivido.autor }}</label>
+                        <label for="">DPI:</label>
+                        <input type="number" class="form-control" id="DPI" name="DPI" required><br>
                     </div>
                     <div class="form-group">
-                        <label for="">Cantidad disponible:</label>
-                        <br>
-                        <label for="">{{ libroRecivido.stock }}</label>
+                        <label for="">Carrera:</label>
+                        <input type="text" class="form-control" id="Carrera" name="Carrera" required><br>
                     </div>
                     <div class="form-group">
-                        <label for="">Idioma:</label>
-                        <br>
-                        <label for="">{{ libroRecivido.idioma }}</label>
+                        <label for="">Fecha Inicio de Prestamo:</label>
+                        <input type="date" class="form-control" id="fechaInicio" name="fechaInicio" required><br>
                     </div>
                     <div class="form-group">
-                        <label for="">Fecha de Publicacion:</label>
-                        <br>
-                        <label for="">{{ libroRecivido.fechaPublicacion }}</label>
+                        <label for="">Fecha Fin de Prestamo:</label>
+                        <input type="date" class="form-control" id="fechaFin" name="fechaFin" required><br>
                     </div>
-                     <!--Aqui con metodos post y get podes mandar todos los datos necesarios
-                    para la reserva y asi meterlos a la db. Ya no tenes que hacer nada de ruteo.
-                    Ya esta conectado todo, solo tenes que mandar los datos. -->
-                    <button class="btn btn-danger"  onclick="location.href='/prestamo'">Generar Reserva</button>
+                    <div class="form-group">
+                        <label for="">Codigo Libro:</label>
+                        <br>
+                        <label for="">AQUI VA EL CODIGO QUE SE PASA POR METODO POST</label>
+                        <br>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="">Costo:</label>
+                        <br>
+                        <label for="">AQUI VA EL PRECIO QUE SE PASA POR METODO POST </label>
+                        
+                        <br>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Carnet:</label>
+                        <input type="number" class="form-control" id="carnet" name="carnet" required><br>
+                    </div>
+                    <input type="checkbox" onclick="siguiente.disabled=!this.checked">Acepta Terminos y Condiciones<br>
+                    <br>
+                    <button id="siguiente" disabled onclick="location.href='/reserva'" class="btn btn-danger" >Reservar</button>
                 </form>
             </div>
         </div>

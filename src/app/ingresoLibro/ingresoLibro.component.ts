@@ -42,15 +42,6 @@ export class IngresoLibroComponent {
   }
 
   onCreate(): void {
-    console.log(this.autor);
-    console.log(this.codigo);
-    console.log(this.edicion);
-    console.log(this.fechaPublicacion);
-    console.log(this.idioma);
-    console.log(this.nombre);
-    console.log(this.imagen);
-    console.log(this.stock);
-    console.log(this.categoria);
     const libro = new Libro(this.autor,this.codigo,this.edicion,this.fechaPublicacion,this.idioma,this.nombre,this.imagen,this.stock,this.categoria);
     this.LibroService.save(libro).subscribe(
       data => {

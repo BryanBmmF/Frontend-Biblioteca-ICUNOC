@@ -34,7 +34,9 @@ import { ListaUserComponent } from './user/lista-user.component';
 import { DetalleUserComponent } from './user/detalle-user.component';
 import { NuevoUserComponent } from './user/nuevo-user.component';
 import { EditarUserComponent } from './user/editar-user.component';
-import { DetalleslibroComponent } from './detalleslibro/detalleslibro.component'; 
+import { DetalleslibroComponent } from './detalleslibro/detalleslibro.component';
+import { PrestamoLibroComponent } from './prestamo/prestamo-libro.component';
+import { ReservaLibroComponent } from './reserva/reserva-libro.component'; 
 
 
 @NgModule({
@@ -49,6 +51,8 @@ import { DetalleslibroComponent } from './detalleslibro/detalleslibro.component'
     NuevoUserComponent,
     EditarUserComponent,
     DetalleslibroComponent,
+    PrestamoLibroComponent,
+    ReservaLibroComponent,
   ],
   imports: [
     MatSliderModule,
