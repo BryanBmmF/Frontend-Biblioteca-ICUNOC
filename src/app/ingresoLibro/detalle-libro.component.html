@@ -1,3 +1,4 @@
+<!--Menu de opciones-->
 <mat-toolbar color="primary">
     <img width="40" alt="USAC Logo"
       src="https://th.bing.com/th/id/R357b881f7404a7510172712ba8df9b7a?rik=1F6J6d8A%2bhOR5g&riu=http%3a%2f%2fcceeusac.com%2fasignaciones%2fImagenes%2flogo_usac.png&ehk=KplsqbdMJu2aTx%2bzT5h2DGcFKOP5faojo95W%2bTVxoPM%3d&risl=&pid=ImgRaw" />
@@ -24,10 +25,32 @@
       <button routerLink="/usuarios" mat-menu-item>Lista de Usuarios</button>
       <button routerLink="/registro-usuario" mat-menu-item>Registrar Usuario</button>
     </mat-menu>
-    <!--Boton para cerrar sesion-->
-    <button (click)="logout()" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-      <mat-icon>logout</mat-icon>
-    </button>
   </mat-toolbar>
 
-<p>detalle-user works!</p>
+<div class="container">
+    <div class="row mt-5" *ngIf="libro">
+      <div class="col-md-4 mx-auto">
+          <div class="card" style="width: 18rem;">
+              <div class="card-header text-center">
+                Detalle Libro
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item"><b>ID: </b>{{libro.idLibro}}</li>
+                <li class="list-group-item"><b>Nombre: </b>{{libro.nombre}}</li>
+                <li class="list-group-item"><b>Autor: </b>{{libro.autor}}</li>
+                <li class="list-group-item"><b>Codigo: </b>{{libro.codigo}}</li>
+                <li class="list-group-item"><b>Edicion: </b>{{libro.edicion}}</li>
+                <li class="list-group-item"><b>Fecha Publicacion: </b>{{libro.fechaPublicacion}}</li>
+                <li class="list-group-item"><b>Idioma: </b>{{libro.idioma}}</li>
+                <li class="list-group-item"><b>Imagen: </b>AQUI VA LA IMAGEN</li>
+                <li class="list-group-item"><b>Stock: </b>{{libro.stock}}</li>
+                <li class="list-group-item"><b>Categoria: </b>{{libro.categoria}}</li>
+              </ul>
+              <div class="card-footer">
+                  <button class="btn btn-outline-primary btn-block" (click)="volver()"><i class="fas fa-arrow-alt-circle-left"></i> Volver</button>
+              </div>
+            </div>
+            
+      </div>
+  </div>
+  </div>

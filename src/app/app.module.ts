@@ -42,7 +42,10 @@ import { RevisionPrestamoComponent } from './prestamos/revision-prestamo/revisio
 import { RegistrarDevolucionComponent } from './devoluciones/registrar-devolucion/registrar-devolucion.component';
 import { CategoryCreatorComponent } from './category-creator/category-creator.component';
 import { CategoryListComponent } from './category-list/category-list.component';
-import { CategoryEditorComponent } from './category-editor/category-editor.component'; 
+import { CategoryEditorComponent } from './category-editor/category-editor.component';
+import { ListaLibroComponent } from './ingresoLibro/lista-libro.component';
+import { DetalleLibroComponent } from './ingresoLibro/detalle-libro.component';
+import { EditarLibroComponent } from './ingresoLibro/editar-libro.component'; 
 
 
 
@@ -64,7 +67,10 @@ import { CategoryEditorComponent } from './category-editor/category-editor.compo
     RegistrarDevolucionComponent,
     CategoryCreatorComponent,
     CategoryListComponent,
-    CategoryEditorComponent
+    CategoryEditorComponent,
+    ListaLibroComponent,
+    DetalleLibroComponent,
+    EditarLibroComponent
   ],
   imports: [
     MatSliderModule,
