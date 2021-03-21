@@ -16,7 +16,8 @@ export class HttpInterceptorServiceService implements HttpInterceptor {
     if (req.url.indexOf('authorize') != -1) {
       return next.handle(req);
     }
-    
+
+    /*
     //si es una peticion admin validar que tenga autorizacion
     if (req.url.indexOf('admin') != -1) {
       this.userService.getAdminLogged().subscribe(
@@ -42,6 +43,7 @@ export class HttpInterceptorServiceService implements HttpInterceptor {
       this.userService.getUserLogged().subscribe(
         data => {
           console.log(data);
+          console.log("aqui estoy");
           if (data.message == "NO_AUTORIZADO") {
             this.userService.logout();
             this.router.navigateByUrl('/');
@@ -61,7 +63,8 @@ export class HttpInterceptorServiceService implements HttpInterceptor {
     if (req.url.indexOf('public') != -1) {
       return next.handle(req);
     }
-
+    */
+    
     //en cualquier otro caso retornar a la pantalla de inicio, ahorita no porque falta incluir bien los pats
     return next.handle(req);
     

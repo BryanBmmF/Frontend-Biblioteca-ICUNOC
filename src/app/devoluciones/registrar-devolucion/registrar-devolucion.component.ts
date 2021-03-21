@@ -9,7 +9,7 @@ import { UsersService } from 'src/app/service/users/users.service';
   styleUrls: ['./registrar-devolucion.component.css']
 })
 export class RegistrarDevolucionComponent implements OnInit {
-
+  buttonUsers: boolean = false;
   constructor(private userService: UsersService,
     private toastr: ToastrService,
     private router: Router) { }
@@ -20,6 +20,12 @@ export class RegistrarDevolucionComponent implements OnInit {
       this.router.navigate(['/']);
     } else {
       /* Codigo que se quiera cargar al inicio */
+      this.validarMenu();
+    }
+  }
+  validarMenu() {
+    if (this.userService.getLoggedInUserRoleBibliotecario()) {
+      this.buttonUsers = !this.buttonUsers;
     }
   }
 

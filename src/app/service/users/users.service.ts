@@ -57,7 +57,7 @@ export class UsersService {
     if (this.getLoggedInUserRoleAdmin()) {
       this.router.navigate(['/usuarios']);
     } else {
-      this.router.navigateByUrl('/registrarPrestamo');
+      this.router.navigateByUrl('/listaCategoriasAdmin');
     }
 
   }
