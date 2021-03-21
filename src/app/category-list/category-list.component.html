@@ -30,4 +30,40 @@
     </button>
   </mat-toolbar>
 
-<p>detalle-user works!</p>
+  <main>
+    <mat-card class="example-card">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>Lista de categorias</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="col-auto">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Editar</th>
+                <th scope="col">Borrar</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let category of categories">
+                <td>{{category.idCategoria}}</td>
+                <td>{{category.nombre}}</td>
+                <td>{{category.descripcion}}</td>
+                <td><button class="btn btn-outline-warning" routerLink="/actualizarCategoria/{{category.idCategoria}}"><i class="far fa-edit"></i>
+                    Editar</button></td>
+                <td><button class="btn btn-outline-danger" (click)="borrar(category.idCategoria)"><i class="far fa-trash-alt"></i>
+                    Eliminar</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </mat-card-content>
+    </mat-card>
+</main>
+<button routerLink="/crear-categoria" class="button-absolute-position" color="primary" mat-fab aria-label="Example icon-button with a heart icon">
+    <mat-icon>add</mat-icon>
+</button>

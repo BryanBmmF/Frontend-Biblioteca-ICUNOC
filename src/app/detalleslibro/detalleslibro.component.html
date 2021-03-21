@@ -24,8 +24,8 @@
                     <h1>
                         {{ libroRecivido.nombre }}
                     </h1>
-                    <img width="230" alt="Angular Logo"
-                        src="https://edit.org/images/cat/portadas-libros-big-2019101610.jpg" />
+                        <img width="230" alt=""
+                        src="{{ bytes }}" *ngIf="bytes" />
                 </div>
                 <form action="">
                     <div class="form-group">
@@ -58,7 +58,10 @@
                         <br>
                         <label for="">{{ libroRecivido.fechaPublicacion }}</label>
                     </div>
-                    <button class="btn btn-danger">Reservar</button>
+                     <!--Aqui con metodos post y get podes mandar todos los datos necesarios
+                    para la reserva y asi meterlos a la db. Ya no tenes que hacer nada de ruteo.
+                    Ya esta conectado todo, solo tenes que mandar los datos. -->
+                    <button class="btn btn-danger"  onclick="location.href='/prestamo'">Generar Reserva</button>
                 </form>
             </div>
         </div>

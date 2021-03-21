@@ -36,9 +36,16 @@ import { ListaUserComponent } from './user/lista-user.component';
 import { DetalleUserComponent } from './user/detalle-user.component';
 import { NuevoUserComponent } from './user/nuevo-user.component';
 import { EditarUserComponent } from './user/editar-user.component';
+
+import { PrestamoLibroComponent } from './prestamo/prestamo-libro.component';
+import { ReservaLibroComponent } from './reserva/reserva-libro.component'; 
 import { DetalleslibroComponent } from './detalleslibro/detalleslibro.component';
 import { RevisionPrestamoComponent } from './prestamos/revision-prestamo/revision-prestamo.component';
-import { RegistrarDevolucionComponent } from './devoluciones/registrar-devolucion/registrar-devolucion.component'; 
+import { RegistrarDevolucionComponent } from './devoluciones/registrar-devolucion/registrar-devolucion.component';
+import { CategoryCreatorComponent } from './category-creator/category-creator.component';
+import { CategoryListComponent } from './category-list/category-list.component';
+import { CategoryEditorComponent } from './category-editor/category-editor.component'; 
+
 
 
 @NgModule({
@@ -53,8 +60,13 @@ import { RegistrarDevolucionComponent } from './devoluciones/registrar-devolucio
     NuevoUserComponent,
     EditarUserComponent,
     DetalleslibroComponent,
+    PrestamoLibroComponent,
+    ReservaLibroComponent,
     RevisionPrestamoComponent,
     RegistrarDevolucionComponent,
+    CategoryCreatorComponent,
+    CategoryListComponent,
+    CategoryEditorComponent
   ],
   imports: [
     MatSliderModule,

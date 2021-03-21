@@ -23,7 +23,7 @@ export class LibrosService {
     return this.http.get<Libro[]>(this.libroURL+'listaLibro');
   }
   public detalle(id:number): Observable<Libro[]>{
-    return this.http.get<Libro[]>(this.libroURL+`detalleLibro/${id}`);
+    return this.http.get<Libro[]>(this.libroURL+'detalleLibro/${id}');
   }
 
   public save(libro: Libro): Observable<any>{
@@ -31,10 +31,10 @@ export class LibrosService {
   }
 
   public update(id:number, libro: Libro): Observable<any>{
-    return this.http.put<any>(this.libroURL+`actualizar/${id}`,libro);
+    return this.http.put<any>(this.libroURL+'actualizar/${id}',libro);
   }
 
   public delete(id: number): Observable<any>{
-    return this.http.delete<any>((this.libroURL+`eliminar/${id}`));
+    return this.http.delete<any>((this.libroURL+'eliminar/${id}'));
   }
 }
