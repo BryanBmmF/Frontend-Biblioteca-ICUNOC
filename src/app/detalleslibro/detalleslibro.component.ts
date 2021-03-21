@@ -12,6 +12,7 @@ import { UsersService } from '../service/users/users.service';
 export class DetalleslibroComponent implements OnInit {
 
   libroRecivido:Libro;
+  bytes: string;
   
 
   constructor(private router:Router, private service:LibrosService, private userService: UsersService) { }
@@ -28,8 +29,12 @@ export class DetalleslibroComponent implements OnInit {
       this.service.getLibroId(libroR)
       .subscribe(data=>{
       this.libroRecivido=data;
+      //console.log('Hola: -------'+this.libroRecivido.pathImagen);
+      this.bytes = 'data:image/jpeg;base64,' + this.libroRecivido.pathImagen;
     })
     }
+    
+    console.log('este es el otro: --------'+this.bytes);
   }
 
   logout(){
