@@ -4,6 +4,9 @@ import { IndexComponent} from './index/index.component';
 import { LoginComponent } from "./login/login.component";
 import { CatalogoComponent} from './catalogo/catalogo.component';
 import { IngresoLibroComponent} from './ingresoLibro/ingresoLibro.component';
+import { ListaLibroComponent} from './ingresoLibro/lista-libro.component';
+import { DetalleLibroComponent} from './ingresoLibro/detalle-libro.component';
+import { EditarLibroComponent} from './ingresoLibro/editar-libro.component';
 import { ListaUserComponent } from './user/lista-user.component';
 import { DetalleUserComponent } from './user/detalle-user.component';
 import { NuevoUserComponent } from './user/nuevo-user.component';
@@ -29,7 +32,12 @@ const routes: Routes = [
   { path: 'registro-usuario', component: NuevoUserComponent },
   { path: 'detalle/:id', component: DetalleUserComponent },
   { path: 'editar-usuario/:id', component: EditarUserComponent },
+
   { path: 'ingresoLibro', component: IngresoLibroComponent },
+  { path: 'editarLibro/:id', component: EditarLibroComponent },
+  { path: 'detalleLibro/:id', component: DetalleLibroComponent },
+  { path: 'listaLibro', component: ListaLibroComponent },
+
 
   { path: 'prestamo', component: PrestamoLibroComponent },
   { path: 'reservacionConfirmada', component: ReservaLibroComponent },

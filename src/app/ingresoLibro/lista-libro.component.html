@@ -24,10 +24,47 @@
       <button routerLink="/usuarios" mat-menu-item>Lista de Usuarios</button>
       <button routerLink="/registro-usuario" mat-menu-item>Registrar Usuario</button>
     </mat-menu>
-    <!--Boton para cerrar sesion-->
-    <button (click)="logout()" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-      <mat-icon>logout</mat-icon>
-    </button>
   </mat-toolbar>
 
-<p>detalle-user works!</p>
+  <main>
+    <mat-card class="example-card">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>Lista de Libros</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="col-auto">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Autor</th>
+                <th scope="col">Edicion</th>
+                <th scope="col">Ver</th>
+                <th scope="col">Editar</th>
+                <th scope="col">Borrar</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let libro of libros">
+                <td>{{libro.idLibro}}</td>
+                <td>{{libro.nombre}}</td>
+                <td>{{libro.autor}}</td>
+                <td>{{libro.edicion}}</td>
+                <td><button class="btn btn-outline-warning" routerLink="/detalleLibro/{{libro.idLibro}}"><i class="far fa-edit"></i>
+                    Ver</button></td>
+                <td><button class="btn btn-outline-warning" routerLink="/editarLibro/{{libro.idLibro}}"><i class="far fa-edit"></i>
+                    Editar</button></td>
+                <td><button class="btn btn-outline-danger" (click)="borrar(libro.idLibro)"><i class="far fa-trash-alt"></i>
+                    Eliminar</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </mat-card-content>
+    </mat-card>
+</main>
+<button routerLink="/ingresoLibro" class="button-absolute-position" color="primary" mat-fab aria-label="Example icon-button with a heart icon">
+    <mat-icon>add</mat-icon>
+</button>

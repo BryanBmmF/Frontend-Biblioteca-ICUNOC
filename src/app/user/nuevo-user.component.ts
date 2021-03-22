@@ -16,18 +16,26 @@ export class NuevoUserComponent {
   username: string;
   password: string;
   confirmPassword: string;
+  tipoUser: string;
 
   constructor(private userService: UsersService,
     private toastr: ToastrService,
     private router: Router) { }
-
+    ngOnInit(): void {
+      //comprobar sesion
+      if (!this.userService.getLoggedInUserRoleAdmin()) {
+        this.router.navigate(['/']);
+      } else {
+        /* Codigo que se quiera cargar al inicio */
+      }
+    }
 
   onCreate(form: NgForm): void {
     //confirmar
     if (confirm("Esta seguro de registrar este usuario!")) {
       //antes evaluar las constraseñas si son iguales
       if (this.password == this.confirmPassword) {
-        const user = new User(this.nombre, this.numeroRegistro, this.username, this.password);
+        const user = new User(this.nombre, this.numeroRegistro, this.username, this.password, this.tipoUser);
         this.userService.save(user).subscribe(
           data => {
             //si todo va bien

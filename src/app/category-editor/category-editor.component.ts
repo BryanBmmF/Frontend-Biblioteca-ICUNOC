@@ -11,8 +11,9 @@ import { CategoryService } from '../service/category.service';
   styleUrls: ['./category-editor.component.css']
 })
 export class CategoryEditorComponent implements OnInit {
-  
+
   category: Categoria = null;
+  buttonUsers : boolean = false;
 
   constructor(private userService: UsersService,
     private categoryService: CategoryService,
@@ -21,37 +22,50 @@ export class CategoryEditorComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
-    const id = this.activatedRoute.snapshot.params.id;
-    this.categoryService.detailId(id).subscribe(
-      data => {
-        this.category = data;
-      },
-      err => {
-        //si sucede algun fallo, mostramos el error que envia la api
-        this.toastr.error(err.error.mensaje, 'Fail!', {
-          timeOut: 5000, positionClass: 'toast-top-center'
-        });
-      }
-    );
+    //comprobar sesion
+    if (!(this.userService.getLoggedInUserRoleAdmin() || this.userService.getLoggedInUserRoleBibliotecario())) {
+      this.router.navigate(['/']);
+    } else {
+      /* Codigo que se quiera cargar al inicio */
+      this.validarMenu();
+      const id = this.activatedRoute.snapshot.params.id;
+      this.categoryService.detailId(id).subscribe(
+        data => {
+          this.category = data;
+        },
+        err => {
+          //si sucede algun fallo, mostramos el error que envia la api
+          this.toastr.error(err.error.mensaje, 'Fail!', {
+            timeOut: 5000, positionClass: 'toast-top-center'
+          });
+        }
+      );
+    }
+  }
+
+  validarMenu(){
+    if (this.userService.getLoggedInUserRoleBibliotecario()) {
+        this.buttonUsers = !this.buttonUsers;
+    }
   }
 
   onUpdate(): void {
     if (confirm("¿Esta seguro de actualizar los datos de esta categoría?")) {
-        const id = this.activatedRoute.snapshot.params.id;
-        this.categoryService.update(id, this.category).subscribe(
-          data => {
-            this.toastr.success('Usuario actualizado!', 'Ok!', {
-              timeOut: 5000, positionClass: 'toast-top-center'
-            });
-            this.router.navigate(['/listaCategoriasAdmin']);
-          },
-          err => {
-            this.toastr.error(err.error.mensaje, 'Fail!', {
-              timeOut: 5000, positionClass: 'toast-top-center'
-            });
-            this.router.navigate(['/actualizarCategoria']);
-          }
-        );
+      const id = this.activatedRoute.snapshot.params.id;
+      this.categoryService.update(id, this.category).subscribe(
+        data => {
+          this.toastr.success('Usuario actualizado!', 'Ok!', {
+            timeOut: 5000, positionClass: 'toast-top-center'
+          });
+          this.router.navigate(['/listaCategoriasAdmin']);
+        },
+        err => {
+          this.toastr.error(err.error.mensaje, 'Fail!', {
+            timeOut: 5000, positionClass: 'toast-top-center'
+          });
+          this.router.navigate(['/actualizarCategoria']);
+        }
+      );
 
     }
 

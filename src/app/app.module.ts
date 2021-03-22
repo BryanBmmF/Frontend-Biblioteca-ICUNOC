@@ -27,7 +27,8 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatInputModule} from '@angular/material/input';
-import {MatCardModule} from '@angular/material/card';  
+import {MatCardModule} from '@angular/material/card';
+import {MatSelectModule} from '@angular/material/select';   
 import { LoginComponent } from './login/login.component';
 import { IndexComponent } from './index/index.component'; 
 import { IngresoLibroComponent } from './ingresoLibro/ingresoLibro.component'; 
@@ -35,6 +36,7 @@ import { ListaUserComponent } from './user/lista-user.component';
 import { DetalleUserComponent } from './user/detalle-user.component';
 import { NuevoUserComponent } from './user/nuevo-user.component';
 import { EditarUserComponent } from './user/editar-user.component';
+
 import { PrestamoLibroComponent } from './prestamo/prestamo-libro.component';
 import { ReservaLibroComponent } from './reserva/reserva-libro.component'; 
 import { DetalleslibroComponent } from './detalleslibro/detalleslibro.component';
@@ -42,7 +44,10 @@ import { RevisionPrestamoComponent } from './prestamos/revision-prestamo/revisio
 import { RegistrarDevolucionComponent } from './devoluciones/registrar-devolucion/registrar-devolucion.component';
 import { CategoryCreatorComponent } from './category-creator/category-creator.component';
 import { CategoryListComponent } from './category-list/category-list.component';
-import { CategoryEditorComponent } from './category-editor/category-editor.component'; 
+import { CategoryEditorComponent } from './category-editor/category-editor.component';
+import { ListaLibroComponent } from './ingresoLibro/lista-libro.component';
+import { DetalleLibroComponent } from './ingresoLibro/detalle-libro.component';
+import { EditarLibroComponent } from './ingresoLibro/editar-libro.component'; 
 
 
 
@@ -64,7 +69,10 @@ import { CategoryEditorComponent } from './category-editor/category-editor.compo
     RegistrarDevolucionComponent,
     CategoryCreatorComponent,
     CategoryListComponent,
-    CategoryEditorComponent
+    CategoryEditorComponent,
+    ListaLibroComponent,
+    DetalleLibroComponent,
+    EditarLibroComponent
   ],
   imports: [
     MatSliderModule,
@@ -83,6 +91,7 @@ import { CategoryEditorComponent } from './category-editor/category-editor.compo
     MatTabsModule,
     MatInputModule,
     MatCardModule,
+    MatSelectModule,
     ToastrModule.forRoot(), // ToastrModule added
 
   ],
