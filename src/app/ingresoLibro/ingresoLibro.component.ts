@@ -1,7 +1,7 @@
 import { Component, ViewChild, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import {MatAccordion} from '@angular/material/expansion';
-import {MatListModule} from '@angular/material/list';
-import {MatTableModule} from '@angular/material/table';
+import { MatAccordion } from '@angular/material/expansion';
+import { MatListModule } from '@angular/material/list';
+import { MatTableModule } from '@angular/material/table';
 
 import { Router, ActivatedRoute } from '@angular/router';
 import { Libro } from "../models/libro";
@@ -33,18 +33,18 @@ export class IngresoLibroComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private httpClient: HttpClient
-    ) { }
+  ) { }
 
-    autor :string;
-    codigo :string;
-    edicion : number;
-    fechaPublicacion :string;
-    idioma :string;
-    nombre:string;
-    imagen :string;
-    stock: number ;
-    categoria :number;
-    buttonUsers: boolean = false;
+  autor: string;
+  codigo: string;
+  edicion: number;
+  fechaPublicacion: string;
+  idioma: string;
+  nombre: string;
+  imagen: string;
+  stock: number;
+  categoria: number;
+  buttonUsers: boolean = false;
   ngOnInit() {
     //comprobar sesion
     if (!(this.userService.getLoggedInUserRoleAdmin() || this.userService.getLoggedInUserRoleBibliotecario())) {
@@ -61,7 +61,7 @@ export class IngresoLibroComponent implements OnInit {
     }
   }
 
-  onCreate(): void {      
+  onCreate(): void {
     const uploadData = new FormData();
     uploadData.append('imageFile', this.selectedFile, this.selectedFile.name);
     this.selectedFile.imageName = this.selectedFile.name;
@@ -69,9 +69,13 @@ export class IngresoLibroComponent implements OnInit {
     this.httpClient.post('http://localhost:8082/ingresoLibro/upload', uploadData, { observe: 'response' })
       .subscribe((response) => {
         if (response.status === 200) {
-          this.LibroService.save(new Libro(this.autor,this.codigo,this.edicion,this.fechaPublicacion,this.idioma,this.nombre,'',this.stock,this.categoria)).subscribe(
+          this.LibroService.save(new Libro(this.autor, this.codigo, this.edicion, this.fechaPublicacion, this.idioma, this.nombre, '', this.stock, this.categoria)).subscribe(
             (book) => {
               this.bookAddedEvent.emit();
+              //si todo va bien
+              this.toastr.success('El libro se ha registrado!', 'Ok!', {
+                timeOut: 5000, positionClass: 'toast-top-center'
+              });
               this.router.navigate(['/listaLibro']);
             }
           );
@@ -82,7 +86,7 @@ export class IngresoLibroComponent implements OnInit {
       }
       );
   }
-  
+
   public onFileChanged(event) {
     console.log(event);
     this.selectedFile = event.target.files[0];
@@ -96,7 +100,7 @@ export class IngresoLibroComponent implements OnInit {
     console.log(this.imgURL);
   }
 
-  inicio(){
+  inicio() {
     //volvemos a la pantalla de index o la inicial
     /*SE TENDRIA QUE VOLVER AL LISTADO DE LIBROS REGISTRADOS NO AL CATALOGO */
     //this.router.navigateByUrl('/catalogo');

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Libro } from '../models/libro';
 import { LibrosService } from '../service/libros/libros.service';
 import { ToastrService } from 'ngx-toastr';
+import { UsersService } from '../service/users/users.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-lista-libro',
@@ -11,14 +13,29 @@ import { ToastrService } from 'ngx-toastr';
 export class ListaLibroComponent implements OnInit {
 
   libros: Libro[] = [];
-
+  buttonUsers: boolean = false;
   constructor(
     private libroService: LibrosService,
+    private userService: UsersService,
+    private router: Router,
     private toastr: ToastrService
     ) { }
 
   ngOnInit(): void {
-    this.cargarLibros();
+    //comprobar sesion
+    if (!(this.userService.getLoggedInUserRoleAdmin() || this.userService.getLoggedInUserRoleBibliotecario())) {
+      this.router.navigate(['/']);
+    } else {
+      /* Codigo que se quiera cargar al inicio */
+      this.validarMenu();
+      this.cargarLibros();
+    }
+   
+  }
+  validarMenu() {
+    if (this.userService.getLoggedInUserRoleBibliotecario()) {
+      this.buttonUsers = !this.buttonUsers;
+    }
   }
 
   cargarLibros(): void {
@@ -53,5 +70,11 @@ export class ListaLibroComponent implements OnInit {
       );
     }
 
+  }
+  logout() {
+    //borramos el token de las cookies
+    this.userService.logout();
+    //volvemos a la pantalla de login o la inicial
+    this.router.navigateByUrl('/login');
   }
 }

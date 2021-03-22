@@ -3,6 +3,7 @@ import { Libro } from '../models/libro';
 import { LibrosService } from '../service/libros/libros.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { UsersService } from '../service/users/users.service';
 
 @Component({
   selector: 'app-editar-libro',
@@ -12,27 +13,42 @@ import { ToastrService } from 'ngx-toastr';
 export class EditarLibroComponent implements OnInit {
 
   libro: Libro = null;
-
+  buttonUsers: boolean = false;
   constructor(
     private libroService: LibrosService,
     private activatedRoute: ActivatedRoute,
+    private userService: UsersService,
     private toastr: ToastrService,
     private router: Router
   ) { }
 
   ngOnInit() {
-    const id = this.activatedRoute.snapshot.params.id;
-    this.libroService.detalle(id).subscribe(
-      data => {
-        this.libro=data;
-      },
-      err => {
-        this.toastr.error(err.error.mensaje, 'Fail', {
-          timeOut: 3000,  positionClass: 'toast-top-center',
-        });
-        this.router.navigate(['/listaLibro']);
-      }
-    );
+    //comprobar sesion
+    if (!(this.userService.getLoggedInUserRoleAdmin() || this.userService.getLoggedInUserRoleBibliotecario())) {
+      this.router.navigate(['/']);
+    } else {
+      /* Codigo que se quiera cargar al inicio */
+      this.validarMenu();
+      const id = this.activatedRoute.snapshot.params.id;
+      this.libroService.detalle(id).subscribe(
+        data => {
+          this.libro = data;
+        },
+        err => {
+          this.toastr.error(err.error.mensaje, 'Fail', {
+            timeOut: 3000, positionClass: 'toast-top-center',
+          });
+          this.router.navigate(['/listaLibro']);
+        }
+      );
+    }
+
+  }
+
+  validarMenu() {
+    if (this.userService.getLoggedInUserRoleBibliotecario()) {
+      this.buttonUsers = !this.buttonUsers;
+    }
   }
 
   onUpdate(): void {
@@ -46,11 +62,18 @@ export class EditarLibroComponent implements OnInit {
       },
       err => {
         this.toastr.error(err.error.mensaje, 'Fail', {
-          timeOut: 3000,  positionClass: 'toast-top-center',
+          timeOut: 3000, positionClass: 'toast-top-center',
         });
         this.router.navigate(['/']);
       }
     );
+  }
+
+  logout() {
+    //borramos el token de las cookies
+    this.userService.logout();
+    //volvemos a la pantalla de login o la inicial
+    this.router.navigateByUrl('/login');
   }
 
 }
