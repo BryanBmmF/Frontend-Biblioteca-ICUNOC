@@ -29,12 +29,9 @@ export class DetalleslibroComponent implements OnInit {
       this.service.getLibroId(libroR)
       .subscribe(data=>{
       this.libroRecivido=data;
-      //console.log('Hola: -------'+this.libroRecivido.pathImagen);
       this.bytes = 'data:image/jpeg;base64,' + this.libroRecivido.pathImagen;
     })
     }
-    
-    console.log('este es el otro: --------'+this.bytes);
   }
 
   logout(){
@@ -44,6 +41,12 @@ export class DetalleslibroComponent implements OnInit {
     this.router.navigateByUrl('/login');
   }
 
-
+  reservarLibro(libroID){
+    //console.log(libroID.idLibro);
+    localStorage.setItem("codigoLibro", libroID.codigo);
+    localStorage.setItem("nombreLibro", libroID.nombre);
+    localStorage.setItem("idLibro", libroID.idLibro);
+    this.router.navigate(["prestamo"]);
+  }
 
 }

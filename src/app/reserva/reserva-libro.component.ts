@@ -13,6 +13,7 @@ import jsPDF from 'jspdf';
 export class ReservaLibroComponent implements OnInit {
 
   prestamoDetalles:Prestamo;
+  codigoReservacionVar:string;
   
   constructor(
     private prestamosService: PrestamosService,
@@ -22,32 +23,34 @@ export class ReservaLibroComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.obtenerDatos();
+    console.log(this.codigoReservacionVar);
   }
 
-  generarPDF(codigo:string){
+  generarPDF(){
     const id = this.activatedRoute.snapshot.params.id;
-    this.prestamosService.detail(codigo).subscribe(
+    this.prestamosService.detail(this.codigoReservacionVar).subscribe(
       data => {
         this.prestamoDetalles = data;
-        console.log(this.prestamoDetalles = data);
+        console.log(this.prestamoDetalles)
         var doc = new jsPDF();
-        doc.rect(15, 2, 190, 110)
+        doc.rect(10, 10, 190, 110)
         var imgData = 'https://th.bing.com/th/id/R357b881f7404a7510172712ba8df9b7a?rik=1F6J6d8A%2bhOR5g&riu=http%3a%2f%2fcceeusac.com%2fasignaciones%2fImagenes%2flogo_usac.png&ehk=KplsqbdMJu2aTx%2bzT5h2DGcFKOP5faojo95W%2bTVxoPM%3d&risl=&pid=ImgRaw';
-        doc.addImage(imgData, 'JPEG', 140, 10, 65, 65);
+        doc.addImage(imgData, 'JPEG', 130, 30, 65, 65);
         doc.setFontSize(19)
-        doc.text('FICHA DE RESERVACION - Biblioteca Ingenieria', 20, 10)
-        doc.setFontSize(16)
-        doc.text('Nombre: '+this.prestamoDetalles.nombre,20, 20);
-        doc.text('Apellido: '+this.prestamoDetalles.apellido,20, 30);
-        doc.text('DPI: '+this.prestamoDetalles.DPI,20, 40);
-        doc.text('Carnet: '+this.prestamoDetalles.carnet,20, 50);
-        doc.text('Carrera: '+this.prestamoDetalles.carrera,20, 60);
-        doc.text('Fecha Inicio: '+this.prestamoDetalles.fechaInicio,20, 70);
-        doc.text('Fecha Fin: '+this.prestamoDetalles.fechaFin,20, 80);
-        doc.text('Costo: Q. '+this.prestamoDetalles.costo,20, 90);
-        doc.text('Codigo de Reservacion: '+this.prestamoDetalles.codigoReservacion,20, 100);
-        doc.text('Codigo del Libro: '+this.prestamoDetalles.codigoLibro,20, 110);
-        doc.save('reservacionIngCunoc.pdf');
+        doc.text('Ficha de Reservacion - Biblioteca Ingenieria', 45, 23)
+        doc.setFontSize(14)  
+        doc.text('Nombre: '+this.prestamoDetalles.nombre,30, 35);
+        doc.text('Apellido: '+this.prestamoDetalles.apellido,30, 45);
+        doc.text('DPI: '+this.prestamoDetalles.dpi,30, 55);
+        doc.text('Carnet: '+this.prestamoDetalles.carnet,30, 65);
+        doc.text('Carrera: '+this.prestamoDetalles.carrera,30, 75);
+        doc.text('Estado de reservación: '+this.prestamoDetalles.estado,30, 85);
+        doc.text('Codigo de Reservacion: '+this.prestamoDetalles.codigoReservacion,30, 95);
+        doc.text('Codigo del Libro: '+this.prestamoDetalles.codigoLibro,30, 105); 
+        doc.setFontSize(9)  
+        doc.text('*Recuerda presentar al menos un documento de identifiación para poder recibir el libro en biblioteca.*',35, 118);
+        doc.save(this.prestamoDetalles.nombre+'_Reservacion_'+this.codigoReservacionVar+'.pdf');
       },
       err => {
         this.toastr.error(err.error.mensaje, 'Fail', {
@@ -57,5 +60,9 @@ export class ReservaLibroComponent implements OnInit {
     );  
   }
   
+  obtenerDatos(){
+    let codigoRecivido = localStorage.getItem("codigoReservacion");
+    this.codigoReservacionVar = codigoRecivido;
+  }
 
 }

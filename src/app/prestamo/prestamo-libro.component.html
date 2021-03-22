@@ -12,65 +12,69 @@
         <mat-icon>login</mat-icon>
     </button>
 </mat-toolbar>
+<br>
 <div class="content" role="main">
     <div class="container col-md-6">
         <div class="card">
-            <div class="card-header">
-                <h3>Información de Prestamo</h3>
-            </div>
             <div class="card-body">
                 <div style="text-align: center">
                     <h1>
-                        PRESTAMO
+                            Formulario de Reservacion
                     </h1>
+                    <h2>Libro: {{ nombreVar }}</h2>                   
                 </div>
-                <form action="">
+                <ul>
+                    <li>Recuerda que tu reservación se confirmará hasta el momento en que envies este formulario.</li>
+                    <li>Las reservaciones son válidas por 24 horas.</li>
+                </ul>
+                <form (ngSubmit)="generarReservacion()" novalidate #f="ngForm">
                     <div class="form-group">
                         <label for="">Nombres:</label>
-                        <input type="text" class="form-control" id="Nombre" name="Nombre" required>
+                        <input type="text" class="form-control" id="Nombre" [(ngModel)]="nombre" name="nombre" required>
                     </div>
                     <div class="form-group">
                         <label for="">Apelllidos:</label>
-                        <input type="text" class="form-control" id="Apelllidos" name="Apelllidos" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="">DPI:</label>
-                        <input type="number" class="form-control" id="DPI" name="DPI" required><br>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Carrera:</label>
-                        <input type="text" class="form-control" id="Carrera" name="Carrera" required><br>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Fecha Inicio de Prestamo:</label>
-                        <input type="date" class="form-control" id="fechaInicio" name="fechaInicio" required><br>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Fecha Fin de Prestamo:</label>
-                        <input type="date" class="form-control" id="fechaFin" name="fechaFin" required><br>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Codigo Libro:</label>
-                        <br>
-                        <label for="">AQUI VA EL CODIGO QUE SE PASA POR METODO POST</label>
-                        <br>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="">Costo:</label>
-                        <br>
-                        <label for="">AQUI VA EL PRECIO QUE SE PASA POR METODO POST </label>
-
-                        <br>
+                        <input type="text" class="form-control" id="Apelllidos" [(ngModel)]="apellido" name="apelllidos" required>
                     </div>
                     <div class="form-group">
                         <label for="">Carnet:</label>
-                        <input type="number" class="form-control" id="carnet" name="carnet" required><br>
+                        <input type="text" class="form-control" id="carnet" [(ngModel)]="carnet" name="carnet" maxlength="9" required><br>
                     </div>
-                    <input type="checkbox" onclick="siguiente.disabled=!this.checked">Acepta Terminos y Condiciones<br>
-                    <br>
-                    <button id="siguiente" disabled onclick="location.href='/reserva'"
-                        class="btn btn-danger">Reservar</button>
+                    <div class="form-group">
+                        <label for="">DPI:</label>
+                        <input type="text" class="form-control" id="DPI" [(ngModel)]="DPI" name="DPI" maxlength="13" required><br>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Carrera:</label>
+                       <!--  <input type="text" class="form-control" id="Carrera" [(ngModel)]="carrera" name="carrera" required><br> -->
+                        <select class="form-select" aria-label="Default select example" id="Carrera" [(ngModel)]="carrera" name="carrera" required>
+                            <option value="INGENIERIA CIVIL">INGENIERIA CIVIL</option>
+                            <option value="INGENIERIA MECANICA">INGENIERIA MECANICA</option>
+                            <option value="INGENIERIA INDUSTRIAL">INGENIERIA INDUSTRIAL</option>
+                            <option value="INGENIERIA EN CIENCIAS Y SISTEMAS">INGENIERIA EN CIENCIAS Y SISTEMAS</option>
+                            <option value="INGENIERIA MECANICA INDUSTRIAL">INGENIERIA MECANICA INDUSTRIAL</option>
+                            <option value="CC. JURIDICAS Y SOCIALES">CC. JURIDICAS Y SOCIALES</option>
+                            <option value="ECONOMIA">ECONOMIA</option>
+                            <option value="ADMINISTRACION DE EMPRESAS">ADMINISTRACION DE EMPRESAS</option>
+                            <option value="AUDITORIA Y CONTADURIA PUBLICA">AUDITORIA Y CONTADURIA PUBLICA</option>
+                            <option value="PSICOLOGIA">PSICOLOGIA</option>
+                            <option value="TRABAJO SOCIAL">TRABAJO SOCIAL</option>
+                            <option value="PEDAGOGIA ">PEDAGOGIA </option>
+                            <option value="P.E.M. EN MATEMATICA Y FISICA">P.E.M. EN MATEMATICA Y FISICA</option>
+                            <option value="MEDICO Y CIRUJANO">MEDICO Y CIRUJANO</option>
+                            <option value="LIC. EN ENFERMERIA">LIC. EN ENFERMERIA</option>
+                            <option value="AGRONOMIA">AGRONOMIA</option>
+                            <option value="AGRIMENSURA">AGRIMENSURA</option>
+                            <option value="INGENIERIA EN GESTION AMBIENTAL">INGENIERIA EN GESTION AMBIENTAL</option>
+                            <option value="ARQUITECTURA">ARQUITECTURA</option>
+                            <option value="ODONTOLOGIA">ODONTOLOGIA</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="checkbox" required> Acepto Terminos y Condiciones
+                    </div>
+                    <button id="siguiente" disabled class="btn btn-danger" [disabled]="!f.valid">Reservar</button>
                 </form>
             </div>
         </div>

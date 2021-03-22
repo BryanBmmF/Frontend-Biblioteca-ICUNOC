@@ -14,9 +14,8 @@ export class LibrosService {
   libroURL = 'http://localhost:8082/ingresoLibro/'; 
 
   getLibroId(id:String){
-    return this.http.get<Libro>("http://localhost:8082/detalleslibros/"+id);
+    return this.http.get<Libro>("http://localhost:8082/detalleslibros/"+ `${id}`);
   }
-
 
 //CODIGO PARA CRUD DE LIBRO
   public lista(): Observable<Libro[]>{
