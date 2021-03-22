@@ -26,7 +26,7 @@ export class CategoryCreatorComponent {
       const category = new Categoria(this.nombre, this.descripcion);
       this.categoryService.save(category).subscribe(
         data => {
-          this.toastr.success('Usuario Registrado!', 'Ok!', {
+          this.toastr.success('Categoría registrada', 'Ok!', {
             timeOut: 5000, positionClass: 'toast-top-center'
           });
           form.reset();

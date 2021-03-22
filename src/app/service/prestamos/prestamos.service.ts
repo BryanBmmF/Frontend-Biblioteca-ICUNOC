@@ -10,9 +10,14 @@ export class PrestamosService {
 
   constructor(private http:HttpClient) { }
 
-  productoURL = 'http://localhost:8082/reserva/';
+  prestamosURL = 'http://localhost:8082/prestamos/';
 
   public detail(id: string): Observable<Prestamo> {
-    return this.http.get<Prestamo>(this.productoURL + `${id}`);
+    return this.http.get<Prestamo>(this.prestamosURL + `${id}`);
   }
+
+  public save(nuevaReservacion: Prestamo): Observable<any>{
+    return this.http.post<any>(this.prestamosURL+'crearReservacion',nuevaReservacion);
+  }
+
 }

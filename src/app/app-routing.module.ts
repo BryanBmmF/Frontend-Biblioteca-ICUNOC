@@ -32,7 +32,7 @@ const routes: Routes = [
   { path: 'ingresoLibro', component: IngresoLibroComponent },
 
   { path: 'prestamo', component: PrestamoLibroComponent },
-  { path: 'reserva', component: ReservaLibroComponent },
+  { path: 'reservacionConfirmada', component: ReservaLibroComponent },
 
   { path: 'registrarDevolucion', component: RegistrarDevolucionComponent },
   { path: 'registrarPrestamo', component: RevisionPrestamoComponent },

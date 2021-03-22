@@ -1,25 +1,96 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Libro } from 'src/app/models/libro';
+import { PrestamosService } from 'src/app/service/prestamos/prestamos.service';
 import { LibrosService } from 'src/app/service/libros/libros.service';
+import { Prestamo } from '../models/Prestamo';
 import { UsersService } from '../service/users/users.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-prestamo-libro',
   templateUrl: './prestamo-libro.component.html',
   styleUrls: ['./prestamo-libro.component.css']
 })
+
 export class PrestamoLibroComponent implements OnInit {
 
-  constructor(private router:Router, private service:LibrosService, private userService: UsersService) { }
+  libroRecivido: Libro;
+  libroVerificacion: Libro;
+  codigoVar:string;
+  nombreVar:string;
+  idLibroVar:string;
+  codigoReservacionVar:string;
+
+  constructor(private router:Router, 
+    private prestamoService:PrestamosService, 
+    private librosService:LibrosService, 
+    private toastr: ToastrService,
+    private userService: UsersService) { }
+
+  nombre:string;
+  apellido:string;
+  DPI:string;
+  carnet:string;
+  carrera:string;
 
   ngOnInit(): void {
- console.log(this.generaCodigoReserva());
+    this.obtenerDatos();
   }
-//metodo para generar el codigo aleatorio, falta llamarlo donde corresponde
+
+async generarReservacion() {
+      this.librosService.getLibroId(this.idLibroVar)
+      .subscribe(data=>{
+      this.libroVerificacion=data;
+      //Verificamos en el momento de presionar el boton que exista stock suficiente del libro a reservar
+      if(this.libroVerificacion.stock >= 1){
+          if (confirm("¿Esta seguro de reservar este libro?")) {
+          const nuevoPrestamo = new Prestamo(this.nombre, this.apellido, this.DPI, this.carnet,this.carrera,'','','',0,'RESERVADO',this.codigoReservacionVar,this.codigoVar);
+          this.prestamoService.save(nuevoPrestamo).subscribe(
+            data => {
+              this.toastr.success('Reservación Registrada', 'Ok!', {
+                timeOut: 5000, positionClass: 'toast-top-center'
+              });
+              this.confirmarBoletaReservación(this.codigoReservacionVar);
+            },
+            err => {
+              this.toastr.error(err.error.mensaje, 'Hubo un Error!', {
+                timeOut: 5000, positionClass: 'toast-top-center'
+              });
+              this.router.navigate(['/']);
+            }
+          );
+          }
+      } 
+      //Si no hay suficientes libros emitimos una alerta al usuario.
+      else {
+        this.toastr.error('Este libro ya no cuenta con existencias para reservar.', 'Ups!', {
+          timeOut: 5000, positionClass: 'toast-top-center'
+        });
+      }
+    })
+  }
+
+  //Metodo para confirmar que la reservación fue realizada y redirigimos a la pagina para descarga de pdf
+  confirmarBoletaReservación(codigoReservacion){
+    localStorage.setItem("codigoReservacion", codigoReservacion);
+    this.router.navigate(["reservacionConfirmada"]);
+  }
+
+  obtenerDatos(){
+    let libroRcodigo = localStorage.getItem("codigoLibro");
+    let libroRnombre = localStorage.getItem("nombreLibro");
+    let libroRid = localStorage.getItem("idLibro");
+    this.nombreVar = libroRnombre;
+    this.codigoVar = libroRcodigo;
+    this.idLibroVar = libroRid;
+    this.codigoReservacionVar = this.generaCodigoReserva();
+  }
+
+  //metodo para generar el codigo aleatorio, falta llamarlo donde corresponde
   generaCodigoReserva() {
     let result = '';
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     const charactersLength = characters.length;
     for (let i = 0; i < 8; i++) {
         result += characters.charAt(Math.floor(Math.random() * charactersLength));

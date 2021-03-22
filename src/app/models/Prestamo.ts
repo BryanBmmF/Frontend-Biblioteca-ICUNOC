@@ -2,34 +2,37 @@ export class Prestamo{
     id?:number;
     nombre:string;
     apellido:string;
-    DPI:number;
-    carnet:number;
+    dpi:string;
+    carnet:string;
     carrera:string;
+    fechaReservacion:string;
     fechaInicio:string;
     fechaFin:string;
     costo:number;
-    estado: number;
+    estado: string;
     codigoReservacion: string;
     codigoLibro: string;
 
     constructor(
         nombre:string,
         apellido:string,
-        DPI:number,
-        carnet:number,
+        dpi:string,
+        carnet:string,
         carrera:string,
+        fechaReservacion:string,
         fechaInicio:string,
         fechaFin:string,
         costo:number,
-        estado: number,
+        estado: string,
         codigoReservacion: string,
         codigoLibro: string
     ){
         this.nombre=nombre;
         this.apellido=apellido;
-        this.DPI=DPI;
+        this.dpi=dpi;
         this.carnet=carnet;
         this.carrera=carrera;
+        this.fechaReservacion = fechaReservacion;
         this.fechaInicio=fechaInicio;
         this.fechaFin=fechaFin;
         this.costo=costo;
