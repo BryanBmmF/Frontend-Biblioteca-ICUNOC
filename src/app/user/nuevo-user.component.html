@@ -53,6 +53,13 @@
         <mat-label>Usuario: </mat-label>
         <input type="text" [(ngModel)]="username" name="user" matInput placeholder="mi_usuario" required>
       </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Tipo de Usuario: </mat-label>
+        <mat-select [(ngModel)]="tipoUser" name="tipoUser" required>
+          <mat-option value="Administrador">Administrador</mat-option>
+          <mat-option value="Bibliotecario">Bibliotecario</mat-option>
+        </mat-select>
+      </mat-form-field>
       <mat-form-field>
         <mat-label>Contraseña: </mat-label>
         <input type="password" [(ngModel)]="password" name="password" matInput placeholder="mi contraseña" required>

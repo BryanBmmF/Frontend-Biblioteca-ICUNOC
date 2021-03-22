@@ -44,8 +44,21 @@ export class IngresoLibroComponent implements OnInit {
     imagen :string;
     stock: number ;
     categoria :number;
-   
+    buttonUsers: boolean = false;
   ngOnInit() {
+    //comprobar sesion
+    if (!(this.userService.getLoggedInUserRoleAdmin() || this.userService.getLoggedInUserRoleBibliotecario())) {
+      this.router.navigate(['/']);
+    } else {
+      /* Codigo que se quiera cargar al inicio */
+      this.validarMenu();
+    }
+  }
+
+  validarMenu() {
+    if (this.userService.getLoggedInUserRoleBibliotecario()) {
+      this.buttonUsers = !this.buttonUsers;
+    }
   }
 
   onCreate(): void {      

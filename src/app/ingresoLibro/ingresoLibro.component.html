@@ -19,7 +19,7 @@
     <button routerLink="/ingresoLibro" mat-menu-item>Registrar Libro</button>
     <button routerLink="/listaCategoriasAdmin" mat-menu-item>Lista de Categorias</button>
   </mat-menu>
-  <button mat-button [matMenuTriggerFor]="afterMenu">Usuarios</button>
+  <button [disabled]="buttonUsers" mat-button [matMenuTriggerFor]="afterMenu">Usuarios</button>
   <mat-menu #afterMenu="matMenu" xPosition="after">
     <button routerLink="/usuarios" mat-menu-item>Lista de Usuarios</button>
     <button routerLink="/registro-usuario" mat-menu-item>Registrar Usuario</button>

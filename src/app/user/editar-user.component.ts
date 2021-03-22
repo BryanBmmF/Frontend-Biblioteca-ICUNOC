@@ -11,8 +11,9 @@ import { UsersService } from '../service/users/users.service';
   styleUrls: ['./editar-user.component.css']
 })
 export class EditarUserComponent implements OnInit {
-  
+
   confirmPassword: string;
+  //tipoUser: string;
   user: User = null;
 
   constructor(private userService: UsersService,
@@ -21,18 +22,25 @@ export class EditarUserComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
-    const id = this.activatedRoute.snapshot.params.id;
-    this.userService.detailId(id).subscribe(
-      data => {
-        this.user = data;
-      },
-      err => {
-        //si sucede algun fallo, mostramos el error que envia la api
-        this.toastr.error(err.error.mensaje, 'Fail!', {
-          timeOut: 5000, positionClass: 'toast-top-center'
-        });
-      }
-    );
+    //comprobar sesion
+    if (!this.userService.getLoggedInUserRoleAdmin()) {
+      this.router.navigate(['/']);
+    } else {
+      /* Codigo que se quiera cargar al inicio */
+      const id = this.activatedRoute.snapshot.params.id;
+      this.userService.detailId(id).subscribe(
+        data => {
+          this.user = data;
+        },
+        err => {
+          //si sucede algun fallo, mostramos el error que envia la api
+          this.toastr.error(err.error.mensaje, 'Fail!', {
+            timeOut: 5000, positionClass: 'toast-top-center'
+          });
+        }
+      );
+    }
+
   }
 
   onUpdate(): void {
@@ -40,6 +48,7 @@ export class EditarUserComponent implements OnInit {
     if (confirm("Esta seguro de actualizar los datos de este usuario!")) {
       if (this.user.password == this.confirmPassword) {
         const id = this.activatedRoute.snapshot.params.id;
+        //this.user.tipo = this.tipoUser;
         this.userService.update(id, this.user).subscribe(
           data => {
             //si todo va bien

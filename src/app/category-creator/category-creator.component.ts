@@ -14,13 +14,28 @@ import { CategoryService } from '../service/category.service';
 export class CategoryCreatorComponent {
   nombre: string;
   descripcion: string;
+  buttonUsers: boolean = false;
 
   constructor(private userService: UsersService,
     private categoryService: CategoryService,
     private toastr: ToastrService,
     private router: Router) { }
 
+  ngOnInit(): void {
+    //comprobar sesion
+    if (!(this.userService.getLoggedInUserRoleAdmin() || this.userService.getLoggedInUserRoleBibliotecario())) {
+      this.router.navigate(['/']);
+    } else {
+      /* Codigo que se quiera cargar al inicio */
+      this.validarMenu();
+    }
 
+  }
+  validarMenu() {
+    if (this.userService.getLoggedInUserRoleBibliotecario()) {
+      this.buttonUsers = !this.buttonUsers;
+    }
+  }
   onCreate(form: NgForm): void {
     if (confirm("¿Esta seguro de registrar esta categoría?")) {
       const category = new Categoria(this.nombre, this.descripcion);

@@ -18,7 +18,14 @@ export class ListaUserComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
-    this.cargarUsuarios();
+    //comprobar sesion
+    if (!this.userService.getLoggedInUserRoleAdmin()) {
+      this.router.navigate(['/']);
+    } else {
+      /* Codigo que se quiera cargar al inicio */
+      this.cargarUsuarios();
+    }
+    
   }
 
   cargarUsuarios(): void {
