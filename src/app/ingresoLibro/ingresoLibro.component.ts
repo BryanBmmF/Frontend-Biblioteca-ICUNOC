@@ -72,7 +72,7 @@ export class IngresoLibroComponent implements OnInit {
           this.LibroService.save(new Libro(this.autor,this.codigo,this.edicion,this.fechaPublicacion,this.idioma,this.nombre,'',this.stock,this.categoria)).subscribe(
             (book) => {
               this.bookAddedEvent.emit();
-              this.router.navigate(['/ingresoLibro']);
+              this.router.navigate(['/listaLibro']);
             }
           );
           console.log('Image uploaded successfully');

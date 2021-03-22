@@ -1,0 +1,77 @@
+<mat-toolbar color="primary">
+    <img width="40" alt="USAC Logo"
+      src="https://th.bing.com/th/id/R357b881f7404a7510172712ba8df9b7a?rik=1F6J6d8A%2bhOR5g&riu=http%3a%2f%2fcceeusac.com%2fasignaciones%2fImagenes%2flogo_usac.png&ehk=KplsqbdMJu2aTx%2bzT5h2DGcFKOP5faojo95W%2bTVxoPM%3d&risl=&pid=ImgRaw" />
+    <span>Biblioteca Ingeniería</span>
+    <span class="example-spacer"></span>
+    <button mat-button [matMenuTriggerFor]="belowMenu">Prestamos</button>
+    <mat-menu #belowMenu="matMenu" yPosition="below">
+      <button routerLink="/registrarPrestamo" mat-menu-item>Revisar Prestamos</button>
+      <button routerLink="/registrarPrestamo" mat-menu-item>Registrar Prestamo</button>
+    </mat-menu>
+    <button mat-button [matMenuTriggerFor]="belowMenu">Devoluciones</button>
+    <mat-menu #belowMenu="matMenu" yPosition="below">
+      <button routerLink="/registrarDevolucion" mat-menu-item>Revisar Devoluciones</button>
+      <button routerLink="/registrarDevolucion" mat-menu-item>Registrar Devolucion</button>
+    </mat-menu>
+    <button mat-button [matMenuTriggerFor]="beforeMenu">Biblioteca</button>
+    <mat-menu #beforeMenu="matMenu" xPosition="before">
+      <button routerLink="/listaLibro" mat-menu-item>Listado de Libros</button>
+      <button routerLink="/ingresoLibro" mat-menu-item>Registrar Libro</button>
+      <button routerLink="/listaCategoriasAdmin" mat-menu-item>Lista de Categorias</button>
+    </mat-menu>
+    <button mat-button [matMenuTriggerFor]="afterMenu">Usuarios</button>
+    <mat-menu #afterMenu="matMenu" xPosition="after">
+      <button routerLink="/usuarios" mat-menu-item>Lista de Usuarios</button>
+      <button routerLink="/registro-usuario" mat-menu-item>Registrar Usuario</button>
+    </mat-menu>
+  </mat-toolbar>
+  
+    <div class="row mt-5">
+      <div class="container">
+        <div class="card highlight-card card-small">
+          <br><br><br>
+      
+          <h2>EDICION LIBRO</h2>
+      
+      
+        </div>
+        <div class="col-md-4 mx-auto" *ngIf="libro">
+          <form (ngSubmit)="onUpdate()" novalidate #f="ngForm">
+                
+                <div class="form-group">
+                    <label for="autor">Autor</label>
+                    <input type="text" class="form-control" id="autor" placeholder="Autor del libro" [(ngModel)]="libro.autor" name="autor">
+                </div>
+                <div class="form-group">
+                  <label for="Codigo">Codigo</label>
+                  <input type="text" class="form-control" id="codigo" placeholder="Código del libro" name="codigo" [(ngModel)]="libro.codigo" required>
+                </div>
+                <div class="form-group">
+                  <label for="edicion">Edicion</label>
+                  <input type="number" class="form-control" id="edicion" placeholder="Edición" name="edicion" [(ngModel)]="libro.edicion">
+                </div>
+                <div class="form-group">
+                  <label for="idioma">Idioma</label>
+                  <input type="text" class="form-control" id="idioma" name="idioma" [(ngModel)]="libro.idioma" required>
+                </div>
+                <div class="form-group">
+                  <label for="nombre">Nombre</label>
+                  <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Titulo del libro" [(ngModel)]="libro.nombre" required>
+                </div>
+                <div class="form-group">
+                  <label for="Imagen">Imagen</label><br>
+                  <input type="file" (change)="onFileChanged($event)">
+                  <img [src]="imgURL" height="200" width="200" *ngIf="imgURL">
+                </div>
+                <div class="form-group">
+                  <label for="Stock">Stock</label>
+                  <input type="number" class="form-control" id="Stock" name="stock" [(ngModel)]="libro.stock" required>
+                </div>
+                <div class="form-group">
+                  <label for="Categoria">Categoria</label>
+                  <input type="number" class="form-control" id="idCategoria" name="idCategoria" [(ngModel)]="libro.categoria" required>
+                </div>
+                <button class="btn btn-outline-success btn-block" [disabled]="!f.valid">Actualizar</button>
+            </form>
+        </div>
+    </div>
