@@ -4,6 +4,8 @@ import { LibrosService } from '../service/libros/libros.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UsersService } from '../service/users/users.service';
+import { Categoria } from '../models/categoria';
+import { CategoryService } from '../service/category.service';
 
 @Component({
   selector: 'app-editar-libro',
@@ -14,8 +16,11 @@ export class EditarLibroComponent implements OnInit {
 
   libro: Libro = null;
   buttonUsers: boolean = false;
+  categorias: Categoria[];
+  categoriaElegida: Categoria = null;
   constructor(
     private libroService: LibrosService,
+    private categoryService: CategoryService,
     private activatedRoute: ActivatedRoute,
     private userService: UsersService,
     private toastr: ToastrService,
@@ -23,6 +28,7 @@ export class EditarLibroComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.categoryService.lista().subscribe(categoria => this.categorias = categoria);
     //comprobar sesion
     if (!(this.userService.getLoggedInUserRoleAdmin() || this.userService.getLoggedInUserRoleBibliotecario())) {
       this.router.navigate(['/']);
@@ -64,7 +70,7 @@ export class EditarLibroComponent implements OnInit {
         this.toastr.error(err.error.mensaje, 'Fail', {
           timeOut: 3000, positionClass: 'toast-top-center',
         });
-        this.router.navigate(['/']);
+        this.router.navigate(['/listaLibro']);
       }
     );
   }
