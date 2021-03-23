@@ -72,9 +72,9 @@
                     </div>
 
                     <div class="form-group">
-                        <input type="checkbox" required> Acepto Terminos y Condiciones
+                        <input type="checkbox"  onclick="confirmarReserva.disabled=!this.checked"> Acepto los <a href="url">Terminos y Condiciones</a>  <br>
                     </div>
-                    <button id="siguiente" disabled class="btn btn-danger" [disabled]="!f.valid">Reservar</button>
+                    <button id="confirmarReserva" disabled class="btn btn-danger">Reservar</button>
                 </form>
             </div>
         </div>

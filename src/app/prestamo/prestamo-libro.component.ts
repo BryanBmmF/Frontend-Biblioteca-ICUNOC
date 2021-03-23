@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Libro } from 'src/app/models/libro';
 import { PrestamosService } from 'src/app/service/prestamos/prestamos.service';
 import { LibrosService } from 'src/app/service/libros/libros.service';
@@ -21,10 +21,12 @@ export class PrestamoLibroComponent implements OnInit {
   nombreVar:string;
   idLibroVar:string;
   codigoReservacionVar:string;
+  nuevoStock:number;
 
   constructor(private router:Router, 
     private prestamoService:PrestamosService, 
-    private librosService:LibrosService, 
+    private librosService:LibrosService,
+    private activatedRoute: ActivatedRoute,
     private toastr: ToastrService,
     private userService: UsersService) { }
 
@@ -44,6 +46,10 @@ async generarReservacion() {
       this.libroVerificacion=data;
       //Verificamos en el momento de presionar el boton que exista stock suficiente del libro a reservar
       if(this.libroVerificacion.stock >= 1){
+        this.nuevoStock = this.libroVerificacion.stock -1;
+        console.log("El nuevo stock es: "+this.nuevoStock);
+        this.libroVerificacion.stock = this.nuevoStock;
+        console.log(this.libroVerificacion);
           if (confirm("¿Esta seguro de reservar este libro?")) {
           const nuevoPrestamo = new Prestamo(this.nombre, this.apellido, this.DPI, this.carnet,this.carrera,'','','',0,'RESERVADO',this.codigoReservacionVar,this.codigoVar);
           this.prestamoService.save(nuevoPrestamo).subscribe(
@@ -51,6 +57,10 @@ async generarReservacion() {
               this.toastr.success('Reservación Registrada', 'Ok!', {
                 timeOut: 5000, positionClass: 'toast-top-center'
               });
+              //En este punto actualizamos el stock del libro reservado
+              this.librosService.update(this.libroVerificacion.idLibro, this.libroVerificacion).subscribe(
+                data => {
+                });
               this.confirmarBoletaReservación(this.codigoReservacionVar);
             },
             err => {
