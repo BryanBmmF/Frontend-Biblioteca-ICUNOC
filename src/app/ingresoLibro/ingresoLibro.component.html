@@ -55,9 +55,13 @@
           <input type="date" class="form-control" id="fechaPublicacion" name="fechaPublicacion" [(ngModel)]="fechaPublicacion">
         </div>
         <div class="form-group">
-          <label for="idioma">Idioma</label>
-          <input type="text" class="form-control" id="idioma" name="idioma" [(ngModel)]="idioma" required>
-        </div>
+          <label for="">Idioma:</label>
+         <!--  <input type="text" class="form-control" id="Carrera" [(ngModel)]="carrera" name="carrera" required><br> -->
+          <select class="form-select" aria-label="Default select example" id="idioma" [(ngModel)]="idioma" name="idioma" required>
+              <option value="INGLES">INGLES</option>
+              <option value="ESPAÑOL">ESPAÑOL</option>
+          </select>
+      </div>
         <div class="form-group">
           <label for="nombre">Nombre</label>
           <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Titulo del libro" [(ngModel)]="nombre" required>
@@ -77,8 +81,13 @@
           <input type="number" class="form-control" id="Stock" name="stock" [(ngModel)]="stock" required>
         </div>
         <div class="form-group">
-          <label for="Categoria">Categoria</label>
-          <input type="number" class="form-control" id="idCategoria" name="idCategoria" [(ngModel)]="categoria" required>
+          <label for="formFile" class="form-label">Categoria:  </label>
+          <br>
+          <select class="form-select" aria-label="Default select example" [(ngModel)]="categoria" name="Categorias">
+            <option *ngFor="let categoria of categorias" [ngValue]="categoria.idCategoria">
+              {{categoria.nombre}}
+            </option>
+          </select> 
         </div>
         <button class="btn btn-outline-success btn-block" [disabled]="!f.valid">Crear</button>
     </form>

@@ -54,9 +54,13 @@
             [(ngModel)]="libro.edicion">
         </div>
         <div class="form-group">
-          <label for="idioma">Idioma</label>
-          <input type="text" class="form-control" id="idioma" name="idioma" [(ngModel)]="libro.idioma" required>
-        </div>
+          <label for="formFile" class="form-label">Idioma:  </label>
+          <br>
+          <select class="form-select" aria-label="Default select example" id="idioma" [(ngModel)]="libro.idioma" name="idioma" required>
+              <option value="INGLES">INGLES</option>
+              <option value="ESPAÑOL">ESPAÑOL</option>
+          </select>
+      </div>
         <div class="form-group">
           <label for="nombre">Nombre</label>
           <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Titulo del libro"
@@ -72,9 +76,13 @@
           <input type="number" class="form-control" id="Stock" name="stock" [(ngModel)]="libro.stock" required>
         </div>
         <div class="form-group">
-          <label for="Categoria">Categoria</label>
-          <input type="number" class="form-control" id="idCategoria" name="idCategoria" [(ngModel)]="libro.categoria"
-            required>
+          <label for="formFile" class="form-label">Categoria:  </label>
+          <br>
+          <select class="form-select" aria-label="Default select example" [(ngModel)]="libro.idCategoria" name="Categorias">
+            <option *ngFor="let categoria of categorias" [ngValue]="categoria.idCategoria">
+              {{categoria.nombre}}
+            </option>
+          </select> 
         </div>
         <button class="btn btn-outline-success btn-block" [disabled]="!f.valid">Actualizar</button>
       </form>

@@ -6,9 +6,11 @@ import { MatTableModule } from '@angular/material/table';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Libro } from "../models/libro";
 import { LibrosService } from '../service/libros/libros.service';
+import { CategoryService } from '../service/category.service';
 import { ToastrService } from 'ngx-toastr';
 import { UsersService } from '../service/users/users.service';
 import { HttpClient } from '@angular/common/http';
+import { Categoria } from '../models/categoria';
 
 @Component({
   selector: 'app-ingresoLibro',
@@ -20,6 +22,8 @@ export class IngresoLibroComponent implements OnInit {
 
   @Input()
   nuevoLibro: Libro;
+  categorias: Categoria[];
+  categoriaElegida: Categoria = null;
 
   @Output()
   bookAddedEvent = new EventEmitter();
@@ -28,6 +32,7 @@ export class IngresoLibroComponent implements OnInit {
 
   constructor(
     private LibroService: LibrosService,
+    private categoryService: CategoryService,
     private userService: UsersService,
     private toastr: ToastrService,
     private activatedRoute: ActivatedRoute,
@@ -46,6 +51,7 @@ export class IngresoLibroComponent implements OnInit {
   categoria: number;
   buttonUsers: boolean = false;
   ngOnInit() {
+    this.categoryService.lista().subscribe(categoria => this.categorias = categoria);
     //comprobar sesion
     if (!(this.userService.getLoggedInUserRoleAdmin() || this.userService.getLoggedInUserRoleBibliotecario())) {
       this.router.navigate(['/']);
