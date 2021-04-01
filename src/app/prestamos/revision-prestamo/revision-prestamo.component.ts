@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Prestamo } from 'src/app/models/Prestamo';
+import { PrestamosService } from 'src/app/service/prestamos/prestamos.service';
 import { UsersService } from 'src/app/service/users/users.service';
 
 @Component({
@@ -9,8 +11,11 @@ import { UsersService } from 'src/app/service/users/users.service';
   styleUrls: ['./revision-prestamo.component.css']
 })
 export class RevisionPrestamoComponent implements OnInit {
+
+  prestamos: Prestamo[] = [];
   buttonUsers: boolean = false;
   constructor(private userService: UsersService,
+    private prestamoService: PrestamosService,
     private toastr: ToastrService,
     private router: Router) { }
 
@@ -20,7 +25,8 @@ export class RevisionPrestamoComponent implements OnInit {
       this.router.navigate(['/']);
     } else {
       /* Codigo que se quiera cargar al inicio */
-      this.validarMenu()
+      this.validarMenu();
+      this.cargarPrestamos();
     }
   }
 
@@ -28,6 +34,17 @@ export class RevisionPrestamoComponent implements OnInit {
     if (this.userService.getLoggedInUserRoleBibliotecario()) {
       this.buttonUsers = !this.buttonUsers;
     }
+  }
+
+  cargarPrestamos(): void {
+    this.prestamoService.lista().subscribe(
+      data => {
+        this.prestamos = data;
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 
   logout() {

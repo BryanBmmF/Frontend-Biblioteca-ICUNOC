@@ -28,8 +28,8 @@ export class DetalleLibroComponent implements OnInit {
     } else {
       /* Codigo que se quiera cargar al inicio */
       this.validarMenu();
-      const id = this.activatedRoute.snapshot.params.id;
-      this.libroService.detalle(id).subscribe(
+      const id = this.activatedRoute.snapshot.params.codigo;
+      this.libroService.detalleCodigo(id).subscribe(
         data => {
           this.libro = data;
         },
@@ -50,7 +50,7 @@ export class DetalleLibroComponent implements OnInit {
   }
 
   volver(): void {
-    this.router.navigate(['/listaLibro']);
+    this.router.navigate([window.history.back()]);
   }
 
   logout() {

@@ -25,6 +25,10 @@ export class LibrosService {
     return this.http.get<Libro>(this.libroURL+`detalleLibro/${id}`);
   }
 
+  public detalleCodigo(id:string): Observable<Libro>{
+    return this.http.get<Libro>(this.libroURL+`detalleLibroC/${id}`);
+  }
+
   public save(libro: Libro): Observable<any>{
     return this.http.post<any>(this.libroURL+'crearLibro',libro);
   }

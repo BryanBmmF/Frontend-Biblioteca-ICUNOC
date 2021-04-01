@@ -51,7 +51,7 @@ async generarReservacion() {
         this.libroVerificacion.stock = this.nuevoStock;
         console.log(this.libroVerificacion);
           if (confirm("¿Esta seguro de reservar este libro?")) {
-          const nuevoPrestamo = new Prestamo(this.nombre, this.apellido, this.DPI, this.carnet,this.carrera,'','','',0,'RESERVADO',this.codigoReservacionVar,this.codigoVar);
+          const nuevoPrestamo = new Prestamo(this.nombre, this.apellido, this.DPI, this.carnet,this.carrera,'','','',0,'RESERVADO',this.codigoReservacionVar,false,0,this.codigoVar);
           this.prestamoService.save(nuevoPrestamo).subscribe(
             data => {
               this.toastr.success('Reservación Registrada', 'Ok!', {
