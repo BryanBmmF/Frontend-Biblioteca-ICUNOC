@@ -11,6 +11,8 @@ export class Prestamo{
     costo:number;
     estado: string;
     codigoReservacion: string;
+    mora: boolean;
+    diasMoroso: number;
     codigoLibro: string;
 
     constructor(
@@ -25,6 +27,8 @@ export class Prestamo{
         costo:number,
         estado: string,
         codigoReservacion: string,
+        mora: boolean,
+        diasMoroso: number,
         codigoLibro: string
     ){
         this.nombre=nombre;
@@ -38,6 +42,8 @@ export class Prestamo{
         this.costo=costo;
         this.estado=estado;
         this.codigoReservacion=codigoReservacion;
+        this.mora=mora;
+        this.diasMoroso=diasMoroso;
         this.codigoLibro=codigoLibro;
     }
 }

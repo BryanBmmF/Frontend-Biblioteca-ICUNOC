@@ -36,6 +36,7 @@ const routes: Routes = [
   { path: 'ingresoLibro', component: IngresoLibroComponent },
   { path: 'editarLibro/:id', component: EditarLibroComponent },
   { path: 'detalleLibro/:id', component: DetalleLibroComponent },
+  { path: 'detalleLibroC/:codigo', component: DetalleLibroComponent },
   { path: 'listaLibro', component: ListaLibroComponent },
 
 
