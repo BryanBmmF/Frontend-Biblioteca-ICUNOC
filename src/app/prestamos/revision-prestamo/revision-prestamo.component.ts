@@ -49,6 +49,26 @@ export class RevisionPrestamoComponent implements OnInit {
     );
   }
 
+  onUpdate(codigoReservacion: string, nombre:string, costo:number): void {
+    if (confirm("FINALIZANDO PRESTAMO DE " + nombre + "\n" + "Total a pagar: Q." + costo)) {
+      this.prestamoService.finalizarPrestamo(codigoReservacion, this.prestamoCodigo).subscribe(
+        data => {
+          this.toastr.success('Pretamo Finalizado!', 'Ok!', {
+            timeOut: 2000, positionClass: 'toast-top-center'
+          });
+          this.cargarPrestamos();
+        },
+        err => {
+          this.toastr.error(err.error.mensaje, 'Fail!', {
+            timeOut: 2000, positionClass: 'toast-top-center'
+          });
+          this.cargarPrestamos();
+        }
+      );
+
+    }
+
+  }
   cargarPrestamoUnico(): void{
     if(this.stringBusqueda.length==8){
       this.cargarPrestamosxCodigoReservacion(this.stringBusqueda);
