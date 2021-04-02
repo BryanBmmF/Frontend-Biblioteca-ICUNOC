@@ -48,7 +48,7 @@ const routes: Routes = [
   { path: 'reservacionConfirmada', component: ReservaLibroComponent },
 
   { path: 'registrarDevolucion', component: RegistrarDevolucionComponent },
-  { path: 'registrarPrestamo', component: RevisionPrestamoComponent },
+  { path: 'revisarPrestamos', component: RevisionPrestamoComponent },
   { path: 'listaCategoriasAdmin', component: CategoryListComponent },
   { path: 'crear-categoria', component: CategoryCreatorComponent },
   { path: 'actualizarCategoria/:id', component: CategoryEditorComponent },

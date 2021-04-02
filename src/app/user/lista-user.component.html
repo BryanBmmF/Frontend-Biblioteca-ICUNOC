@@ -1,5 +1,4 @@
 <!-- <p>lista-user works!</p> -->
-
 <mat-toolbar color="primary">
   <img width="40" alt="USAC Logo"
     src="https://th.bing.com/th/id/R357b881f7404a7510172712ba8df9b7a?rik=1F6J6d8A%2bhOR5g&riu=http%3a%2f%2fcceeusac.com%2fasignaciones%2fImagenes%2flogo_usac.png&ehk=KplsqbdMJu2aTx%2bzT5h2DGcFKOP5faojo95W%2bTVxoPM%3d&risl=&pid=ImgRaw" />
@@ -7,7 +6,7 @@
   <span class="example-spacer"></span>
   <button mat-button [matMenuTriggerFor]="prestamosMenu">Prestamos</button>
   <mat-menu #prestamosMenu="matMenu" yPosition="above">
-    <button routerLink="/registrarPrestamo" mat-menu-item>Revisar Prestamos</button>
+    <button routerLink="/revisarPrestamos" mat-menu-item>Revisar Prestamos</button>
     <button routerLink="/registrarPrestamo" mat-menu-item>Registrar Prestamo</button>
   </mat-menu>
   <button mat-button [matMenuTriggerFor]="devolucionesMenu">Devoluciones</button>
@@ -42,8 +41,9 @@
     <mat-card-header>
       <div mat-card-avatar class="example-header-image"></div>
       <mat-card-title>Usuarios del sistema</mat-card-title>
-      <mat-card-subtitle> <button routerLink="/registro-usuario" mat-raised-button color="accent">+ Nuevo Usuario</button> </mat-card-subtitle>
-      
+      <mat-card-subtitle> <button routerLink="/registro-usuario" mat-raised-button color="accent">+ Nuevo
+          Usuario</button> </mat-card-subtitle>
+
     </mat-card-header>
     <mat-card-content>
       <div class="col-auto">
@@ -71,7 +71,8 @@
               <td>{{user.tipo}}</td>
               <td><button class="btn btn-outline-primary" routerLink="/detalle/{{user.id}}"><i class="far fa-eye"></i>
                   Ver</button></td>
-              <td><button class="btn btn-outline-warning" routerLink="/editar-usuario/{{user.id}}"><i class="far fa-edit"></i>
+              <td><button class="btn btn-outline-warning" routerLink="/editar-usuario/{{user.id}}"><i
+                    class="far fa-edit"></i>
                   Editar</button></td>
               <td><button class="btn btn-outline-danger" (click)="borrar(user.id)"><i class="far fa-trash-alt"></i>
                   Eliminar</button></td>
@@ -80,7 +81,7 @@
         </table>
       </div>
     </mat-card-content>
-    
+
   </mat-card>
 
 </main>
@@ -96,5 +97,3 @@
     </svg>
   </div>
 </footer>
-
-
