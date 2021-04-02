@@ -39,4 +39,8 @@ export class PrestamosService {
   public listaxFechaInicio(fechaInicio: string): Observable<Prestamo[]>{
     return this.http.get<Prestamo[]>(this.prestamosURL+`FechaInicio/${fechaInicio}`);
   }
+
+  public finalizarPrestamo(codigoReservacion:string, prestamo: Prestamo): Observable<any>{
+    return this.http.put<any>(this.prestamosURL+`finalizar/${codigoReservacion}`,prestamo);
+  }
 }

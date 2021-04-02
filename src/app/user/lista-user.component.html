@@ -7,13 +7,8 @@
   <span class="example-spacer"></span>
   <button mat-button [matMenuTriggerFor]="belowMenu">Prestamos</button>
   <mat-menu #belowMenu="matMenu" yPosition="below">
-    <button routerLink="/registrarPrestamo" mat-menu-item>Revisar Prestamos</button>
+    <button routerLink="/revisarPrestamos" mat-menu-item>Revisar Prestamos</button>
     <button routerLink="/registrarPrestamo" mat-menu-item>Registrar Prestamo</button>
-  </mat-menu>
-  <button mat-button [matMenuTriggerFor]="belowMenu">Devoluciones</button>
-  <mat-menu #belowMenu="matMenu" yPosition="below">
-    <button routerLink="/registrarDevolucion" mat-menu-item>Revisar Devoluciones</button>
-    <button routerLink="/registrarDevolucion" mat-menu-item>Registrar Devolucion</button>
   </mat-menu>
   <button mat-button [matMenuTriggerFor]="beforeMenu">Biblioteca</button>
   <mat-menu #beforeMenu="matMenu" xPosition="before">
