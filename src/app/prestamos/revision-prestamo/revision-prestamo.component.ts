@@ -13,12 +13,14 @@ import { UsersService } from 'src/app/service/users/users.service';
 export class RevisionPrestamoComponent implements OnInit {
 
   prestamos: Prestamo[] = [];
+  prestamoCodigo: Prestamo;
   buttonUsers: boolean = false;
   constructor(private userService: UsersService,
     private prestamoService: PrestamosService,
     private toastr: ToastrService,
     private router: Router) { }
 
+  stringBusqueda: string; 
   ngOnInit(): void {
     //comprobar sesion
     if (!(this.userService.getLoggedInUserRoleAdmin() || this.userService.getLoggedInUserRoleBibliotecario())) {
@@ -40,6 +42,92 @@ export class RevisionPrestamoComponent implements OnInit {
     this.prestamoService.lista().subscribe(
       data => {
         this.prestamos = data;
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+  cargarPrestamoUnico(): void{
+    if(this.stringBusqueda.length==8){
+      this.cargarPrestamosxCodigoReservacion(this.stringBusqueda);
+    }else if(this.stringBusqueda.length==13){
+      this.cargarPrestamosxDPI(this.stringBusqueda);
+    }else if(this.stringBusqueda.length==9){
+      this.cargarPrestamosxCarnet(this.stringBusqueda);
+    }else if(this.stringBusqueda.length==10){
+      this.cargarPrestamosxFechaInicio(this.stringBusqueda);
+    }else{
+      this.toastr.error('Dato incorrecto! Intente de nuevo', 'Error!', {
+        timeOut: 2000, positionClass: 'toast-top-center'
+      });
+    }
+  }   
+
+  cargarPrestamosxCodigoReservacion(codigoReservacion: string): void {
+    this.prestamoService.listaxCodigoReservacion(codigoReservacion).subscribe(
+      data => {
+        if(data==null){
+          this.toastr.warning('No hay registros! Intente de nuevo', 'Error!', {
+            timeOut: 2000, positionClass: 'toast-top-center'
+          });
+        }else{
+          this.prestamos = [];
+          this.prestamos[0] = this.prestamoCodigo;
+          this.prestamos[0] = data;
+        }        
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+  cargarPrestamosxDPI(dpi: string): void {
+    this.prestamoService.listaxDPI(dpi).subscribe(
+      data => {
+        if(data.length==0){
+          this.toastr.warning('No hay registros! Intente de nuevo', 'Error!', {
+            timeOut: 2000, positionClass: 'toast-top-center'
+          });
+        }else{
+          this.prestamos = data;
+        }
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+  cargarPrestamosxCarnet(carnet: string): void {
+    this.prestamoService.listaxCarnet(carnet).subscribe(
+      data => {
+        if(data.length==0){
+          this.toastr.warning('No hay registros! Intente de nuevo', 'Error!', {
+            timeOut: 2000, positionClass: 'toast-top-center'
+          });
+        }else{
+          this.prestamos = data;
+        }
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+  cargarPrestamosxFechaInicio(fechaInicio: string): void {
+    this.prestamoService.listaxFechaInicio(fechaInicio).subscribe(
+      data => {
+        if(data.length==0){
+          this.toastr.warning('No hay registros! Intente de nuevo', 'Error!', {
+            timeOut: 2000, positionClass: 'toast-top-center'
+          });
+        }else{
+          this.prestamos = data;
+        }
       },
       err => {
         console.log(err);
