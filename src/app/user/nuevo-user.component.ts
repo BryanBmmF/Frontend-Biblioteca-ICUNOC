@@ -17,6 +17,7 @@ export class NuevoUserComponent {
   password: string;
   confirmPassword: string;
   tipoUser: string;
+  correo: string;
 
   constructor(private userService: UsersService,
     private toastr: ToastrService,
@@ -35,7 +36,7 @@ export class NuevoUserComponent {
     if (confirm("Esta seguro de registrar este usuario!")) {
       //antes evaluar las constraseñas si son iguales
       if (this.password == this.confirmPassword) {
-        const user = new User(this.nombre, this.numeroRegistro, this.username, this.password, this.tipoUser);
+        const user = new User(this.nombre, this.numeroRegistro, this.username, this.password, this.tipoUser, this.correo);
         this.userService.save(user).subscribe(
           data => {
             //si todo va bien

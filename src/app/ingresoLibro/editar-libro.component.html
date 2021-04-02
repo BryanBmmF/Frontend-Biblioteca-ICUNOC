@@ -3,19 +3,29 @@
     src="https://th.bing.com/th/id/R357b881f7404a7510172712ba8df9b7a?rik=1F6J6d8A%2bhOR5g&riu=http%3a%2f%2fcceeusac.com%2fasignaciones%2fImagenes%2flogo_usac.png&ehk=KplsqbdMJu2aTx%2bzT5h2DGcFKOP5faojo95W%2bTVxoPM%3d&risl=&pid=ImgRaw" />
   <span>Biblioteca Ingeniería</span>
   <span class="example-spacer"></span>
-  <button mat-button [matMenuTriggerFor]="belowMenu">Prestamos</button>
-  <mat-menu #belowMenu="matMenu" yPosition="below">
+  <button mat-button [matMenuTriggerFor]="prestamosMenu">Prestamos</button>
+  <mat-menu #prestamosMenu="matMenu" yPosition="above">
     <button routerLink="/revisarPrestamos" mat-menu-item>Revisar Prestamos</button>
     <button routerLink="/registrarPrestamo" mat-menu-item>Registrar Prestamo</button>
   </mat-menu>
-  <button mat-button [matMenuTriggerFor]="beforeMenu">Biblioteca</button>
-  <mat-menu #beforeMenu="matMenu" xPosition="before">
+  <button mat-button [matMenuTriggerFor]="devolucionesMenu">Devoluciones</button>
+  <mat-menu #devolucionesMenu="matMenu" yPosition="below">
+    <button routerLink="/registrarDevolucion" mat-menu-item>Revisar Devoluciones</button>
+    <button routerLink="/registrarDevolucion" mat-menu-item>Registrar Devolucion</button>
+  </mat-menu>
+  <button mat-button [matMenuTriggerFor]="bibliotecaMenu">Biblioteca</button>
+  <mat-menu #bibliotecaMenu="matMenu" xPosition="before">
     <button routerLink="/listaLibro" mat-menu-item>Listado de Libros</button>
     <button routerLink="/ingresoLibro" mat-menu-item>Registrar Libro</button>
     <button routerLink="/listaCategoriasAdmin" mat-menu-item>Lista de Categorias</button>
   </mat-menu>
-  <button mat-button [matMenuTriggerFor]="afterMenu">Usuarios</button>
-  <mat-menu #afterMenu="matMenu" xPosition="after">
+  <button mat-button [matMenuTriggerFor]="perfilMenu">Perfil</button>
+  <mat-menu #perfilMenu="matMenu" xPosition="after">
+    <button routerLink="/solicitud-reset-password" mat-menu-item>Mis Datos</button>
+    <button routerLink="/solicitud-reset-password" mat-menu-item>Cambiar mi Contraseña</button>
+  </mat-menu>
+  <button [disabled]="buttonUsers" mat-button [matMenuTriggerFor]="usuariosMenu">Usuarios</button>
+  <mat-menu #usuariosMenu="matMenu" xPosition="after">
     <button routerLink="/usuarios" mat-menu-item>Lista de Usuarios</button>
     <button routerLink="/registro-usuario" mat-menu-item>Registrar Usuario</button>
   </mat-menu>

@@ -6,6 +6,7 @@ import { LibrosService } from 'src/app/service/libros/libros.service';
 import { Prestamo } from '../models/Prestamo';
 import { UsersService } from '../service/users/users.service';
 import { ToastrService } from 'ngx-toastr';
+import { EmailBody } from '../models/EmailBody';
 
 @Component({
   selector: 'app-prestamo-libro',
@@ -23,6 +24,11 @@ export class PrestamoLibroComponent implements OnInit {
   codigoReservacionVar:string;
   nuevoStock:number;
 
+  //variables para envio de correo
+  email: string;
+  content: string;
+  subject: string; 
+
   constructor(private router:Router, 
     private prestamoService:PrestamosService, 
     private librosService:LibrosService,
@@ -35,6 +41,7 @@ export class PrestamoLibroComponent implements OnInit {
   DPI:string;
   carnet:string;
   carrera:string;
+  correo: string;
 
   ngOnInit(): void {
     this.obtenerDatos();
@@ -61,6 +68,8 @@ async generarReservacion() {
               this.librosService.update(this.libroVerificacion.idLibro, this.libroVerificacion).subscribe(
                 data => {
                 });
+              //se envia el correo de confirmacion y se redirige a la vista para generar la boleta
+              this.enviarCorreoConfirmacion();
               this.confirmarBoletaReservación(this.codigoReservacionVar);
             },
             err => {
@@ -106,6 +115,45 @@ async generarReservacion() {
         result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
     return result;
+  }
+
+  //enviar correo de confirmacion de la resrevacón
+  enviarCorreoConfirmacion(){
+    this.email = this.correo;
+    this.content = "Su solicitud de reservación de libro se proceso correctamente con los siguientes datos:"+"<br/><br/>"+
+                    " Libro a prestar: "+this.nombreVar+"<br/>"+
+                    " Codigo de Libro: "+this.codigoVar+"<br/><br/>"+
+                    " Codigo de la Reservación: "+this.codigoReservacionVar+"<br/><br/>"+
+                    "Horario de atención de la biblioteca: "+" de 8:00 AM a 6:00 PM de lunes a viernes"+"<br/>"+
+                    "Correo electronico para consultas: "+"biblioteca.icunoc@cunoc.edu.gt"+"<br/>"+
+                    "Telefono: "+"77602584"+"<br/>"+
+                    "** Nota: Recuerda presentar al menos un documento de identifiación para poder recibir el libro en biblioteca";
+
+    this.subject = "Sistema de Biblioteca Ingenieria CUNOC";
+    const emailBody = new EmailBody(this.email, this.content, this.subject);
+
+    //espera....
+    this.toastr.info('Porfavor espere un momento mientras se envia el correo de confirmación...!', 'Info!', {
+      timeOut: 8000, positionClass: 'toast-top-center'
+    });
+    
+
+    this.userService.sendEmail(emailBody).subscribe(
+      data => {
+        //si todo va bien
+        this.toastr.success('Los datos de su resrevación se enviaron correctamente, porfavor revise su correo electronico!', 'Ok!', {
+          timeOut: 5000, positionClass: 'toast-top-center'
+        });
+        
+      },
+      err => {
+        //si sucede algun fallo, mostramos el error que envia la api
+        this.toastr.error(err.error.mensaje, 'Fail!', {
+          timeOut: 5000, positionClass: 'toast-top-center'
+        });
+       
+      }
+    );
   }
 
   logout(){

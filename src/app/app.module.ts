@@ -47,7 +47,9 @@ import { CategoryListComponent } from './category-list/category-list.component';
 import { CategoryEditorComponent } from './category-editor/category-editor.component';
 import { ListaLibroComponent } from './ingresoLibro/lista-libro.component';
 import { DetalleLibroComponent } from './ingresoLibro/detalle-libro.component';
-import { EditarLibroComponent } from './ingresoLibro/editar-libro.component'; 
+import { EditarLibroComponent } from './ingresoLibro/editar-libro.component';
+import { ResetPasswordComponent } from './user/reset-password/reset-password.component';
+import { SolicitudResetPasswordComponent } from './user/solicitud-reset-password/solicitud-reset-password.component'; 
 
 
 
@@ -72,7 +74,9 @@ import { EditarLibroComponent } from './ingresoLibro/editar-libro.component';
     CategoryEditorComponent,
     ListaLibroComponent,
     DetalleLibroComponent,
-    EditarLibroComponent
+    EditarLibroComponent,
+    ResetPasswordComponent,
+    SolicitudResetPasswordComponent
   ],
   imports: [
     MatSliderModule,
