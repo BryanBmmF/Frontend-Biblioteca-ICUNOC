@@ -19,6 +19,8 @@ import { RevisionPrestamoComponent } from './prestamos/revision-prestamo/revisio
 import { CategoryListComponent } from './category-list/category-list.component'; 
 import {CategoryCreatorComponent} from './category-creator/category-creator.component';
 import {CategoryEditorComponent} from './category-editor/category-editor.component';
+import { ResetPasswordComponent } from './user/reset-password/reset-password.component';
+import { SolicitudResetPasswordComponent } from './user/solicitud-reset-password/solicitud-reset-password.component';
 
 /**
  * Manejo de las diferentes rutas de la pagina
@@ -32,6 +34,8 @@ const routes: Routes = [
   { path: 'registro-usuario', component: NuevoUserComponent },
   { path: 'detalle/:id', component: DetalleUserComponent },
   { path: 'editar-usuario/:id', component: EditarUserComponent },
+  { path: 'reset-password', component: ResetPasswordComponent },
+  { path: 'solicitud-reset-password', component: SolicitudResetPasswordComponent },
 
   { path: 'ingresoLibro', component: IngresoLibroComponent },
   { path: 'editarLibro/:id', component: EditarLibroComponent },

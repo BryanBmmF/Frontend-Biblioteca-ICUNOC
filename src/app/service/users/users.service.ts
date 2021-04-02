@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { CookieService } from "ngx-cookie-service";
 import { User } from "../../models/User";
 import { Router } from '@angular/router';
+import { EmailBody } from 'src/app/models/EmailBody';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,13 @@ export class UsersService {
   //Url del servidor backend api rest usuarios
   usuarioUrl = "http://localhost:8082/api/v1/admin/usuarios";
 
+  //Url para el envio de correos
+  urlSendEmail = "http://localhost:8082/email/send";
+
   auth: boolean = true;
+
+  //el usuario logueado
+  userLogueado: User;
 
   //constructor con httpClient para peticiones http, y cookiesService para almacenamiento de tokens de respuesta
   constructor(private http: HttpClient, private cookies: CookieService, private router:Router) { }
@@ -53,6 +60,7 @@ export class UsersService {
     //guardamos el usuario logueado en la sesion
     sessionStorage.setItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME, userLog.username);
     sessionStorage.setItem(this.USER_ROLE_SESSION_ATTRIBUTE_ROLE, userLog.tipo);
+    this.userLogueado = userLog;
     //comprobar sesion
     if (this.getLoggedInUserRoleAdmin()) {
       this.router.navigate(['/usuarios']);
@@ -61,6 +69,10 @@ export class UsersService {
     }
 
   }
+  getDatosUserLogueado() {
+    return this.userLogueado;
+  }
+
   getToken() {
     return this.cookies.get("token");
   }
@@ -84,19 +96,19 @@ export class UsersService {
   getLoggedInUserRoleAdmin() {
     let userRole = sessionStorage.getItem(this.USER_ROLE_SESSION_ATTRIBUTE_ROLE);
     if (userRole == "Administrador") {
-      console.log("**** Soy admin");
+      //console.log("**** Soy admin");
       return true;
     }
-    console.log("**** No Soy admin");
+    //console.log("**** No Soy admin");
     return false;
   }
   getLoggedInUserRoleBibliotecario() {
     let userRole = sessionStorage.getItem(this.USER_ROLE_SESSION_ATTRIBUTE_ROLE);
     if (userRole == "Bibliotecario") {
-      console.log("**** Soy Bibliotecario");
+      //console.log("**** Soy Bibliotecario");
       return true;
     }
-    console.log("**** No Soy Bibliotecario");
+    //console.log("**** No Soy Bibliotecario");
     return false;
   }
 
@@ -157,6 +169,11 @@ export class UsersService {
   //eliminar
   public delete(id: number): Observable<any> {
     return this.http.delete<any>(this.usuarioUrl + `/delete/${id}`);
+  }
+
+  //envio de emails
+  public sendEmail(emailBody: EmailBody): Observable<any> {
+    return this.http.post<any>(this.urlSendEmail, emailBody);
   }
 
 }

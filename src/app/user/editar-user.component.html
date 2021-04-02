@@ -55,14 +55,20 @@
         <input type="text" [(ngModel)]="user.username" name="user" matInput placeholder="mi_usuario" required>
       </mat-form-field>
       <mat-form-field>
+        <mat-label>Correo: </mat-label>
+        <input type="email" [(ngModel)]="user.correo" name="correo" matInput placeholder="mi_correo@dom.com" required>
+      </mat-form-field>
+      <mat-form-field>
         <mat-label>Contraseña: </mat-label>
-        <input type="password" [(ngModel)]="user.password" name="password" matInput placeholder="mi contraseña"
+        <input id="txtPassword" type="password" [(ngModel)]="user.password" name="password" matInput placeholder="mi contraseña"
           required>
+          <mat-icon matSuffix id="show_password" type="button" onclick="mostrarPassword()">visibility</mat-icon>
       </mat-form-field>
       <mat-form-field>
         <mat-label>Repetir Contraseña: </mat-label>
-        <input type="password" [(ngModel)]="confirmPassword" name="password" matInput placeholder="mi contraseña"
+        <input id="txtPassword2" type="password" [(ngModel)]="confirmPassword" name="password" matInput placeholder="mi contraseña"
           required>
+          <mat-icon matSuffix id="show_password" type="button" onclick="mostrarPassword2()">visibility</mat-icon>
       </mat-form-field>
       <button [disabled]="!myForm.valid" mat-raised-button color="accent"
         style="display: block; width: 100%;">Actualizar</button>
