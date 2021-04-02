@@ -37,6 +37,35 @@
         <div mat-card-avatar class="example-header-image"></div>
         <mat-card-title>Lista de Prestamos Activos</mat-card-title>
       </mat-card-header>
+      <mat-card-header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">      
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Ud puede realizar busqueda por:
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" >Codigo Reservacion</a>
+                  <a class="dropdown-item" >DPI</a>
+                  <a class="dropdown-item" >Carnet</a>
+                  <a class="dropdown-item" >Fecha Inicio </a>
+                </div>
+              </li>
+            </ul>
+            <form (ngSubmit)="cargarPrestamoUnico()" class="form-inline my-2 my-lg-0" novalidate #f="ngForm">
+              <div class="form-group">
+                <input type="text" class="form-control" id="Busqueda" placeholder="Buscar" [(ngModel)]="stringBusqueda"  name="Busqueda">
+            </div>
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+              <button class="btn btn-outline-danger my-2 my-sm-0" type="reset">Limpiar</button>
+            </form>
+            <form  type="reset" (ngSubmit)="cargarPrestamos()" class="form-inline my-2 my-lg-1" novalidate #f="ngForm">
+              <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Ver Todo</button>
+            </form>
+          </div>
+        </nav>
+      </mat-card-header>
       <mat-card-content>
         <div class="col-auto" class="table-responsive">
           <table class="table table-hover">
@@ -95,3 +124,4 @@
       </mat-card-content>
     </mat-card>
   </main>
+  
