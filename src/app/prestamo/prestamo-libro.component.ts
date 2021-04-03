@@ -48,9 +48,11 @@ export class PrestamoLibroComponent implements OnInit {
   }
 
 async generarReservacion() {
-      this.librosService.getLibroId(this.idLibroVar)
+      this.librosService.detalle(Number(this.idLibroVar))
       .subscribe(data=>{
       this.libroVerificacion=data;
+      console.log("Recivo asi la info ----------");
+      console.log(this.libroVerificacion);
       //Verificamos en el momento de presionar el boton que exista stock suficiente del libro a reservar
       if(this.libroVerificacion.stock >= 1){
         this.nuevoStock = this.libroVerificacion.stock -1;
@@ -80,7 +82,7 @@ async generarReservacion() {
             }
           );
           }
-      } 
+      }
       //Si no hay suficientes libros emitimos una alerta al usuario.
       else {
         this.toastr.error('Este libro ya no cuenta con existencias para reservar.', 'Ups!', {

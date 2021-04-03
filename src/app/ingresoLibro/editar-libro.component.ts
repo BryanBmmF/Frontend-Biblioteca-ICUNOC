@@ -59,6 +59,7 @@ export class EditarLibroComponent implements OnInit {
 
   onUpdate(): void {
     const id = this.activatedRoute.snapshot.params.id;
+    console.log(this.libro);
     this.libroService.update(id, this.libro).subscribe(
       data => {
         this.toastr.success('Libro Actualizado', 'OK', {
