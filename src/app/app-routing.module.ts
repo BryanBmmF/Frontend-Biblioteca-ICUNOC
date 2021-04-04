@@ -21,6 +21,8 @@ import {CategoryCreatorComponent} from './category-creator/category-creator.comp
 import {CategoryEditorComponent} from './category-editor/category-editor.component';
 import { ResetPasswordComponent } from './user/reset-password/reset-password.component';
 import { SolicitudResetPasswordComponent } from './user/solicitud-reset-password/solicitud-reset-password.component';
+import { RevisionReservacionComponent } from './prestamos/revision-reservacion/revision-reservacion.component';
+import { RevisionReservacionVencidaComponent } from './prestamos/revision-reservacion-vencida/revision-reservacion-vencida.component';
 
 /**
  * Manejo de las diferentes rutas de la pagina
@@ -49,6 +51,8 @@ const routes: Routes = [
 
   { path: 'registrarDevolucion', component: RegistrarDevolucionComponent },
   { path: 'revisarPrestamos', component: RevisionPrestamoComponent },
+  { path: 'revisarReservaciones', component: RevisionReservacionComponent },
+  { path: 'revisarReservacionesVencidas', component: RevisionReservacionVencidaComponent },
   { path: 'listaCategoriasAdmin', component: CategoryListComponent },
   { path: 'crear-categoria', component: CategoryCreatorComponent },
   { path: 'actualizarCategoria/:id', component: CategoryEditorComponent },

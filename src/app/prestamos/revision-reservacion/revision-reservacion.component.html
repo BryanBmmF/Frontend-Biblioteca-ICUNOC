@@ -1,0 +1,119 @@
+<!--Menu de opciones-->
+<mat-toolbar color="primary">
+    <img width="40" alt="USAC Logo"
+      src="https://th.bing.com/th/id/R357b881f7404a7510172712ba8df9b7a?rik=1F6J6d8A%2bhOR5g&riu=http%3a%2f%2fcceeusac.com%2fasignaciones%2fImagenes%2flogo_usac.png&ehk=KplsqbdMJu2aTx%2bzT5h2DGcFKOP5faojo95W%2bTVxoPM%3d&risl=&pid=ImgRaw" />
+    <span>Biblioteca Ingeniería</span>
+    <span class="example-spacer"></span>
+    <button mat-button [matMenuTriggerFor]="prestamosMenu">Prestamos</button>
+    <mat-menu #prestamosMenu="matMenu" yPosition="above">
+      <button routerLink="/revisarPrestamos" mat-menu-item>Revisar Prestamos</button>
+      <button routerLink="/registrarPrestamo" mat-menu-item>Registrar Prestamo</button>
+    </mat-menu>
+    <button mat-button [matMenuTriggerFor]="devolucionesMenu">Devoluciones</button>
+    <mat-menu #devolucionesMenu="matMenu" yPosition="below">
+      <button routerLink="/registrarDevolucion" mat-menu-item>Revisar Devoluciones</button>
+      <button routerLink="/registrarDevolucion" mat-menu-item>Registrar Devolucion</button>
+    </mat-menu>
+    <button mat-button [matMenuTriggerFor]="bibliotecaMenu">Biblioteca</button>
+    <mat-menu #bibliotecaMenu="matMenu" xPosition="before">
+      <button routerLink="/listaLibro" mat-menu-item>Listado de Libros</button>
+      <button routerLink="/ingresoLibro" mat-menu-item>Registrar Libro</button>
+      <button routerLink="/listaCategoriasAdmin" mat-menu-item>Lista de Categorias</button>
+    </mat-menu>
+    <button mat-button [matMenuTriggerFor]="perfilMenu">Perfil</button>
+    <mat-menu #perfilMenu="matMenu" xPosition="after">
+      <button routerLink="/solicitud-reset-password" mat-menu-item>Mis Datos</button>
+      <button routerLink="/solicitud-reset-password" mat-menu-item>Cambiar mi Contraseña</button>
+    </mat-menu>
+    <button [disabled]="buttonUsers" mat-button [matMenuTriggerFor]="usuariosMenu">Usuarios</button>
+    <mat-menu #usuariosMenu="matMenu" xPosition="after">
+      <button routerLink="/usuarios" mat-menu-item>Lista de Usuarios</button>
+      <button routerLink="/registro-usuario" mat-menu-item>Registrar Usuario</button>
+    </mat-menu>
+    <!--Boton para cerrar sesion-->
+    <button (click)="logout()" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+      <mat-icon>logout</mat-icon>
+    </button>
+  </mat-toolbar>
+  
+  <main>
+      <mat-card class="example-card">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>Lista de Reservaciones</mat-card-title>
+        </mat-card-header>
+        <mat-card-header>
+          <nav class="navbar navbar-expand-lg navbar-light bg-light">      
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Ud puede realizar busqueda por:
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" >Codigo Reservacion</a>
+                    <a class="dropdown-item" >DPI</a>
+                    <a class="dropdown-item" >Carnet</a>
+                    <a class="dropdown-item" >Fecha Inicio </a>
+                  </div>
+                </li>
+              </ul>
+              <form (ngSubmit)="cargarPrestamoUnico()" class="form-inline my-2 my-lg-0" novalidate #f="ngForm">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="Busqueda" placeholder="Buscar" [(ngModel)]="stringBusqueda"  name="Busqueda" required> 
+              </div>
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+                <button class="btn btn-outline-danger my-2 my-sm-0" type="reset">Limpiar</button>
+              </form>
+              <form  type="reset" (ngSubmit)="cargarPrestamos()" class="form-inline my-2 my-lg-1" novalidate #f="ngForm">
+                <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Ver Todo</button>
+              </form>
+            </div>
+          </nav>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="col-auto" class="table-responsive">
+            <table class="table table-hover">
+              <thead class="thead-dark"> 
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Nombres</th>
+                  <th scope="col">Apellidos</th>
+                  <th scope="col">DPI</th>
+                  <th scope="col">Carnet</th>
+                  <th scope="col">Carrera</th>
+                  <th scope="col">Fecha Reservacion</th>
+                  <th scope="col">Estado</th>
+                  <th scope="col">Codigo Reservacion</th>
+                  <th scope="col">Libro</th>
+                  <th scope="col">Autorizar Prestamo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let prestamo of prestamos">
+                  <td>{{prestamo.id}}</td>
+                  <td>{{prestamo.nombre}}</td>
+                  <td>{{prestamo.apellido}}</td>
+                  <td>{{prestamo.dpi}}</td>
+                  <td>{{prestamo.carnet}}</td>
+                  <td>{{prestamo.carrera}}</td>
+                  <td>{{prestamo.fechaReservacion}}</td>
+                  <td>{{prestamo.estado}}</td>
+                  <td>{{prestamo.codigoReservacion}}</td>
+                  <td><button class="btn btn-outline-info" routerLink="/detalleLibroC/{{prestamo.codigoLibro}}"><i
+                        class="far fa-edit"></i>
+                        {{prestamo.codigoLibro}}</button></td>
+                  <td><button class="btn btn-outline-success" (click)="onUpdate(prestamo.codigoReservacion, prestamo.nombre)"><i class="far fa-trash-alt"></i>
+                      Iniciar</button>
+                      <button class="btn btn-outline-danger" (click)="eliminarReservacion(prestamo.id, prestamo.nombre)"><i class="far fa-trash-alt"></i>
+                        Eliminar</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </main>
+    
+    

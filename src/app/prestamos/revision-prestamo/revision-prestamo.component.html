@@ -60,7 +60,7 @@
             </ul>
             <form (ngSubmit)="cargarPrestamoUnico()" class="form-inline my-2 my-lg-0" novalidate #f="ngForm">
               <div class="form-group">
-                <input type="text" class="form-control" id="Busqueda" placeholder="Buscar" [(ngModel)]="stringBusqueda"  name="Busqueda">
+                <input type="text" class="form-control" id="Busqueda" placeholder="Buscar" [(ngModel)]="stringBusqueda"  name="Busqueda" required>
             </div>
               <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
               <button class="btn btn-outline-danger my-2 my-sm-0" type="reset">Limpiar</button>
