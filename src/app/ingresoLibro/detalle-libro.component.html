@@ -53,7 +53,11 @@
           <li class="list-group-item"><b>Idioma: </b>{{libro.idioma}}</li>
           <li class="list-group-item"><b>Imagen: </b>AQUI VA LA IMAGEN</li>
           <li class="list-group-item"><b>Stock: </b>{{libro.stock}}</li>
-          <li class="list-group-item"><b>Categoria: </b>{{libro.categoria}}</li>
+          <li class="list-group-item"><b>Categorias: </b>
+            <ul *ngFor="let categorie of categories">
+              <li>{{categorie.nombre}}</li>
+            </ul>
+          </li>
         </ul>
         <div class="card-footer">
           <button class="btn btn-outline-primary btn-block" (click)="volver()"><i

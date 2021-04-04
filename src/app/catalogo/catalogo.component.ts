@@ -7,6 +7,7 @@ import { UsersService } from "../service/users/users.service";
 import { Router } from '@angular/router';
 import { CategoryService } from '../service/category.service';
 import { Categoria } from '../models/categoria';
+import { AsignacionLibroService } from '../service/asignacion_libro/asignacion-libro.service';
 
 
 @Component({
@@ -15,7 +16,11 @@ import { Categoria } from '../models/categoria';
   styleUrls: ['./catalogo.component.css']
 })
 export class CatalogoComponent {
-  constructor(public userService: UsersService, public router: Router, private categoryService: CategoryService) {}
+  constructor(
+    public userService: UsersService, 
+    public router: Router, 
+    private categoryService: CategoryService,
+    private asignacionLibroService: AsignacionLibroService) {}
   
   //metodo para salir del sistema
   logout(){
@@ -40,6 +45,13 @@ export class CatalogoComponent {
     this.categoryService.lista().subscribe(
       data => {
         this.categories = data;
+        this.categories.forEach(category => {
+          this.asignacionLibroService.listaLibrosCategoria(category.idCategoria).subscribe(
+            data => {
+              category.libros = data
+            }
+          )
+        });
       },
       err => {
         console.log(err)

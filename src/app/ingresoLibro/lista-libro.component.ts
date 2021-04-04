@@ -4,6 +4,7 @@ import { LibrosService } from '../service/libros/libros.service';
 import { ToastrService } from 'ngx-toastr';
 import { UsersService } from '../service/users/users.service';
 import { Router } from '@angular/router';
+import { AsignacionLibroService } from '../service/asignacion_libro/asignacion-libro.service';
 
 @Component({
   selector: 'app-lista-libro',
@@ -18,7 +19,8 @@ export class ListaLibroComponent implements OnInit {
     private libroService: LibrosService,
     private userService: UsersService,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private asignacionLibroService: AsignacionLibroService
     ) { }
 
   ngOnInit(): void {
@@ -51,23 +53,30 @@ export class ListaLibroComponent implements OnInit {
 
   borrar(id: number) {
     if (confirm("¿Esta seguro de eliminar permanentemente este libro?")) {
-      this.libroService.delete(id).subscribe(
+      this.asignacionLibroService.deleteAssignations(id).subscribe(
         data => {
-          console.log(id);  
-          //lanzamos el mensaje de eliminacion y cargamos la tabla
-          this.toastr.info('El libro se elimino correctamente!', 'Ok!', {
-            timeOut: 5000, positionClass: 'toast-top-center'
-          });
-          this.cargarLibros();
+          this.libroService.delete(id).subscribe(
+            data => {
+              this.toastr.info('El libro se elimino correctamente!', 'Ok!', {
+                timeOut: 5000, positionClass: 'toast-top-center'
+              });
+              this.cargarLibros();
+            },
+            err => {
+              console.log(err)
+              this.toastr.error(err.error.mensaje, 'Fail!', {
+                timeOut: 5000, positionClass: 'toast-top-center'
+              });
+            }
+          );
         },
         err => {
-          console.log(id);
-          //si sucede algun fallo, mostramos el error que envia la api
+          console.log(err)
           this.toastr.error(err.error.mensaje, 'Fail!', {
             timeOut: 5000, positionClass: 'toast-top-center'
           });
         }
-      );
+      )
     }
 
   }

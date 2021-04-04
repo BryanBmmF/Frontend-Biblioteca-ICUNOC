@@ -32,5 +32,5 @@ export class CategoryService {
 
     public delete(id: number): Observable<any> {
         return this.httpClient.delete<any>(`http://localhost:8082/categorias/eliminar/${id}`);
-      }
+    }
 }

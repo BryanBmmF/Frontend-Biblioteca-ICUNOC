@@ -20,7 +20,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import {MatListModule} from '@angular/material/list';
 import {MatTableModule} from '@angular/material/table';
-
+import {MatGridListModule} from '@angular/material/grid-list';
 import {MatButtonModule} from '@angular/material/button'; 
 import {MatMenuModule} from '@angular/material/menu'; 
 import {MatToolbarModule} from '@angular/material/toolbar'; 
@@ -88,6 +88,7 @@ import { SolicitudResetPasswordComponent } from './user/solicitud-reset-password
     MatExpansionModule,
     MatListModule,
     MatTableModule,
+    MatGridListModule,
     MatButtonModule,
     MatMenuModule,
     MatToolbarModule,
