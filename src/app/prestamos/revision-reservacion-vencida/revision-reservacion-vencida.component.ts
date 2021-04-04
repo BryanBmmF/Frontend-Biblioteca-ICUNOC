@@ -6,11 +6,11 @@ import { PrestamosService } from 'src/app/service/prestamos/prestamos.service';
 import { UsersService } from 'src/app/service/users/users.service';
 
 @Component({
-  selector: 'app-revision-prestamo',
-  templateUrl: './revision-prestamo.component.html',
-  styleUrls: ['./revision-prestamo.component.css']
+  selector: 'app-revision-reservacion-vencida',
+  templateUrl: './revision-reservacion-vencida.component.html',
+  styleUrls: ['./revision-reservacion-vencida.component.css']
 })
-export class RevisionPrestamoComponent implements OnInit {
+export class RevisionReservacionVencidaComponent implements OnInit {
 
   prestamos: Prestamo[] = [];
   prestamoCodigo: Prestamo;
@@ -39,7 +39,7 @@ export class RevisionPrestamoComponent implements OnInit {
   }
 
   cargarPrestamos(): void {
-    this.prestamoService.lista().subscribe(
+    this.prestamoService.listaxEstado("EXPIRADO").subscribe(
       data => {
         this.prestamos = data;
       },

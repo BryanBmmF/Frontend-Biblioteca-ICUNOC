@@ -24,8 +24,12 @@ export class PrestamosService {
     return this.http.get<Prestamo[]>(this.prestamosURL+'listaPrestamo/ACTIVO');
   }
 
-  public listaxCodigoReservacion(codigoReservacion: string): Observable<Prestamo>{
-    return this.http.get<Prestamo>(this.prestamosURL+`${codigoReservacion}`);
+  public listaxEstado(estadoPrestamo: string): Observable<Prestamo[]>{
+    return this.http.get<Prestamo[]>(this.prestamosURL+'listaPrestamo/'+`${estadoPrestamo}`);
+  }
+
+  public listaxCodigoReservacion(codigoReservacion: string): Observable<Prestamo[]>{
+    return this.http.get<Prestamo[]>(this.prestamosURL+`codigoReservacion/${codigoReservacion}`);
   }
 
   public listaxDPI(dpi: string): Observable<Prestamo[]>{
@@ -43,4 +47,13 @@ export class PrestamosService {
   public finalizarPrestamo(codigoReservacion:string, prestamo: Prestamo): Observable<any>{
     return this.http.put<any>(this.prestamosURL+`finalizar/${codigoReservacion}`,prestamo);
   }
+
+  public iniciarPrestamo(codigoReservacion:string, prestamo: Prestamo): Observable<any>{
+    return this.http.put<any>(this.prestamosURL+`iniciar/${codigoReservacion}`,prestamo);
+  }
+
+  public eliminarReservacion(id: string){
+    return this.http.delete<any>(this.prestamosURL+'eliminar/'+`${id}`);
+  }
+
 }

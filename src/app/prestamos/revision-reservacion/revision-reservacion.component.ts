@@ -6,12 +6,13 @@ import { PrestamosService } from 'src/app/service/prestamos/prestamos.service';
 import { UsersService } from 'src/app/service/users/users.service';
 
 @Component({
-  selector: 'app-revision-prestamo',
-  templateUrl: './revision-prestamo.component.html',
-  styleUrls: ['./revision-prestamo.component.css']
+  selector: 'app-revision-reservacion',
+  templateUrl: './revision-reservacion.component.html',
+  styleUrls: ['./revision-reservacion.component.css']
 })
-export class RevisionPrestamoComponent implements OnInit {
+export class RevisionReservacionComponent implements OnInit {
 
+  
   prestamos: Prestamo[] = [];
   prestamoCodigo: Prestamo;
   buttonUsers: boolean = false;
@@ -39,7 +40,7 @@ export class RevisionPrestamoComponent implements OnInit {
   }
 
   cargarPrestamos(): void {
-    this.prestamoService.lista().subscribe(
+    this.prestamoService.listaxEstado("RESERVADO").subscribe(
       data => {
         this.prestamos = data;
       },
@@ -49,17 +50,17 @@ export class RevisionPrestamoComponent implements OnInit {
     );
   }
 
-  onUpdate(codigoReservacion: string, nombre:string, costo:number): void {
-    if (confirm("FINALIZANDO PRESTAMO DE " + nombre + "\n" + "Total a pagar: Q." + costo)) {
-      this.prestamoService.finalizarPrestamo(codigoReservacion, this.prestamoCodigo).subscribe(
+  onUpdate(codigoReservacion: string, nombre:string): void {
+    if (confirm("INICIANDO PRESTAMO DE " + nombre)) {
+      this.prestamoService.iniciarPrestamo(codigoReservacion, this.prestamoCodigo).subscribe(
         data => {
-          this.toastr.success('Prestamo Finalizado!', 'Ok!', {
+          this.toastr.success('Prestamo Iniciado!', 'Ok!', {
             timeOut: 2000, positionClass: 'toast-top-center'
           });
           this.cargarPrestamos();
         },
         err => {
-          this.toastr.error(err.error.mensaje, 'Fail!', {
+          this.toastr.error(err.error.mensaje, 'Hubo un error!', {
             timeOut: 2000, positionClass: 'toast-top-center'
           });
           this.cargarPrestamos();
@@ -67,8 +68,28 @@ export class RevisionPrestamoComponent implements OnInit {
       );
 
     }
-
   }
+
+  eliminarReservacion(codigoReservacion: string, nombre:string): void {
+    if (confirm("¿Está seguro de eliminar la reservación a nombre de " + nombre)) {
+      this.prestamoService.eliminarReservacion(codigoReservacion).subscribe(
+        data => {
+          this.toastr.success('Reservación Eliminada!', 'Ok!', {
+            timeOut: 2000, positionClass: 'toast-top-center'
+          });
+          this.cargarPrestamos();
+        },
+        err => {
+          this.toastr.error(err.error.mensaje, 'Hubo un Error!', {
+            timeOut: 2000, positionClass: 'toast-top-center'
+          });
+          this.cargarPrestamos();
+        }
+      );
+
+    }
+  }
+
   cargarPrestamoUnico(): void{
     if(this.stringBusqueda.length==8){
       this.cargarPrestamosxCodigoReservacion(this.stringBusqueda);
@@ -159,5 +180,4 @@ export class RevisionPrestamoComponent implements OnInit {
     //volvemos a la pantalla de login o la inicial
     this.router.navigateByUrl('/login');
   }
-
 }
