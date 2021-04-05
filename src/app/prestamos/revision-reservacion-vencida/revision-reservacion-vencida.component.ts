@@ -1,27 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Libro } from 'src/app/models/libro';
 import { Prestamo } from 'src/app/models/Prestamo';
-import { LibrosService } from 'src/app/service/libros/libros.service';
 import { PrestamosService } from 'src/app/service/prestamos/prestamos.service';
 import { UsersService } from 'src/app/service/users/users.service';
 
 @Component({
-  selector: 'app-revision-prestamo',
-  templateUrl: './revision-prestamo.component.html',
-  styleUrls: ['./revision-prestamo.component.css']
+  selector: 'app-revision-reservacion-vencida',
+  templateUrl: './revision-reservacion-vencida.component.html',
+  styleUrls: ['./revision-reservacion-vencida.component.css']
 })
-export class RevisionPrestamoComponent implements OnInit {
+export class RevisionReservacionVencidaComponent implements OnInit {
 
   prestamos: Prestamo[] = [];
   prestamoCodigo: Prestamo;
-  libroVerificacion: Libro;
-  nuevoStock:number;
   buttonUsers: boolean = false;
   constructor(private userService: UsersService,
     private prestamoService: PrestamosService,
-    private librosService:LibrosService,
     private toastr: ToastrService,
     private router: Router) { }
 
@@ -44,7 +39,7 @@ export class RevisionPrestamoComponent implements OnInit {
   }
 
   cargarPrestamos(): void {
-    this.prestamoService.lista().subscribe(
+    this.prestamoService.listaxEstado("EXPIRADO").subscribe(
       data => {
         this.prestamos = data;
       },
@@ -54,12 +49,11 @@ export class RevisionPrestamoComponent implements OnInit {
     );
   }
 
-  onUpdate(codigoReservacion: string, nombre:string, costo:number, codigoLibro:string): void {
+  onUpdate(codigoReservacion: string, nombre:string, costo:number): void {
     if (confirm("FINALIZANDO PRESTAMO DE " + nombre + "\n" + "Total a pagar: Q." + costo)) {
       this.prestamoService.finalizarPrestamo(codigoReservacion, this.prestamoCodigo).subscribe(
         data => {
-          this.actualizarStock(codigoLibro);
-          this.toastr.success('Pretamo Finalizado!', 'Ok!', {
+          this.toastr.success('Prestamo Finalizado!', 'Ok!', {
             timeOut: 2000, positionClass: 'toast-top-center'
           });
           this.cargarPrestamos();
@@ -75,20 +69,6 @@ export class RevisionPrestamoComponent implements OnInit {
     }
 
   }
-
-  async actualizarStock(codigoLibro: string) {
-    this.librosService.detalleCodigo(codigoLibro)
-    .subscribe(data=>{
-    this.libroVerificacion=data;
-      this.nuevoStock = this.libroVerificacion.stock + 1;
-      this.libroVerificacion.stock = this.nuevoStock;
-        //En este punto actualizamos el stock del libro reservado
-        this.librosService.update(this.libroVerificacion.idLibro, this.libroVerificacion).subscribe(
-          data => {
-          });
-  })
-}
-
   cargarPrestamoUnico(): void{
     if(this.stringBusqueda.length==8){
       this.cargarPrestamosxCodigoReservacion(this.stringBusqueda);
