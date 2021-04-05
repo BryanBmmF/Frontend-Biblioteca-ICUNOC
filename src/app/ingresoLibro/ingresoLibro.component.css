@@ -1,6 +1,7 @@
 table {
   /*separacion entre componenntes*/
   margin-top: 2rem; 
+  width: 100%;
 }
 .example-spacer {
   flex: 1 1 auto;

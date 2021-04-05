@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, ViewChild, OnInit, Input, EventEmitter, Output,NgZone } from '@angular/core';
 import { MatAccordion } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
@@ -11,24 +11,30 @@ import { ToastrService } from 'ngx-toastr';
 import { UsersService } from '../service/users/users.service';
 import { HttpClient } from '@angular/common/http';
 import { Categoria } from '../models/categoria';
-
+import { AsignacionLibroService } from '../service/asignacion_libro/asignacion-libro.service'
+import { AsignacionLibro } from '../models/asignacion_libro';
 @Component({
   selector: 'app-ingresoLibro',
   templateUrl: './ingresoLibro.component.html',
   styleUrls: ['./ingresoLibro.component.css']
 })
 
+
 export class IngresoLibroComponent implements OnInit {
 
   @Input()
   nuevoLibro: Libro;
+  @Input()
   categorias: Categoria[];
-  categoriaElegida: Categoria = null;
+  @Input()
+  categoriasElegidas: Categoria[];
 
   @Output()
   bookAddedEvent = new EventEmitter();
   private selectedFile;
   imgURL: any;
+
+  displayedColumns: string[] = ['idCategoria', 'nombre'];
 
   constructor(
     private LibroService: LibrosService,
@@ -37,8 +43,12 @@ export class IngresoLibroComponent implements OnInit {
     private toastr: ToastrService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private httpClient: HttpClient
-  ) { }
+    private httpClient: HttpClient,
+    private zone:NgZone,
+    private asignacionLibroService: AsignacionLibroService
+  ) {
+    
+   }
 
   autor: string;
   codigo: string;
@@ -48,10 +58,11 @@ export class IngresoLibroComponent implements OnInit {
   nombre: string;
   imagen: string;
   stock: number;
-  categoria: number;
+  categoria: any;
   buttonUsers: boolean = false;
   ngOnInit() {
     this.categoryService.lista().subscribe(categoria => this.categorias = categoria);
+    this.categoriasElegidas = [];
     //comprobar sesion
     if (!(this.userService.getLoggedInUserRoleAdmin() || this.userService.getLoggedInUserRoleBibliotecario())) {
       this.router.navigate(['/']);
@@ -77,6 +88,10 @@ export class IngresoLibroComponent implements OnInit {
         if (response.status === 200) {
           this.LibroService.save(new Libro(this.autor, this.codigo, this.edicion, this.fechaPublicacion, this.idioma, this.nombre, '', this.stock, this.categoria)).subscribe(
             (book) => {
+              console.log(this.categoriasElegidas)
+              this.categoriasElegidas.forEach((categoria) => {
+                this.asignacionLibroService.save(new AsignacionLibro(categoria.idCategoria,book.idLibro)).subscribe()
+              })
               this.bookAddedEvent.emit();
               //si todo va bien
               this.toastr.success('El libro se ha registrado!', 'Ok!', {
@@ -85,12 +100,23 @@ export class IngresoLibroComponent implements OnInit {
               this.router.navigate(['/listaLibro']);
             }
           );
-          console.log('Image uploaded successfully');
-        } else {
-          console.log('Image not uploaded successfully');
-        }
+        } 
       }
       );
+  }
+
+  addCategoria(): void {
+    if (this.categoriasElegidas.length === 5)
+      this.toastr.warning("Solo se permite un máximo de 5 categorias por libro", 'Advertencia!', {
+        timeOut: 5000, positionClass: 'toast-top-center'
+      });
+    else if(!this.categoriasElegidas.includes(this.categoria))
+      this.categoriasElegidas.push(this.categoria);
+    else
+      this.toastr.warning("Esta categoria ya fue ingresada", 'Advertencia!', {
+        timeOut: 5000, positionClass: 'toast-top-center'
+      });
+
   }
 
   public onFileChanged(event) {
@@ -106,16 +132,8 @@ export class IngresoLibroComponent implements OnInit {
     console.log(this.imgURL);
   }
 
-  inicio() {
-    //volvemos a la pantalla de index o la inicial
-    /*SE TENDRIA QUE VOLVER AL LISTADO DE LIBROS REGISTRADOS NO AL CATALOGO */
-    //this.router.navigateByUrl('/catalogo');
-  }
-
   logout() {
-    //borramos el token de las cookies
     this.userService.logout();
-    //volvemos a la pantalla de login o la inicial
     this.router.navigateByUrl('/login');
   }
 }

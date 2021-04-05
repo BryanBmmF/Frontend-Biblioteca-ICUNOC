@@ -4,7 +4,8 @@ import { ToastrService } from 'ngx-toastr';
 import { Libro } from '../models/libro';
 import { LibrosService } from '../service/libros/libros.service';
 import { UsersService } from '../service/users/users.service';
-
+import { AsignacionLibroService} from '../service/asignacion_libro/asignacion-libro.service'
+import { Categoria } from '../models/categoria';
 @Component({
   selector: 'app-detalle-libro',
   templateUrl: './detalle-libro.component.html',
@@ -12,13 +13,15 @@ import { UsersService } from '../service/users/users.service';
 })
 export class DetalleLibroComponent implements OnInit {
   libro: Libro = null;
+  categories: Categoria[];
   buttonUsers: boolean = false;
   constructor(
     private libroService: LibrosService,
     private activatedRoute: ActivatedRoute,
     private toastr: ToastrService,
     private userService: UsersService,
-    private router: Router
+    private router: Router,
+    private asignacionLibroService: AsignacionLibroService
   ) { }
 
   ngOnInit(): void {
@@ -32,6 +35,11 @@ export class DetalleLibroComponent implements OnInit {
       this.libroService.detalleCodigo(id).subscribe(
         data => {
           this.libro = data;
+          this.asignacionLibroService.listaCategorias(this.libro.idLibro).subscribe(
+            data => {
+              this.categories = data;
+            }
+          )
         },
         err => {
           this.toastr.error(err.error.mensaje, 'Fail', {
