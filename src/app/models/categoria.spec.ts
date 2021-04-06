@@ -2,6 +2,6 @@ import { Categoria } from './categoria';
 
 describe('Categoria', () => {
   it('should create an instance', () => {
-    expect(new Categoria()).toBeTruthy();
+    expect(new Categoria('Test1','DescripcionTest1',1,[])).toBeTruthy();
   });
 });
