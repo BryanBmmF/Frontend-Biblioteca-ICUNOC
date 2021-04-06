@@ -9,11 +9,11 @@
       <button routerLink="/revisarPrestamos" mat-menu-item>Revisar Prestamos</button>
       <button routerLink="/registrarPrestamo" mat-menu-item>Registrar Prestamo</button>
     </mat-menu>
-    <button mat-button [matMenuTriggerFor]="devolucionesMenu">Devoluciones</button>
-    <mat-menu #devolucionesMenu="matMenu" yPosition="below">
-      <button routerLink="/registrarDevolucion" mat-menu-item>Revisar Devoluciones</button>
-      <button routerLink="/registrarDevolucion" mat-menu-item>Registrar Devolucion</button>
-    </mat-menu>
+    <button mat-button [matMenuTriggerFor]="devolucionesMenu">Reservaciones</button>
+  <mat-menu #devolucionesMenu="matMenu" yPosition="below">
+    <button routerLink="/revisarReservaciones" mat-menu-item>Reservaciones Activas</button>
+    <button routerLink="/revisarReservacionesVencidas" mat-menu-item>Reservaciones Expiradas</button>
+  </mat-menu>
     <button mat-button [matMenuTriggerFor]="bibliotecaMenu">Biblioteca</button>
     <mat-menu #bibliotecaMenu="matMenu" xPosition="before">
       <button routerLink="/listaLibro" mat-menu-item>Listado de Libros</button>
@@ -86,7 +86,7 @@
                   <th scope="col">Estado</th>
                   <th scope="col">Codigo Reservacion</th>
                   <th scope="col">Libro</th>
-                  <th scope="col">Acción</th>
+                  <!-- <th scope="col">Acción</th> -->
                 </tr>
               </thead>
               <tbody>
@@ -98,14 +98,14 @@
                   <td>{{prestamo.carnet}}</td>
                   <td>{{prestamo.carrera}}</td>
                   <td>{{prestamo.fechaReservacion}}</td>
-                  <td>{{prestamo.estado}}</td>
+                  <td style="color:red;">{{prestamo.estado}}</td>
                   <td>{{prestamo.codigoReservacion}}</td>
                   <td><button class="btn btn-outline-info" routerLink="/detalleLibroC/{{prestamo.codigoLibro}}"><i
                         class="far fa-edit"></i>
                         {{prestamo.codigoLibro}}</button></td>
-                  <td><button class="btn btn-outline-success" (click)="onUpdate(prestamo.codigoReservacion, prestamo.nombre)"><i class="far fa-trash-alt"></i>
+                 <!-- <td><button class="btn btn-outline-success" (click)="onUpdate(prestamo.codigoReservacion, prestamo.nombre)"><i class="far fa-trash-alt"></i>
                       Eliminar</button>
-                  </td>
+                  </td> -->
                 </tr>
               </tbody>
             </table>

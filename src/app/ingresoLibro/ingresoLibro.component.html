@@ -8,10 +8,10 @@
     <button routerLink="/revisarPrestamos" mat-menu-item>Revisar Prestamos</button>
     <button routerLink="/registrarPrestamo" mat-menu-item>Registrar Prestamo</button>
   </mat-menu>
-  <button mat-button [matMenuTriggerFor]="devolucionesMenu">Devoluciones</button>
+  <button mat-button [matMenuTriggerFor]="devolucionesMenu">Reservaciones</button>
   <mat-menu #devolucionesMenu="matMenu" yPosition="below">
-    <button routerLink="/registrarDevolucion" mat-menu-item>Revisar Devoluciones</button>
-    <button routerLink="/registrarDevolucion" mat-menu-item>Registrar Devolucion</button>
+    <button routerLink="/revisarReservaciones" mat-menu-item>Reservaciones Activas</button>
+    <button routerLink="/revisarReservacionesVencidas" mat-menu-item>Reservaciones Expiradas</button>
   </mat-menu>
   <button mat-button [matMenuTriggerFor]="bibliotecaMenu">Biblioteca</button>
   <mat-menu #bibliotecaMenu="matMenu" xPosition="before">
@@ -48,15 +48,15 @@
             <input type="text" class="form-control" id="autor" placeholder="Autor del libro" [(ngModel)]="autor" name="autor">
         </div>
         <div class="form-group">
-          <label for="Codigo">Codigo</label>
+          <label for="Codigo">Código</label>
           <input type="text" class="form-control" id="codigo" placeholder="Código del libro" name="codigo" [(ngModel)]="codigo" required>
         </div>
         <div class="form-group">
-          <label for="edicion">Edicion</label>
-          <input type="number" class="form-control" id="edicion" placeholder="Edición" name="edicion" [(ngModel)]="edicion">
+          <label for="edicion">Edición</label>
+          <input type="number"  min="1" class="form-control" id="edicion" placeholder="Edición" name="edicion" [(ngModel)]="edicion">
         </div>
         <div class="form-group">
-          <label for="Fecha">Fecha</label>
+          <label for="Fecha">Fecha de Publicación</label>
           <input type="date" class="form-control" id="fechaPublicacion" name="fechaPublicacion" [(ngModel)]="fechaPublicacion">
         </div>
         <div class="form-group">
@@ -83,7 +83,7 @@
         </div>
         <div class="form-group">
           <label for="Stock">Stock</label>
-          <input type="number" class="form-control" id="Stock" name="stock" [(ngModel)]="stock" required>
+          <input type="number"  min="1" class="form-control" id="Stock" name="stock" [(ngModel)]="stock" required>
         </div>
         <div class="form-group">
           <label for="formFile" class="form-label">Categorias:  </label>
