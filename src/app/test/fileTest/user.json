@@ -1,0 +1,11 @@
+[
+    {
+      "id": "1",
+      "nombre": "user1",
+      "numeroRegistro": "201730159",
+      "username": "user1",
+      "password": "password",
+      "tipo": "Administrador",
+      "correo": "correo"
+    }
+  ]

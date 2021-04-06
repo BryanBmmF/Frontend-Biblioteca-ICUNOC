@@ -1,0 +1,20 @@
+[
+  {
+    "id": "1",
+    "nombre": "user1",
+    "numeroRegistro": "201730159",
+    "username": "user1",
+    "password": "password",
+    "tipo": "Administrador",
+    "correo": "correo"
+  },
+  {
+    "id": "2",
+    "nombre": "user2",
+    "numeroRegistro": "201730159",
+    "username": "user2",
+    "password": "password",
+    "tipo": "Administrador",
+    "correo": "correo"
+  }
+]
