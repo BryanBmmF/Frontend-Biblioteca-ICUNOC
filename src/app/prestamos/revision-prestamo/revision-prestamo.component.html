@@ -9,10 +9,10 @@
     <button routerLink="/revisarPrestamos" mat-menu-item>Revisar Prestamos</button>
     <button routerLink="/registrarPrestamo" mat-menu-item>Registrar Prestamo</button>
   </mat-menu>
-  <button mat-button [matMenuTriggerFor]="devolucionesMenu">Devoluciones</button>
+  <button mat-button [matMenuTriggerFor]="devolucionesMenu">Reservaciones</button>
   <mat-menu #devolucionesMenu="matMenu" yPosition="below">
-    <button routerLink="/registrarDevolucion" mat-menu-item>Revisar Devoluciones</button>
-    <button routerLink="/registrarDevolucion" mat-menu-item>Registrar Devolucion</button>
+    <button routerLink="/revisarReservaciones" mat-menu-item>Reservaciones Activas</button>
+    <button routerLink="/revisarReservacionesVencidas" mat-menu-item>Reservaciones Expiradas</button>
   </mat-menu>
   <button mat-button [matMenuTriggerFor]="bibliotecaMenu">Biblioteca</button>
   <mat-menu #bibliotecaMenu="matMenu" xPosition="before">
