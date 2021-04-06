@@ -14,7 +14,7 @@ describe('EditarLibroComponent', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(IngresoLibroComponent);
+    fixture = TestBed.createComponent(EditarLibroComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
