@@ -76,23 +76,7 @@ export class UsersService {
   getToken() {
     return this.cookies.get("token");
   }
-  getUser() {
-    return this.http.get("https://reqres.in/api/users/2");
-  }
-  isUserLoggedIn() {
-    let user = sessionStorage.getItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
-    if (user === null){
-      return false;
-    } 
-    return true;
-  }
-  getLoggedInUserName() {
-    let user = sessionStorage.getItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
-    if (user === null) {
-      return '';
-    }
-    return user;
-  }
+  
   getLoggedInUserRoleAdmin() {
     let userRole = sessionStorage.getItem(this.USER_ROLE_SESSION_ATTRIBUTE_ROLE);
     if (userRole == "Administrador") {
