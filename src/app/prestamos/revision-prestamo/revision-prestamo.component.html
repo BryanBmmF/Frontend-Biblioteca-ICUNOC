@@ -107,12 +107,13 @@
                 <td>{{prestamo.codigoReservacion}}</td>
                 <td>
                   <div class="spacer"></div>
-                    <div *ngIf="prestamo.mora==true ; else notAvailable" ><span  class="availableDot">
-                      <br>
-                     {{prestamo.diasMoroso}} Dias Atrasado
+                    <div *ngIf="prestamo.mora==false ; else notAvailable" ><span  class="availableDot">
                     </span>
                     </div>
-                    <ng-template #notAvailable><span class="notAvailableDot"></span></ng-template>
+                    <ng-template #notAvailable><span class="notAvailableDot">
+                      <br>
+                      {{prestamo.diasMoroso}} dias.
+                    </span></ng-template>
                 </td>
                 <td>Q. {{prestamo.costo}}</td>
                 <td><button class="btn btn-outline-info" routerLink="/detalleLibroC/{{prestamo.codigoLibro}}"><i
