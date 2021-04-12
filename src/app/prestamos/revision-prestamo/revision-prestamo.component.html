@@ -7,7 +7,7 @@
   <button mat-button [matMenuTriggerFor]="prestamosMenu">Prestamos</button>
   <mat-menu #prestamosMenu="matMenu" yPosition="above">
     <button routerLink="/revisarPrestamos" mat-menu-item>Revisar Prestamos</button>
-    <button routerLink="/registrarPrestamo" mat-menu-item>Registrar Prestamo</button>
+    <button routerLink="/reportesPrestamo" mat-menu-item>Reportes Prestamo</button>
   </mat-menu>
   <button mat-button [matMenuTriggerFor]="devolucionesMenu">Reservaciones</button>
   <mat-menu #devolucionesMenu="matMenu" yPosition="below">
@@ -25,10 +25,11 @@
     <button routerLink="/solicitud-reset-password" mat-menu-item>Mis Datos</button>
     <button routerLink="/solicitud-reset-password" mat-menu-item>Cambiar mi Contraseña</button>
   </mat-menu>
-  <button [disabled]="buttonUsers" mat-button [matMenuTriggerFor]="usuariosMenu">Usuarios</button>
+  <button [disabled]="buttonUsers" mat-button [matMenuTriggerFor]="usuariosMenu">Administración</button>
   <mat-menu #usuariosMenu="matMenu" xPosition="after">
     <button routerLink="/usuarios" mat-menu-item>Lista de Usuarios</button>
     <button routerLink="/registro-usuario" mat-menu-item>Registrar Usuario</button>
+    <button routerLink="/info-biblioteca" mat-menu-item>Información de Biblioteca</button>
   </mat-menu>
   <!--Boton para cerrar sesion-->
   <button (click)="logout()" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
@@ -106,12 +107,13 @@
                 <td>{{prestamo.codigoReservacion}}</td>
                 <td>
                   <div class="spacer"></div>
-                    <div *ngIf="prestamo.mora==true ; else notAvailable" ><span  class="availableDot">
-                      <br>
-                     {{prestamo.diasMoroso}} Dias Atrasado
+                    <div *ngIf="prestamo.mora==false ; else notAvailable" ><span  class="availableDot">
                     </span>
                     </div>
-                    <ng-template #notAvailable><span class="notAvailableDot"></span></ng-template>
+                    <ng-template #notAvailable><span class="notAvailableDot">
+                      <br>
+                      {{prestamo.diasMoroso}} dias.
+                    </span></ng-template>
                 </td>
                 <td>Q. {{prestamo.costo}}</td>
                 <td><button class="btn btn-outline-info" routerLink="/detalleLibroC/{{prestamo.codigoLibro}}"><i

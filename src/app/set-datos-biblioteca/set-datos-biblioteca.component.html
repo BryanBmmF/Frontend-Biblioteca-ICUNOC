@@ -25,7 +25,7 @@
     <button routerLink="/solicitud-reset-password" mat-menu-item>Mis Datos</button>
     <button routerLink="/solicitud-reset-password" mat-menu-item>Cambiar mi Contraseña</button>
   </mat-menu>
-  <button mat-button [matMenuTriggerFor]="usuariosMenu">Administración</button>
+  <button [disabled]="buttonUsers" mat-button [matMenuTriggerFor]="usuariosMenu">Administración</button>
   <mat-menu #usuariosMenu="matMenu" xPosition="after">
     <button routerLink="/usuarios" mat-menu-item>Lista de Usuarios</button>
     <button routerLink="/registro-usuario" mat-menu-item>Registrar Usuario</button>
@@ -37,52 +37,46 @@
   </button>
 </mat-toolbar>
 
-
 <!--Card para formulario de login-->
 <main>
   <mat-card>
-    <form (ngSubmit)="onCreate(myForm)" novalidate #myForm="ngForm">
+    <form (ngSubmit)="onUpdate()" novalidate #myForm="ngForm">
       <img width="50" alt="USAC Logo"
         src="https://th.bing.com/th/id/R357b881f7404a7510172712ba8df9b7a?rik=1F6J6d8A%2bhOR5g&riu=http%3a%2f%2fcceeusac.com%2fasignaciones%2fImagenes%2flogo_usac.png&ehk=KplsqbdMJu2aTx%2bzT5h2DGcFKOP5faojo95W%2bTVxoPM%3d&risl=&pid=ImgRaw" />
       <mat-label>
-        <h2>Datos del nuevo usuario</h2>
+        <h2>Información de Biblioteca Ingeniería CUNOC</h2>
       </mat-label>
       <mat-form-field>
-        <mat-label>Nombre Completo: </mat-label>
-        <input type="text" [(ngModel)]="nombre" name="nombre" matInput placeholder="Juan Doe" required>
+        <mat-icon matSuffix type="button" onclick="location.reload()" >loop</mat-icon>
+        <mat-label>Correo electronico: </mat-label>
+        <input type="email" [(ngModel)]="infoBiblioteca.correo" name="correo" matInput placeholder="exampel@dom.com" maxlength="100" required>
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Registro Academico/Personal: </mat-label>
-        <input type="text" [(ngModel)]="numeroRegistro" name="numeroRegistro" matInput placeholder="201730291" required>
+        <mat-label>Direccón: </mat-label>
+        <input type="text" [(ngModel)]="infoBiblioteca.direccion" name="direccion" matInput placeholder="3ra calle 2-10 zona 1 Quetzaltenango" maxlength="150" required>
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Usuario: </mat-label>
-        <input type="text" [(ngModel)]="username" name="user" matInput placeholder="mi_usuario" required>
+        <mat-label>Telefono: </mat-label>
+        <input type="text" [(ngModel)]="infoBiblioteca.telefono" name="telefono" matInput placeholder="7760-4565" maxlength="100" required>
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Correo: </mat-label>
-        <input type="email" [(ngModel)]="correo" name="correo" matInput placeholder="mi_correo@dom.com" required>
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>Tipo de Usuario: </mat-label>
-        <mat-select [(ngModel)]="tipoUser" name="tipoUser" required>
-          <mat-option value="Administrador">Administrador</mat-option>
-          <mat-option value="Bibliotecario">Bibliotecario</mat-option>
-        </mat-select>
+        <mat-label>Horarios de atención: </mat-label>
+        <input type="text" [(ngModel)]="infoBiblioteca.horario" name="horario" matInput placeholder="Lunes a viernes de 8:00 a 12:00 hrs" maxlength="150" required>
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Contraseña: </mat-label>
-        <input id="txtPassword" type="password" [(ngModel)]="password" name="password" matInput placeholder="mi contraseña" required>
-        <mat-icon matSuffix id="show_password" type="button" onclick="mostrarPassword()">visibility</mat-icon>
+        <mat-label>Dias habiles para vigencia de prestamos: </mat-label>
+        <input type="text" [(ngModel)]="infoBiblioteca.diasHabilesPrestamo" name="diasHabilesPrestamo" matInput placeholder="7" required>
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Repetir Contraseña: </mat-label>
-        <input id="txtPassword2" type="password" [(ngModel)]="confirmPassword" name="password" matInput placeholder="mi contraseña"
-          required>
-          <mat-icon matSuffix id="show_password" type="button" onclick="mostrarPassword2()">visibility</mat-icon>
+        <mat-label>Costo por dia de mora (Q.): </mat-label>
+        <input type="text" [(ngModel)]="infoBiblioteca.costoDiaMoroso" name="costoDiaMoroso" matInput placeholder="5" required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Costo general por prestamo (Q.): </mat-label>
+        <input type="text" [(ngModel)]="infoBiblioteca.costoGeneralPrestamo" name="costoGeneralPrestamo" matInput placeholder="5" required>
       </mat-form-field>
       <button [disabled]="!myForm.valid" mat-raised-button color="accent"
-        style="display: block; width: 100%;">Registrar</button>
+        style="display: block; width: 100%;">Actualizar</button>
     </form>
   </mat-card>
 </main>

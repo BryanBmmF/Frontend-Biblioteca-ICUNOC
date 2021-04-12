@@ -1,10 +1,11 @@
+<!--Menu de opciones-->
 <mat-toolbar color="primary">
   <img width="40" alt="USAC Logo"
     src="https://th.bing.com/th/id/R357b881f7404a7510172712ba8df9b7a?rik=1F6J6d8A%2bhOR5g&riu=http%3a%2f%2fcceeusac.com%2fasignaciones%2fImagenes%2flogo_usac.png&ehk=KplsqbdMJu2aTx%2bzT5h2DGcFKOP5faojo95W%2bTVxoPM%3d&risl=&pid=ImgRaw" />
   <span>Biblioteca Ingeniería</span>
   <span class="example-spacer"></span>
   <button mat-button [matMenuTriggerFor]="prestamosMenu">Prestamos</button>
-  <mat-menu #prestamosMenu="matMenu" yPosition="below">
+  <mat-menu #prestamosMenu="matMenu" yPosition="above">
     <button routerLink="/revisarPrestamos" mat-menu-item>Revisar Prestamos</button>
     <button routerLink="/reportesPrestamo" mat-menu-item>Reportes Prestamo</button>
   </mat-menu>
@@ -24,55 +25,18 @@
     <button routerLink="/solicitud-reset-password" mat-menu-item>Mis Datos</button>
     <button routerLink="/solicitud-reset-password" mat-menu-item>Cambiar mi Contraseña</button>
   </mat-menu>
-  <button [disabled]="buttonUsers" mat-button [matMenuTriggerFor]="usuariosMenu">Administración</button>
+ <!-- <button [disabled]="buttonUsers" mat-button [matMenuTriggerFor]="usuariosMenu">Administración</button>
   <mat-menu #usuariosMenu="matMenu" xPosition="after">
     <button routerLink="/usuarios" mat-menu-item>Lista de Usuarios</button>
     <button routerLink="/registro-usuario" mat-menu-item>Registrar Usuario</button>
     <button routerLink="/info-biblioteca" mat-menu-item>Información de Biblioteca</button>
   </mat-menu>
-  <!--Boton para cerrar sesion-->
+  Boton para cerrar sesion-->
   <button (click)="logout()" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
     <mat-icon>logout</mat-icon>
   </button>
 </mat-toolbar>
 
-<main>
-  <mat-card class="example-card">
-    <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>Lista de categorias</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <div class="col-auto">
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th scope="col">ID</th>
-              <th scope="col">Nombre</th>
-              <th scope="col">Descripción</th>
-              <th scope="col">Editar</th>
-              <th scope="col">Borrar</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let category of categories">
-              <td>{{category.idCategoria}}</td>
-              <td>{{category.nombre}}</td>
-              <td>{{category.descripcion}}</td>
-              <td><button class="btn btn-outline-warning" routerLink="/actualizarCategoria/{{category.idCategoria}}"><i
-                    class="far fa-edit"></i>
-                  Editar</button></td>
-              <td><button class="btn btn-outline-danger" (click)="borrar(category.idCategoria)"><i
-                    class="far fa-trash-alt"></i>
-                  Eliminar</button></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </mat-card-content>
-  </mat-card>
-</main>
-<button routerLink="/crear-categoria" class="button-absolute-position" color="primary" mat-fab
-  aria-label="Example icon-button with a heart icon">
-  <mat-icon>add</mat-icon>
-</button>
+<h1>REPORTES DE LOS PRESTAMOS</h1>
+  
+  
