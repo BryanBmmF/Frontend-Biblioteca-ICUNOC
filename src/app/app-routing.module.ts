@@ -24,7 +24,7 @@ import { SolicitudResetPasswordComponent } from './user/solicitud-reset-password
 import { RevisionReservacionComponent } from './prestamos/revision-reservacion/revision-reservacion.component';
 import { RevisionReservacionVencidaComponent } from './prestamos/revision-reservacion-vencida/revision-reservacion-vencida.component';
 import { SetDatosBibliotecaComponent } from './set-datos-biblioteca/set-datos-biblioteca.component';
-
+import { ReportePrestamosComponent } from './reportes/reporte-prestamos/reporte-prestamos.component'; 
 /**
  * Manejo de las diferentes rutas de la pagina
  */
@@ -50,7 +50,7 @@ const routes: Routes = [
 
   { path: 'prestamo', component: PrestamoLibroComponent },
   { path: 'reservacionConfirmada', component: ReservaLibroComponent },
-
+  { path: 'reportesPrestamo', component: ReportePrestamosComponent },
   { path: 'registrarDevolucion', component: RegistrarDevolucionComponent },
   { path: 'revisarPrestamos', component: RevisionPrestamoComponent },
   { path: 'revisarReservaciones', component: RevisionReservacionComponent },
