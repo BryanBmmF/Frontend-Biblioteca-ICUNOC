@@ -51,7 +51,8 @@ import { EditarLibroComponent } from './ingresoLibro/editar-libro.component';
 import { ResetPasswordComponent } from './user/reset-password/reset-password.component';
 import { SolicitudResetPasswordComponent } from './user/solicitud-reset-password/solicitud-reset-password.component';
 import { RevisionReservacionComponent } from './prestamos/revision-reservacion/revision-reservacion.component';
-import { RevisionReservacionVencidaComponent } from './prestamos/revision-reservacion-vencida/revision-reservacion-vencida.component'; 
+import { RevisionReservacionVencidaComponent } from './prestamos/revision-reservacion-vencida/revision-reservacion-vencida.component';
+import { SetDatosBibliotecaComponent } from './set-datos-biblioteca/set-datos-biblioteca.component'; 
 
 
 
@@ -81,7 +82,8 @@ import { RevisionReservacionVencidaComponent } from './prestamos/revision-reserv
     ResetPasswordComponent,
     SolicitudResetPasswordComponent,
     RevisionReservacionComponent,
-    RevisionReservacionVencidaComponent
+    RevisionReservacionVencidaComponent,
+    SetDatosBibliotecaComponent
   ],
   imports: [
     MatSliderModule,

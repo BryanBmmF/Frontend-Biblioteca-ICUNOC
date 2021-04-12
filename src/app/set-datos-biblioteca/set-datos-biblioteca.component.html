@@ -1,4 +1,4 @@
-<!-- <p>lista-user works!</p> -->
+<!--Menu de opciones-->
 <mat-toolbar color="primary">
   <img width="40" alt="USAC Logo"
     src="https://th.bing.com/th/id/R357b881f7404a7510172712ba8df9b7a?rik=1F6J6d8A%2bhOR5g&riu=http%3a%2f%2fcceeusac.com%2fasignaciones%2fImagenes%2flogo_usac.png&ehk=KplsqbdMJu2aTx%2bzT5h2DGcFKOP5faojo95W%2bTVxoPM%3d&risl=&pid=ImgRaw" />
@@ -25,7 +25,7 @@
     <button routerLink="/solicitud-reset-password" mat-menu-item>Mis Datos</button>
     <button routerLink="/solicitud-reset-password" mat-menu-item>Cambiar mi Contraseña</button>
   </mat-menu>
-  <button mat-button [matMenuTriggerFor]="usuariosMenu">Administración</button>
+  <button [disabled]="buttonUsers" mat-button [matMenuTriggerFor]="usuariosMenu">Administración</button>
   <mat-menu #usuariosMenu="matMenu" xPosition="after">
     <button routerLink="/usuarios" mat-menu-item>Lista de Usuarios</button>
     <button routerLink="/registro-usuario" mat-menu-item>Registrar Usuario</button>
@@ -37,57 +37,53 @@
   </button>
 </mat-toolbar>
 
+<!--Card para formulario de login-->
 <main>
-  <mat-card class="example-card">
-    <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>Usuarios del sistema</mat-card-title>
-      <mat-card-subtitle> <button routerLink="/registro-usuario" mat-raised-button color="accent">+ Nuevo
-          Usuario</button> </mat-card-subtitle>
-
-    </mat-card-header>
-    <mat-card-content>
-      <div class="col-auto">
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th scope="col">Id</th>
-              <th scope="col">Nombre</th>
-              <th scope="col">Numero de Registro</th>
-              <th scope="col">Usuario</th>
-              <th scope="col">Correo</th>
-              <th scope="col">Tipo</th>
-              <th scope="col">Ver</th>
-              <th scope="col">Editar</th>
-              <th scope="col">Borrar</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let user of users">
-              <td>{{user.id}}</td>
-              <td>{{user.nombre}}</td>
-              <td>{{user.numeroRegistro}}</td>
-              <td>{{user.username}}</td>
-              <td>{{user.correo}}</td>
-              <td>{{user.tipo}}</td>
-              <td><button class="btn btn-outline-primary" routerLink="/detalle/{{user.id}}"><i class="far fa-eye"></i>
-                  Ver</button></td>
-              <td><button class="btn btn-outline-warning" routerLink="/editar-usuario/{{user.id}}"><i
-                    class="far fa-edit"></i>
-                  Editar</button></td>
-              <td><button class="btn btn-outline-danger" (click)="borrar(user.id)"><i class="far fa-trash-alt"></i>
-                  Eliminar</button></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </mat-card-content>
-
+  <mat-card>
+    <form (ngSubmit)="onUpdate()" novalidate #myForm="ngForm">
+      <img width="50" alt="USAC Logo"
+        src="https://th.bing.com/th/id/R357b881f7404a7510172712ba8df9b7a?rik=1F6J6d8A%2bhOR5g&riu=http%3a%2f%2fcceeusac.com%2fasignaciones%2fImagenes%2flogo_usac.png&ehk=KplsqbdMJu2aTx%2bzT5h2DGcFKOP5faojo95W%2bTVxoPM%3d&risl=&pid=ImgRaw" />
+      <mat-label>
+        <h2>Información de Biblioteca Ingeniería CUNOC</h2>
+      </mat-label>
+      <mat-form-field>
+        <mat-icon matSuffix type="button" onclick="location.reload()" >loop</mat-icon>
+        <mat-label>Correo electronico: </mat-label>
+        <input type="email" [(ngModel)]="infoBiblioteca.correo" name="correo" matInput placeholder="exampel@dom.com" maxlength="100" required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Direccón: </mat-label>
+        <input type="text" [(ngModel)]="infoBiblioteca.direccion" name="direccion" matInput placeholder="3ra calle 2-10 zona 1 Quetzaltenango" maxlength="150" required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Telefono: </mat-label>
+        <input type="text" [(ngModel)]="infoBiblioteca.telefono" name="telefono" matInput placeholder="7760-4565" maxlength="100" required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Horarios de atención: </mat-label>
+        <input type="text" [(ngModel)]="infoBiblioteca.horario" name="horario" matInput placeholder="Lunes a viernes de 8:00 a 12:00 hrs" maxlength="150" required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Dias habiles para vigencia de prestamos: </mat-label>
+        <input type="text" [(ngModel)]="infoBiblioteca.diasHabilesPrestamo" name="diasHabilesPrestamo" matInput placeholder="7" required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Costo por dia de mora (Q.): </mat-label>
+        <input type="text" [(ngModel)]="infoBiblioteca.costoDiaMoroso" name="costoDiaMoroso" matInput placeholder="5" required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Costo general por prestamo (Q.): </mat-label>
+        <input type="text" [(ngModel)]="infoBiblioteca.costoGeneralPrestamo" name="costoGeneralPrestamo" matInput placeholder="5" required>
+      </mat-form-field>
+      <button [disabled]="!myForm.valid" mat-raised-button color="accent"
+        style="display: block; width: 100%;">Actualizar</button>
+    </form>
   </mat-card>
-
 </main>
 
+<!-- Footer -->
 <footer class="page-footer font-small blue">
+  <!-- Copyright -->
   <div class="footer-copyright text-center py-3">© 2021 Copyright:
     <a href="http://www.ingenieria.cunoc.usac.edu.gt/portal/"> IngenieriaCunoc.edu.gt</a>
     <svg id="clouds" alt="Gray Clouds Background" xmlns="http://www.w3.org/2000/svg" width="auto" height="auto"
@@ -97,4 +93,6 @@
         transform="translate(142.69 -634.312)" fill="#eee" />
     </svg>
   </div>
+  <!-- Copyright -->
 </footer>
+<!-- Footer -->

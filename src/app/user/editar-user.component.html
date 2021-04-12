@@ -25,10 +25,11 @@
     <button routerLink="/solicitud-reset-password" mat-menu-item>Mis Datos</button>
     <button routerLink="/solicitud-reset-password" mat-menu-item>Cambiar mi Contraseña</button>
   </mat-menu>
-  <button mat-button [matMenuTriggerFor]="usuariosMenu">Usuarios</button>
+  <button mat-button [matMenuTriggerFor]="usuariosMenu">Administración</button>
   <mat-menu #usuariosMenu="matMenu" xPosition="after">
     <button routerLink="/usuarios" mat-menu-item>Lista de Usuarios</button>
     <button routerLink="/registro-usuario" mat-menu-item>Registrar Usuario</button>
+    <button routerLink="/info-biblioteca" mat-menu-item>Información de Biblioteca</button>
   </mat-menu>
   <!--Boton para cerrar sesion-->
   <button (click)="logout()" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
