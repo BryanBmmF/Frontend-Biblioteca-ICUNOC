@@ -44,7 +44,7 @@ export class RevisionPrestamoComponent implements OnInit {
   }
 
   cargarPrestamos(): void {
-    this.prestamoService.lista().subscribe(
+    this.prestamoService.listaxEstado("ACTIVO").subscribe(
       data => {
         this.prestamos = data;
       },
