@@ -10,9 +10,11 @@ import { UsersService } from './users.service';
 
 import users from '../../test/fileTest/users.json';
 import user from 'src/app/test/fileTest/user.json';
+import infoBiblioteca from 'src/app/test/fileTest/infoBiblioteca.json';
 import emailBody from 'src/app/test/fileTest/mail.json';
 import { Observable } from 'rxjs';
 import { EmailBody } from 'src/app/models/EmailBody';
+import { InfoBiblioteca } from 'src/app/models/InfoBiblioteca';
 
 describe('UsersService', () => {
   //el servicio que utiliza el test
@@ -266,6 +268,38 @@ describe('UsersService', () => {
 
     service.getLoggedInUserRoleAdmin();
 
+  });
+
+  it('detailIdInfoBiblioteca', () => {
+    //Arrage
+    let idInfo: number;
+    idInfo = 1;
+
+    //Act
+    service.detailIdInfoBiblioteca(idInfo).subscribe((result: InfoBiblioteca) => {
+      expect(result.correo).toBe("correo");
+    });
+
+    //expect
+    const request = httpMock.expectOne(`${service.urlInfoBiblioteca + "/detailId/" + idInfo}`);
+    expect(request.request.method).toBe('GET');
+    request.flush(infoBiblioteca);
+  });
+
+  it('updateInfoBiblioteca', () => {
+    //Arrage
+    let idInfo: number;
+    idInfo = 1;
+
+    //Act
+    service.updateInfoBiblioteca(idInfo, infoBiblioteca).subscribe((result: InfoBiblioteca) => {
+      expect(result.correo).toBe('correo');
+    });
+
+    //expect
+    const request = httpMock.expectOne(`${service.urlInfoBiblioteca + "/actualizar/" + idInfo}`, infoBiblioteca);
+    expect(request.request.method).toBe('PUT');
+    request.flush(infoBiblioteca);
   });
 
 });

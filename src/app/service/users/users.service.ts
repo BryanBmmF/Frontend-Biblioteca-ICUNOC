@@ -5,6 +5,7 @@ import { CookieService } from "ngx-cookie-service";
 import { User } from "../../models/User";
 import { Router } from '@angular/router';
 import { EmailBody } from 'src/app/models/EmailBody';
+import { InfoBiblioteca } from 'src/app/models/InfoBiblioteca';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,9 @@ export class UsersService {
 
   //Url para el envio de correos
   urlSendEmail = "http://localhost:8082/email/send";
+
+  //Url para la recuperacion y actualizacion de informacion de biblioteca
+  urlInfoBiblioteca = "http://localhost:8082/api/v1/admin/biblioteca";
 
   auth: boolean = true;
 
@@ -159,6 +163,16 @@ export class UsersService {
   public sendEmail(emailBody: EmailBody): Observable<any> {
     return this.http.post<any>(this.urlSendEmail, emailBody);
   }
+
+  //recuperacion y actualizacion de infromacion de biblioteca para users administradores
+  public detailIdInfoBiblioteca(id: number): Observable<InfoBiblioteca> {
+    return this.http.get<InfoBiblioteca>(this.urlInfoBiblioteca + `/detailId/${id}`);
+  }
+
+  public updateInfoBiblioteca(id: number, infoBiblioteca: InfoBiblioteca): Observable<any> {
+    return this.http.put<any>(this.urlInfoBiblioteca + `/actualizar/${id}`, infoBiblioteca);
+  }
+
 
 }
 
