@@ -43,40 +43,41 @@
     </mat-card-header>
     <mat-card-content>
       <form novalidate #f="ngForm">
-                  
+        <br>
         <div class="form-group">
-            <label for="autor">Autor</label>
-            <input type="text" class="form-control" id="autor" placeholder="Autor del libro" [(ngModel)]="autor" name="autor">
+          <label for="autor">Autor</label>
+          <input type="text" class="form-control" id="autor" placeholder="Autor del libro" [(ngModel)]="autor"
+            name="autor">
         </div>
         <div class="form-group">
           <label for="Codigo">Código</label>
-          <input type="text" class="form-control" id="codigo" placeholder="Código del libro" name="codigo" [(ngModel)]="codigo" required>
+          <input type="text" class="form-control" id="codigo" placeholder="Código del libro" name="codigo"
+            [(ngModel)]="codigo" required>
         </div>
         <div class="form-group">
           <label for="edicion">Edición</label>
-          <input type="number"  min="1" class="form-control" id="edicion" placeholder="Edición" name="edicion" [(ngModel)]="edicion">
+          <input type="number" min="1" class="form-control" id="edicion" placeholder="Edición" name="edicion"
+            [(ngModel)]="edicion">
         </div>
         <div class="form-group">
           <label for="Fecha">Fecha de Publicación</label>
-          <input type="date" class="form-control" id="fechaPublicacion" name="fechaPublicacion" [(ngModel)]="fechaPublicacion">
+          <input type="date" class="form-control" id="fechaPublicacion" name="fechaPublicacion"
+            [(ngModel)]="fechaPublicacion">
         </div>
         <div class="form-group">
-          <label for="">Idioma:</label>
-         <!--  <input type="text" class="form-control" id="Carrera" [(ngModel)]="carrera" name="carrera" required><br> -->
-          <select class="form-select" aria-label="Default select example" id="idioma" [(ngModel)]="idioma" name="idioma" required>
-              <option value="INGLES">INGLES</option>
-              <option value="ESPAÑOL">ESPAÑOL</option>
+          <label for="">Idioma</label>
+          <!--  <input type="text" class="form-control" id="Carrera" [(ngModel)]="carrera" name="carrera" required><br> -->
+          <select class="form-select" aria-label="Default select example" id="idioma" [(ngModel)]="idioma" name="idioma"
+            required>
+            <option value="INGLES">INGLES</option>
+            <option value="ESPAÑOL">ESPAÑOL</option>
           </select>
-      </div>
+        </div>
         <div class="form-group">
           <label for="nombre">Nombre</label>
-          <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Titulo del libro" [(ngModel)]="nombre" required>
+          <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Titulo del libro"
+            [(ngModel)]="nombre" required>
         </div>
-        <!-- <div class="form-group">
-          <label for="Imagen">Imagen</label><br>
-          <input type="file" (change)="onFileChanged($event)">
-          <img [src]="imgURL" height="200" width="200" *ngIf="imgURL">
-        </div> -->
         <div class="mb-3">
           <label for="formFile" class="form-label">Imagen</label>
           <input class="form-control" type="file" id="formFile" (change)="onFileChanged($event)"><br>
@@ -84,20 +85,20 @@
         </div>
         <div class="form-group">
           <label for="Stock">Stock</label>
-          <input type="number"  min="1" class="form-control" id="Stock" name="stock" [(ngModel)]="stock" required>
+          <input type="number" min="1" class="form-control" id="Stock" name="stock" [(ngModel)]="stock" required>
         </div>
         <div class="form-group">
-          <label for="formFile" class="form-label">Categorias:  </label>
-          <mat-grid-list cols="4" rowHeight="2:1" >
+          <label for="formFile" class="form-label">Categorias</label>
+          <mat-grid-list cols="4" rowHeight="2:1">
             <mat-grid-tile [colspan]=3>
               <select class="form-select" aria-label="Default select example" [(ngModel)]="categoria" name="Categorias">
                 <option *ngFor="let categoria of categorias" [ngValue]="categoria">
                   {{categoria.nombre}}
                 </option>
-              </select> 
+              </select>
             </mat-grid-tile>
             <mat-grid-tile [colspan]=1>
-              <button (click)="addCategoria()" class="btn btn-outline-success btn-block">Añadir categoria</button>
+              <button (click)="addCategoria()" class="btn btn-outline-success btn-block">Añadir</button>
             </mat-grid-tile>
           </mat-grid-list>
           <div class="col-auto">
@@ -118,8 +119,8 @@
           </div>
         </div>
         <button (click)="onCreate()" class="btn btn-outline-success btn-block" [disabled]="!f.valid">Crear</button>
-    </form>
+      </form>
     </mat-card-content>
   </mat-card>
 </main>
-  
+<br>

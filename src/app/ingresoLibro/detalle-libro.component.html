@@ -52,12 +52,15 @@
           <li class="list-group-item"><b>Edicion: </b>{{libro.edicion}}</li>
           <li class="list-group-item"><b>Fecha Publicacion: </b>{{libro.fechaPublicacion}}</li>
           <li class="list-group-item"><b>Idioma: </b>{{libro.idioma}}</li>
-          <li class="list-group-item"><b>Imagen: </b>AQUI VA LA IMAGEN</li>
           <li class="list-group-item"><b>Stock: </b>{{libro.stock}}</li>
           <li class="list-group-item"><b>Categorias: </b>
             <ul *ngFor="let categorie of categories">
               <li>{{categorie.nombre}}</li>
             </ul>
+          </li>
+          <li class="list-group-item"><b>Imagen: </b>
+            <img width="230" alt=""
+            src="{{ bytes }}" *ngIf="bytes" />
           </li>
         </ul>
         <div class="card-footer">
@@ -69,3 +72,4 @@
     </div>
   </div>
 </div>
+<br>
