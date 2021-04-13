@@ -43,7 +43,7 @@
     </mat-card-header>
     <mat-card-content *ngIf="libro">
       <form novalidate #f="ngForm">
-
+        <br>
         <div class="form-group">
           <label for="autor">Autor</label>
           <input type="text" class="form-control" id="autor" placeholder="Autor del libro" [(ngModel)]="libro.autor"
@@ -60,13 +60,14 @@
             [(ngModel)]="libro.edicion">
         </div>
         <div class="form-group">
-          <label for="formFile" class="form-label">Idioma:  </label>
+          <label for="formFile" class="form-label">Idioma</label>
           <br>
-          <select class="form-select" aria-label="Default select example" id="idioma" [(ngModel)]="libro.idioma" name="idioma" required>
-              <option value="INGLES">INGLES</option>
-              <option value="ESPAÑOL">ESPAÑOL</option>
+          <select class="form-select" aria-label="Default select example" id="idioma" [(ngModel)]="libro.idioma"
+            name="idioma" required>
+            <option value="INGLES">INGLES</option>
+            <option value="ESPAÑOL">ESPAÑOL</option>
           </select>
-      </div>
+        </div>
         <div class="form-group">
           <label for="nombre">Nombre</label>
           <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Titulo del libro"
@@ -75,24 +76,24 @@
         <div class="mb-3">
           <label for="formFile" class="form-label">Imagen</label>
           <input class="form-control" type="file" id="formFile" (change)="onFileChanged($event)"><br>
-          <img [src]="imgURL" height="200" width="200" *ngIf="imgURL">
+          <img [src]="imgURL" height="" width="230" *ngIf="imgURL">
         </div>
         <div class="form-group">
           <label for="Stock">Stock</label>
           <input type="number" class="form-control" id="Stock" name="stock" [(ngModel)]="libro.stock" required>
         </div>
         <div class="form-group">
-          <label for="formFile" class="form-label">Categorias:  </label>
-          <mat-grid-list cols="4" rowHeight="2:1" >
+          <label for="formFile" class="form-label">Categorias</label>
+          <mat-grid-list cols="4" rowHeight="2:1">
             <mat-grid-tile [colspan]=3>
               <select class="form-select" aria-label="Default select example" [(ngModel)]="categoria" name="Categorias">
                 <option *ngFor="let categoria of categorias" [ngValue]="categoria">
                   {{categoria.nombre}}
                 </option>
-              </select> 
+              </select>
             </mat-grid-tile>
             <mat-grid-tile [colspan]=1>
-              <button (click)="addCategoria()" class="btn btn-outline-success btn-block">Añadir categoria</button>
+              <button (click)="addCategoria()" class="btn btn-outline-success btn-block">Añadir</button>
             </mat-grid-tile>
           </mat-grid-list>
           <div class="col-auto">
@@ -108,9 +109,8 @@
                 <tr *ngFor="let categoria of categoriasElegidas">
                   <td>{{categoria.idCategoria}}</td>
                   <td>{{categoria.nombre}}</td>
-                  <td><button class="btn btn-outline-danger" (click)="erase(categoria)"><i
-                    class="far fa-trash-alt"></i>
-                  Eliminar</button></td>
+                  <td><button class="btn btn-outline-danger" (click)="erase(categoria)"><i class="far fa-trash-alt"></i>
+                      Eliminar</button></td>
                 </tr>
               </tbody>
             </table>
@@ -121,3 +121,4 @@
     </mat-card-content>
   </mat-card>
 </main>
+<br>

@@ -13,6 +13,7 @@ import { Categoria } from '../models/categoria';
 })
 export class DetalleLibroComponent implements OnInit {
   libro: Libro = null;
+  bytes: string;
   categories: Categoria[];
   buttonUsers: boolean = false;
   constructor(
@@ -35,6 +36,7 @@ export class DetalleLibroComponent implements OnInit {
       this.libroService.detalleCodigo(id).subscribe(
         data => {
           this.libro = data;
+          this.bytes = 'data:image/jpeg;base64,' + this.libro.pathImagen;
           this.asignacionLibroService.listaCategorias(this.libro.idLibro).subscribe(
             data => {
               this.categories = data;

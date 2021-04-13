@@ -40,14 +40,33 @@
   <mat-card class="example-card">
     <mat-card-header>
       <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>Lista de Libros</mat-card-title>
+      <mat-card-title><h1>Lista de Libros</h1></mat-card-title>
+    </mat-card-header>
+    <mat-card-header>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <form (ngSubmit)="cargarLibrosFiltrados()" class="form-inline my-2 my-lg-0" novalidate #f="ngForm">
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="inputGroup-sizing-default">Buscar: </span>
+              <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="Busqueda" placeholder="Titulo/Autor/Codigo" [(ngModel)]="stringBusqueda" name="Busqueda">
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+              <button class="btn btn-outline-danger my-2 my-sm-0" type="reset">Limpiar</button>
+            </div> 
+          </form>
+          <form type="reset" (ngSubmit)="cargarLibros()" class="form-inline my-2 my-lg-1" novalidate #f="ngForm">
+            <div class="input-group mb-3">
+              <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Ver Todo</button>
+            </div>
+          </form>
+        </div>
+      </nav>
     </mat-card-header>
     <mat-card-content>
       <div class="col-auto">
         <table class="table table-hover">
           <thead>
             <tr>
-              <th scope="col">ID</th>
+              <th scope="col">Codigo</th>
               <th scope="col">Nombre</th>
               <th scope="col">Autor</th>
               <th scope="col">Edicion</th>
@@ -58,11 +77,11 @@
           </thead>
           <tbody>
             <tr *ngFor="let libro of libros">
-              <td>{{libro.idLibro}}</td>
+              <td>{{libro.codigo}}</td>
               <td>{{libro.nombre}}</td>
               <td>{{libro.autor}}</td>
               <td>{{libro.edicion}}</td>
-              <td><button class="btn btn-outline-warning" routerLink="/detalleLibroC/{{libro.codigo}}"><i
+              <td><button class="btn btn-outline-success" routerLink="/detalleLibroC/{{libro.codigo}}"><i
                     class="far fa-edit"></i>
                   Ver</button></td>
               <td><button class="btn btn-outline-warning" routerLink="/editarLibro/{{libro.idLibro}}"><i
