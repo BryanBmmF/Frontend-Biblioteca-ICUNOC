@@ -1,8 +1,7 @@
-import { Component, ViewChild, OnInit, Input, EventEmitter, Output,NgZone } from '@angular/core';
+import { Component, ViewChild, OnInit, Input, EventEmitter, Output, NgZone } from '@angular/core';
 import { MatAccordion } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
-
 import { Router, ActivatedRoute } from '@angular/router';
 import { Libro } from "../models/libro";
 import { LibrosService } from '../service/libros/libros.service';
@@ -13,6 +12,7 @@ import { HttpClient } from '@angular/common/http';
 import { Categoria } from '../models/categoria';
 import { AsignacionLibroService } from '../service/asignacion_libro/asignacion-libro.service'
 import { AsignacionLibro } from '../models/asignacion_libro';
+
 @Component({
   selector: 'app-ingresoLibro',
   templateUrl: './ingresoLibro.component.html',
@@ -44,11 +44,9 @@ export class IngresoLibroComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private httpClient: HttpClient,
-    private zone:NgZone,
+    private zone: NgZone,
     private asignacionLibroService: AsignacionLibroService
-  ) {
-    
-   }
+  ) { }
 
   autor: string;
   codigo: string;
@@ -60,6 +58,7 @@ export class IngresoLibroComponent implements OnInit {
   stock: number;
   categoria: any;
   buttonUsers: boolean = false;
+
   ngOnInit() {
     this.categoryService.lista().subscribe(categoria => this.categorias = categoria);
     this.categoriasElegidas = [];
@@ -82,7 +81,6 @@ export class IngresoLibroComponent implements OnInit {
     const uploadData = new FormData();
     uploadData.append('imageFile', this.selectedFile, this.selectedFile.name);
     this.selectedFile.imageName = this.selectedFile.name;
-
     this.httpClient.post('http://localhost:8082/ingresoLibro/upload', uploadData, { observe: 'response' })
       .subscribe((response) => {
         if (response.status === 200) {
@@ -90,7 +88,7 @@ export class IngresoLibroComponent implements OnInit {
             (book) => {
               console.log(this.categoriasElegidas)
               this.categoriasElegidas.forEach((categoria) => {
-                this.asignacionLibroService.save(new AsignacionLibro(categoria.idCategoria,book.idLibro)).subscribe()
+                this.asignacionLibroService.save(new AsignacionLibro(categoria.idCategoria, book.idLibro)).subscribe()
               })
               this.bookAddedEvent.emit();
               //si todo va bien
@@ -100,7 +98,7 @@ export class IngresoLibroComponent implements OnInit {
               this.router.navigate(['/listaLibro']);
             }
           );
-        } 
+        }
       }
       );
   }
@@ -110,26 +108,22 @@ export class IngresoLibroComponent implements OnInit {
       this.toastr.warning("Solo se permite un máximo de 5 categorias por libro", 'Advertencia!', {
         timeOut: 5000, positionClass: 'toast-top-center'
       });
-    else if(!this.categoriasElegidas.includes(this.categoria))
+    else if (!this.categoriasElegidas.includes(this.categoria))
       this.categoriasElegidas.push(this.categoria);
     else
       this.toastr.warning("Esta categoria ya fue ingresada", 'Advertencia!', {
         timeOut: 5000, positionClass: 'toast-top-center'
       });
-
   }
 
   public onFileChanged(event) {
     console.log(event);
     this.selectedFile = event.target.files[0];
-
     let reader = new FileReader();
     reader.readAsDataURL(event.target.files[0]);
     reader.onload = (event2) => {
       this.imgURL = reader.result;
     };
-    console.log('Se ejecuto ese metodo');
-    console.log(this.imgURL);
   }
 
   logout() {

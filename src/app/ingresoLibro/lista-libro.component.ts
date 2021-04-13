@@ -15,6 +15,8 @@ export class ListaLibroComponent implements OnInit {
 
   libros: Libro[] = [];
   buttonUsers: boolean = false;
+  stringBusqueda: string; 
+
   constructor(
     private libroService: LibrosService,
     private userService: UsersService,
@@ -78,8 +80,26 @@ export class ListaLibroComponent implements OnInit {
         }
       )
     }
-
   }
+
+  cargarLibrosFiltrados(): void {
+    this.libroService.busquedaFiltrada(this.stringBusqueda).subscribe(
+      data => {
+        if(data.length==0){
+          this.toastr.warning('No se encontró ningún libro. Intenta de nuevo', 'Ups!', {
+            timeOut: 2000, positionClass: 'toast-top-center'
+          });
+        }else{
+          this.libros = data;
+        }        
+      },
+      err => {
+        console.log(err);
+      }
+    );
+    this.stringBusqueda = "";
+  }
+
   logout() {
     //borramos el token de las cookies
     this.userService.logout();
