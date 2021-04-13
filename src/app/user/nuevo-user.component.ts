@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { User } from '../models/User';
 import { UsersService } from '../service/users/users.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogoConfirmacionComponent } from "../dialogo-confirmacion/dialogo-confirmacion.component";
 
 @Component({
   selector: 'app-nuevo-user',
@@ -21,54 +23,65 @@ export class NuevoUserComponent {
 
   constructor(private userService: UsersService,
     private toastr: ToastrService,
-    private router: Router) { }
-    ngOnInit(): void {
-      //comprobar sesion
-      if (!this.userService.getLoggedInUserRoleAdmin()) {
-        this.router.navigate(['/']);
-      } else {
-        /* Codigo que se quiera cargar al inicio */
-      }
+    private router: Router,
+    public dialogo: MatDialog) { }
+  ngOnInit(): void {
+    //comprobar sesion
+    if (!this.userService.getLoggedInUserRoleAdmin()) {
+      this.router.navigate(['/']);
+    } else {
+      /* Codigo que se quiera cargar al inicio */
     }
+  }
 
   onCreate(form: NgForm): void {
     //confirmar
-    if (confirm("Esta seguro de registrar este usuario!")) {
-      //antes evaluar las constraseñas si son iguales
-      if (this.password == this.confirmPassword) {
-        const user = new User(this.nombre, this.numeroRegistro, this.username, this.password, this.tipoUser, this.correo);
-        this.userService.save(user).subscribe(
-          data => {
-            //si todo va bien
-            this.toastr.success('Usuario Registrado!', 'Ok!', {
-              timeOut: 5000, positionClass: 'toast-top-center'
-            });
-            //recargamos la pantalla, pero podriamos ir a otro lado
-            form.reset();
-            this.router.navigate(['/usuarios']);
+    this.dialogo
+      .open(DialogoConfirmacionComponent, {
+        data: `¿Esta seguro de registrar este usuario?`
+      })
+      .afterClosed()
+      .subscribe((confirmado: Boolean) => {
+        if (confirmado) {
+          //confirmado
+          //antes evaluar las constraseñas si son iguales
+          if (this.password == this.confirmPassword) {
+            const user = new User(this.nombre, this.numeroRegistro, this.username, this.password, this.tipoUser, this.correo);
+            this.userService.save(user).subscribe(
+              data => {
+                //si todo va bien
+                this.toastr.success('Usuario Registrado!', 'Ok!', {
+                  timeOut: 5000, positionClass: 'toast-top-center'
+                });
+                //recargamos la pantalla, pero podriamos ir a otro lado
+                form.reset();
+                this.router.navigate(['/usuarios']);
 
-          },
-          err => {
-            //si sucede algun fallo, mostramos el error que envia la api
-            this.toastr.error(err.error.mensaje, 'Fail!', {
+              },
+              err => {
+                //si sucede algun fallo, mostramos el error que envia la api
+                this.toastr.error(err.error.mensaje, 'Fail!', {
+                  timeOut: 5000, positionClass: 'toast-top-center'
+                });
+                //recargamos la pantalla, pero podriamos ir a otro lado
+                //form.reset();
+                this.router.navigate(['/registro-usuario']);
+              }
+            );
+          } else {
+            this.toastr.warning("Las contraseñas no coinciden !", 'Fail!', {
               timeOut: 5000, positionClass: 'toast-top-center'
             });
-            //recargamos la pantalla, pero podriamos ir a otro lado
-            //form.reset();
-            this.router.navigate(['/registro-usuario']);
           }
-        );
-      } else {
-        this.toastr.warning("Las contraseñas no coinciden !", 'Fail!', {
-          timeOut: 5000, positionClass: 'toast-top-center'
-        });
-      }
+        }
+      });
 
-    }
-    
+    // if (confirm("Esta seguro de registrar este usuario!")) {
+    // }
+
   }
-  
-  logout(){
+
+  logout() {
     //borramos el token de las cookies
     this.userService.logout();
     //volvemos a la pantalla de login o la inicial

@@ -5,6 +5,8 @@ import { ToastrService } from 'ngx-toastr';
 import { Categoria } from '../models/categoria';
 import { UsersService } from '../service/users/users.service';
 import { CategoryService } from '../service/category.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogoConfirmacionComponent } from "../dialogo-confirmacion/dialogo-confirmacion.component";
 
 @Component({
   selector: 'app-category-creator',
@@ -19,7 +21,8 @@ export class CategoryCreatorComponent {
   constructor(private userService: UsersService,
     private categoryService: CategoryService,
     private toastr: ToastrService,
-    private router: Router) { }
+    private router: Router,
+    public dialogo: MatDialog) { }
 
   ngOnInit(): void {
     //comprobar sesion
@@ -37,29 +40,36 @@ export class CategoryCreatorComponent {
     }
   }
   onCreate(form: NgForm): void {
-    if (confirm("¿Esta seguro de registrar esta categoría?")) {
-      const category = new Categoria(this.nombre, this.descripcion);
-      this.categoryService.save(category).subscribe(
-        data => {
-          this.toastr.success('Categoría registrada', 'Ok!', {
-            timeOut: 5000, positionClass: 'toast-top-center'
-          });
-          form.reset();
-          this.router.navigate(['/listaCategoriasAdmin']);
+    this.dialogo
+      .open(DialogoConfirmacionComponent, {
+        data: `¿Esta seguro de registrar esta categoría?`
+      })
+      .afterClosed()
+      .subscribe((confirmado: Boolean) => {
+        if (confirmado) {
+          //confirmado
+          const category = new Categoria(this.nombre, this.descripcion);
+          this.categoryService.save(category).subscribe(
+            data => {
+              this.toastr.success('Categoría registrada', 'Ok!', {
+                timeOut: 5000, positionClass: 'toast-top-center'
+              });
+              form.reset();
+              this.router.navigate(['/listaCategoriasAdmin']);
 
-        },
-        err => {
-          this.toastr.error(err.error.mensaje, 'Fail!', {
-            timeOut: 5000, positionClass: 'toast-top-center'
-          });
-          //recargamos la pantalla, pero podriamos ir a otro lado
-          //form.reset();
-          this.router.navigate(['/crear-categoria']);
+            },
+            err => {
+              this.toastr.error(err.error.mensaje, 'Fail!', {
+                timeOut: 5000, positionClass: 'toast-top-center'
+              });
+              //recargamos la pantalla, pero podriamos ir a otro lado
+              //form.reset();
+              this.router.navigate(['/crear-categoria']);
+            }
+          );
+
         }
-      );
-
-
-    }
+      });
 
   }
 

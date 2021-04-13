@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { User } from '../models/User';
 import { UsersService } from '../service/users/users.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogoConfirmacionComponent } from "../dialogo-confirmacion/dialogo-confirmacion.component";
 
 @Component({
   selector: 'app-lista-user',
@@ -15,7 +17,8 @@ export class ListaUserComponent implements OnInit {
 
   constructor(private userService: UsersService,
     private toastr: ToastrService,
-    private router: Router) { }
+    private router: Router,
+    public dialogo: MatDialog) { }
 
   ngOnInit(): void {
     //comprobar sesion
@@ -25,7 +28,7 @@ export class ListaUserComponent implements OnInit {
       /* Codigo que se quiera cargar al inicio */
       this.cargarUsuarios();
     }
-    
+
   }
 
   cargarUsuarios(): void {
@@ -41,23 +44,31 @@ export class ListaUserComponent implements OnInit {
 
   borrar(id: number) {
     //confirmar
-    if (confirm("Esta seguro de eliminar permanentemente este usuario!")) {
-      this.userService.delete(id).subscribe(
-        data => {
-          //lanzamos el mensaje de eliminacion y cargamos la tabla
-          this.toastr.info('El usuario se elimino correctamente!', 'Ok!', {
-            timeOut: 5000, positionClass: 'toast-top-center'
-          });
-          this.cargarUsuarios();
-        },
-        err => {
-          //si sucede algun fallo, mostramos el error que envia la api
-          this.toastr.error(err.error.mensaje, 'Fail!', {
-            timeOut: 5000, positionClass: 'toast-top-center'
-          });
+    this.dialogo
+      .open(DialogoConfirmacionComponent, {
+        data: `¿Esta seguro de eliminar permanentemente este usuario?`
+      })
+      .afterClosed()
+      .subscribe((confirmado: Boolean) => {
+        if (confirmado) {
+          //confirmado
+          this.userService.delete(id).subscribe(
+            data => {
+              //lanzamos el mensaje de eliminacion y cargamos la tabla
+              this.toastr.info('El usuario se elimino correctamente!', 'Ok!', {
+                timeOut: 5000, positionClass: 'toast-top-center'
+              });
+              this.cargarUsuarios();
+            },
+            err => {
+              //si sucede algun fallo, mostramos el error que envia la api
+              this.toastr.error(err.error.mensaje, 'Fail!', {
+                timeOut: 5000, positionClass: 'toast-top-center'
+              });
+            }
+          );
         }
-      );
-    }
+      });
 
   }
 

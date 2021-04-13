@@ -5,6 +5,9 @@ import { Prestamo } from 'src/app/models/Prestamo';
 import { PrestamosService } from 'src/app/service/prestamos/prestamos.service';
 import { UsersService } from 'src/app/service/users/users.service';
 
+import { MatDialog } from '@angular/material/dialog';
+import { DialogoConfirmacionComponent } from "../../dialogo-confirmacion/dialogo-confirmacion.component";
+
 @Component({
   selector: 'app-revision-reservacion-vencida',
   templateUrl: './revision-reservacion-vencida.component.html',
@@ -18,7 +21,8 @@ export class RevisionReservacionVencidaComponent implements OnInit {
   constructor(private userService: UsersService,
     private prestamoService: PrestamosService,
     private toastr: ToastrService,
-    private router: Router) { }
+    private router: Router,
+    public dialogo: MatDialog) { }
 
   stringBusqueda: string; 
   ngOnInit(): void {
@@ -50,23 +54,31 @@ export class RevisionReservacionVencidaComponent implements OnInit {
   }
 
   onUpdate(codigoReservacion: string, nombre:string, costo:number): void {
-    if (confirm("FINALIZANDO PRESTAMO DE " + nombre + "\n" + "Total a pagar: Q." + costo)) {
-      this.prestamoService.finalizarPrestamo(codigoReservacion, this.prestamoCodigo).subscribe(
-        data => {
-          this.toastr.success('Prestamo Finalizado!', 'Ok!', {
-            timeOut: 2000, positionClass: 'toast-top-center'
-          });
-          this.cargarPrestamos();
-        },
-        err => {
-          this.toastr.error(err.error.mensaje, 'Fail!', {
-            timeOut: 2000, positionClass: 'toast-top-center'
-          });
-          this.cargarPrestamos();
+    //confirmacion
+    this.dialogo
+      .open(DialogoConfirmacionComponent, {
+        data: `¿Esta seguro de finalizar el prestamo adjudicado a ` + nombre + `?. El total a pagar es de: Q.` + costo
+      })
+      .afterClosed()
+      .subscribe((confirmado: Boolean) => {
+        if (confirmado) {
+          //confirmado
+          this.prestamoService.finalizarPrestamo(codigoReservacion, this.prestamoCodigo).subscribe(
+            data => {
+              this.toastr.success('Prestamo Finalizado!', 'Ok!', {
+                timeOut: 2000, positionClass: 'toast-top-center'
+              });
+              this.cargarPrestamos();
+            },
+            err => {
+              this.toastr.error(err.error.mensaje, 'Fail!', {
+                timeOut: 2000, positionClass: 'toast-top-center'
+              });
+              this.cargarPrestamos();
+            }
+          );
         }
-      );
-
-    }
+      });
 
   }
   cargarPrestamoUnico(): void{

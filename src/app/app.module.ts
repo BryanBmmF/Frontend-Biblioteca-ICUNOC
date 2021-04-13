@@ -53,8 +53,11 @@ import { SolicitudResetPasswordComponent } from './user/solicitud-reset-password
 import { RevisionReservacionComponent } from './prestamos/revision-reservacion/revision-reservacion.component';
 import { RevisionReservacionVencidaComponent } from './prestamos/revision-reservacion-vencida/revision-reservacion-vencida.component';
 import { SetDatosBibliotecaComponent } from './set-datos-biblioteca/set-datos-biblioteca.component';
-import { ReportePrestamosComponent } from './reportes/reporte-prestamos/reporte-prestamos.component'; 
+import { ReportePrestamosComponent } from './reportes/reporte-prestamos/reporte-prestamos.component';
+import { DialogoConfirmacionComponent } from './dialogo-confirmacion/dialogo-confirmacion.component'; 
 
+// Importar animaciones, los botones, el diálogo y el componente
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 
@@ -85,7 +88,8 @@ import { ReportePrestamosComponent } from './reportes/reporte-prestamos/reporte-
     RevisionReservacionComponent,
     RevisionReservacionVencidaComponent,
     SetDatosBibliotecaComponent,
-    ReportePrestamosComponent
+    ReportePrestamosComponent,
+    DialogoConfirmacionComponent,
   ],
   imports: [
     MatSliderModule,
@@ -107,6 +111,7 @@ import { ReportePrestamosComponent } from './reportes/reporte-prestamos/reporte-
     MatCardModule,
     MatSelectModule,
     ToastrModule.forRoot(), // ToastrModule added
+    MatDialogModule //confirm-dialog
 
   ],
   providers: [
@@ -117,6 +122,9 @@ import { ReportePrestamosComponent } from './reportes/reporte-prestamos/reporte-
       multi: true
     }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    DialogoConfirmacionComponent// confirm-dialog
+  ]
 })
 export class AppModule { }

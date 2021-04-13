@@ -6,6 +6,9 @@ import { UsersService } from '../service/users/users.service';
 import { Router } from '@angular/router';
 import { AsignacionLibroService } from '../service/asignacion_libro/asignacion-libro.service';
 
+import { MatDialog } from '@angular/material/dialog';
+import { DialogoConfirmacionComponent } from "../dialogo-confirmacion/dialogo-confirmacion.component";
+
 @Component({
   selector: 'app-lista-libro',
   templateUrl: './lista-libro.component.html',
@@ -20,8 +23,9 @@ export class ListaLibroComponent implements OnInit {
     private userService: UsersService,
     private router: Router,
     private toastr: ToastrService,
-    private asignacionLibroService: AsignacionLibroService
-    ) { }
+    private asignacionLibroService: AsignacionLibroService,
+    public dialogo: MatDialog
+  ) { }
 
   ngOnInit(): void {
     //comprobar sesion
@@ -32,7 +36,7 @@ export class ListaLibroComponent implements OnInit {
       this.validarMenu();
       this.cargarLibros();
     }
-   
+
   }
   validarMenu() {
     if (this.userService.getLoggedInUserRoleBibliotecario()) {
@@ -52,15 +56,31 @@ export class ListaLibroComponent implements OnInit {
   }
 
   borrar(id: number) {
-    if (confirm("¿Esta seguro de eliminar permanentemente este libro?")) {
-      this.asignacionLibroService.deleteAssignations(id).subscribe(
-        data => {
-          this.libroService.delete(id).subscribe(
+    //confirmacion
+    this.dialogo
+      .open(DialogoConfirmacionComponent, {
+        data: `¿Esta seguro de eliminar permanentemente este libro?`
+      })
+      .afterClosed()
+      .subscribe((confirmado: Boolean) => {
+        if (confirmado) {
+          //confirmado
+          this.asignacionLibroService.deleteAssignations(id).subscribe(
             data => {
-              this.toastr.info('El libro se elimino correctamente!', 'Ok!', {
-                timeOut: 5000, positionClass: 'toast-top-center'
-              });
-              this.cargarLibros();
+              this.libroService.delete(id).subscribe(
+                data => {
+                  this.toastr.info('El libro se elimino correctamente!', 'Ok!', {
+                    timeOut: 5000, positionClass: 'toast-top-center'
+                  });
+                  this.cargarLibros();
+                },
+                err => {
+                  console.log(err)
+                  this.toastr.error(err.error.mensaje, 'Fail!', {
+                    timeOut: 5000, positionClass: 'toast-top-center'
+                  });
+                }
+              );
             },
             err => {
               console.log(err)
@@ -68,16 +88,10 @@ export class ListaLibroComponent implements OnInit {
                 timeOut: 5000, positionClass: 'toast-top-center'
               });
             }
-          );
-        },
-        err => {
-          console.log(err)
-          this.toastr.error(err.error.mensaje, 'Fail!', {
-            timeOut: 5000, positionClass: 'toast-top-center'
-          });
+          )
         }
-      )
-    }
+      });
+
 
   }
   logout() {

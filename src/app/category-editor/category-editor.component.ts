@@ -5,6 +5,9 @@ import { ToastrService } from 'ngx-toastr';
 import { UsersService } from '../service/users/users.service';
 import { Categoria } from '../models/categoria';
 import { CategoryService } from '../service/category.service';
+
+import { MatDialog } from '@angular/material/dialog';
+import { DialogoConfirmacionComponent } from "../dialogo-confirmacion/dialogo-confirmacion.component";
 @Component({
   selector: 'app-category-editor',
   templateUrl: './category-editor.component.html',
@@ -13,13 +16,14 @@ import { CategoryService } from '../service/category.service';
 export class CategoryEditorComponent implements OnInit {
 
   category: Categoria = null;
-  buttonUsers : boolean = false;
+  buttonUsers: boolean = false;
 
   constructor(private userService: UsersService,
     private categoryService: CategoryService,
     private activatedRoute: ActivatedRoute,
     private toastr: ToastrService,
-    private router: Router) { }
+    private router: Router,
+    public dialogo: MatDialog) { }
 
   ngOnInit(): void {
     //comprobar sesion
@@ -43,31 +47,39 @@ export class CategoryEditorComponent implements OnInit {
     }
   }
 
-  validarMenu(){
+  validarMenu() {
     if (this.userService.getLoggedInUserRoleBibliotecario()) {
-        this.buttonUsers = !this.buttonUsers;
+      this.buttonUsers = !this.buttonUsers;
     }
   }
 
   onUpdate(): void {
-    if (confirm("¿Esta seguro de actualizar los datos de esta categoría?")) {
-      const id = this.activatedRoute.snapshot.params.id;
-      this.categoryService.update(id, this.category).subscribe(
-        data => {
-          this.toastr.success('Usuario actualizado!', 'Ok!', {
-            timeOut: 5000, positionClass: 'toast-top-center'
-          });
-          this.router.navigate(['/listaCategoriasAdmin']);
-        },
-        err => {
-          this.toastr.error(err.error.mensaje, 'Fail!', {
-            timeOut: 5000, positionClass: 'toast-top-center'
-          });
-          this.router.navigate(['/actualizarCategoria']);
-        }
-      );
+    this.dialogo
+      .open(DialogoConfirmacionComponent, {
+        data: `¿Esta seguro de actualizar los datos de esta categoría?`
+      })
+      .afterClosed()
+      .subscribe((confirmado: Boolean) => {
+        if (confirmado) {
+          //confirmado
+          const id = this.activatedRoute.snapshot.params.id;
+          this.categoryService.update(id, this.category).subscribe(
+            data => {
+              this.toastr.success('Usuario actualizado!', 'Ok!', {
+                timeOut: 5000, positionClass: 'toast-top-center'
+              });
+              this.router.navigate(['/listaCategoriasAdmin']);
+            },
+            err => {
+              this.toastr.error(err.error.mensaje, 'Fail!', {
+                timeOut: 5000, positionClass: 'toast-top-center'
+              });
+              this.router.navigate(['/actualizarCategoria']);
+            }
+          );
 
-    }
+        }
+      });
 
   }
 
