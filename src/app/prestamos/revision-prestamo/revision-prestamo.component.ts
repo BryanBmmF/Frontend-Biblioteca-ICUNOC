@@ -7,6 +7,9 @@ import { LibrosService } from 'src/app/service/libros/libros.service';
 import { PrestamosService } from 'src/app/service/prestamos/prestamos.service';
 import { UsersService } from 'src/app/service/users/users.service';
 
+import { MatDialog } from '@angular/material/dialog';
+import { DialogoConfirmacionComponent } from "../../dialogo-confirmacion/dialogo-confirmacion.component";
+
 @Component({
   selector: 'app-revision-prestamo',
   templateUrl: './revision-prestamo.component.html',
@@ -17,15 +20,16 @@ export class RevisionPrestamoComponent implements OnInit {
   prestamos: Prestamo[] = [];
   prestamoCodigo: Prestamo;
   libroVerificacion: Libro;
-  nuevoStock:number;
+  nuevoStock: number;
   buttonUsers: boolean = false;
   constructor(private userService: UsersService,
     private prestamoService: PrestamosService,
-    private librosService:LibrosService,
+    private librosService: LibrosService,
     private toastr: ToastrService,
-    private router: Router) { }
+    private router: Router,
+    public dialogo: MatDialog) { }
 
-  stringBusqueda: string; 
+  stringBusqueda: string;
   ngOnInit(): void {
     //comprobar sesion
     if (!(this.userService.getLoggedInUserRoleAdmin() || this.userService.getLoggedInUserRoleBibliotecario())) {
@@ -54,67 +58,75 @@ export class RevisionPrestamoComponent implements OnInit {
     );
   }
 
-  onUpdate(codigoReservacion: string, nombre:string, costo:number, codigoLibro:string): void {
-    if (confirm("FINALIZANDO PRESTAMO DE " + nombre + "\n" + "Total a pagar: Q." + costo)) {
-      this.prestamoService.finalizarPrestamo(codigoReservacion, this.prestamoCodigo).subscribe(
-        data => {
-          this.actualizarStock(codigoLibro);
-          this.toastr.success('Pretamo Finalizado!', 'Ok!', {
-            timeOut: 2000, positionClass: 'toast-top-center'
-          });
-          this.cargarPrestamos();
-        },
-        err => {
-          this.toastr.error(err.error.mensaje, 'Fail!', {
-            timeOut: 2000, positionClass: 'toast-top-center'
-          });
-          this.cargarPrestamos();
+  onUpdate(codigoReservacion: string, nombre: string, costo: number, codigoLibro: string): void {
+    //confirmacion
+    this.dialogo
+      .open(DialogoConfirmacionComponent, {
+        data: `¿Esta seguro de finalizar el prestamo adjudicado a ` + nombre + `?. El total a pagar es de: Q.` + costo
+      })
+      .afterClosed()
+      .subscribe((confirmado: Boolean) => {
+        if (confirmado) {
+          //confirmado
+          this.prestamoService.finalizarPrestamo(codigoReservacion, this.prestamoCodigo).subscribe(
+            data => {
+              this.actualizarStock(codigoLibro);
+              this.toastr.success('Pretamo Finalizado!', 'Ok!', {
+                timeOut: 2000, positionClass: 'toast-top-center'
+              });
+              this.cargarPrestamos();
+            },
+            err => {
+              this.toastr.error(err.error.mensaje, 'Fail!', {
+                timeOut: 2000, positionClass: 'toast-top-center'
+              });
+              this.cargarPrestamos();
+            }
+          );
         }
-      );
-
-    }
+      });
 
   }
 
   async actualizarStock(codigoLibro: string) {
     this.librosService.detalleCodigo(codigoLibro)
-    .subscribe(data=>{
-    this.libroVerificacion=data;
-      this.nuevoStock = this.libroVerificacion.stock + 1;
-      this.libroVerificacion.stock = this.nuevoStock;
+      .subscribe(data => {
+        this.libroVerificacion = data;
+        this.nuevoStock = this.libroVerificacion.stock + 1;
+        this.libroVerificacion.stock = this.nuevoStock;
         //En este punto actualizamos el stock del libro reservado
         this.librosService.update(this.libroVerificacion.idLibro, this.libroVerificacion).subscribe(
           data => {
           });
-  })
-}
+      })
+  }
 
-  cargarPrestamoUnico(): void{
-    if(this.stringBusqueda.length==8){
+  cargarPrestamoUnico(): void {
+    if (this.stringBusqueda.length == 8) {
       this.cargarPrestamosxCodigoReservacion(this.stringBusqueda);
-    }else if(this.stringBusqueda.length==13){
+    } else if (this.stringBusqueda.length == 13) {
       this.cargarPrestamosxDPI(this.stringBusqueda);
-    }else if(this.stringBusqueda.length==9){
+    } else if (this.stringBusqueda.length == 9) {
       this.cargarPrestamosxCarnet(this.stringBusqueda);
-    }else if(this.stringBusqueda.length==10){
+    } else if (this.stringBusqueda.length == 10) {
       this.cargarPrestamosxFechaInicio(this.stringBusqueda);
-    }else{
+    } else {
       this.toastr.error('Dato incorrecto! Intente de nuevo', 'Error!', {
         timeOut: 2000, positionClass: 'toast-top-center'
       });
     }
-  }   
+  }
 
   cargarPrestamosxCodigoReservacion(codigoReservacion: string): void {
     this.prestamoService.listaxCodigoReservacion(codigoReservacion).subscribe(
       data => {
-        if(data.length==0){
+        if (data.length == 0) {
           this.toastr.warning('No hay registros! Intente de nuevo', 'Error!', {
             timeOut: 2000, positionClass: 'toast-top-center'
           });
-        }else{
+        } else {
           this.prestamos = data;
-        }        
+        }
       },
       err => {
         console.log(err);
@@ -125,11 +137,11 @@ export class RevisionPrestamoComponent implements OnInit {
   cargarPrestamosxDPI(dpi: string): void {
     this.prestamoService.listaxDPI(dpi).subscribe(
       data => {
-        if(data.length==0){
+        if (data.length == 0) {
           this.toastr.warning('No hay registros! Intente de nuevo', 'Error!', {
             timeOut: 2000, positionClass: 'toast-top-center'
           });
-        }else{
+        } else {
           this.prestamos = data;
         }
       },
@@ -142,11 +154,11 @@ export class RevisionPrestamoComponent implements OnInit {
   cargarPrestamosxCarnet(carnet: string): void {
     this.prestamoService.listaxCarnet(carnet).subscribe(
       data => {
-        if(data.length==0){
+        if (data.length == 0) {
           this.toastr.warning('No hay registros! Intente de nuevo', 'Error!', {
             timeOut: 2000, positionClass: 'toast-top-center'
           });
-        }else{
+        } else {
           this.prestamos = data;
         }
       },
@@ -159,11 +171,11 @@ export class RevisionPrestamoComponent implements OnInit {
   cargarPrestamosxFechaInicio(fechaInicio: string): void {
     this.prestamoService.listaxFechaInicio(fechaInicio).subscribe(
       data => {
-        if(data.length==0){
+        if (data.length == 0) {
           this.toastr.warning('No hay registros! Intente de nuevo', 'Error!', {
             timeOut: 2000, positionClass: 'toast-top-center'
           });
-        }else{
+        } else {
           this.prestamos = data;
         }
       },

@@ -4,6 +4,9 @@ import { ToastrService } from 'ngx-toastr';
 import { InfoBiblioteca } from '../models/InfoBiblioteca';
 import { UsersService } from '../service/users/users.service';
 
+import { MatDialog } from '@angular/material/dialog';
+import { DialogoConfirmacionComponent } from "../dialogo-confirmacion/dialogo-confirmacion.component";
+
 @Component({
   selector: 'app-set-datos-biblioteca',
   templateUrl: './set-datos-biblioteca.component.html',
@@ -16,7 +19,8 @@ export class SetDatosBibliotecaComponent implements OnInit {
   constructor(private userService: UsersService,
     private activatedRoute: ActivatedRoute,
     private toastr: ToastrService,
-    private router: Router) { }
+    private router: Router,
+    public dialogo: MatDialog) { }
 
   ngOnInit(): void {
     //comprobar sesion
@@ -41,37 +45,45 @@ export class SetDatosBibliotecaComponent implements OnInit {
 
   onUpdate(): void {
     //confirmar
-    if (confirm("Esta seguro de actualizar los datos de la biblioteca!")) {
-      if (isNaN(parseInt(this.infoBiblioteca.diasHabilesPrestamo.toString())) || isNaN(parseFloat(this.infoBiblioteca.costoDiaMoroso.toString())) || isNaN(parseFloat(this.infoBiblioteca.costoGeneralPrestamo.toString()))) {
-        //si sucede algun fallo, mostramos el error que envia la api
-        this.toastr.warning("Los valores para (Costos) deben ser numero validos \n y para los dias habiles de prestamo es necesario especificar un numero entero.", 'Advertencia!!!', {
-          timeOut: 5000, positionClass: 'toast-top-center'
-        });
-        this.router.navigate(['/info-biblioteca']);
-      } else {
-        const id = 1;
-        this.userService.updateInfoBiblioteca(id, this.infoBiblioteca).subscribe(
-          data => {
-            //si todo va bien
-            this.toastr.success('La información de biblioteca se actualizo correctamente!', 'Ok!', {
-              timeOut: 5000, positionClass: 'toast-top-center'
-            });
-            //recargamos la pantalla, pero podriamos ir a otro lado
-            this.router.navigate(['/info-biblioteca']);
-          },
-          err => {
+    this.dialogo
+      .open(DialogoConfirmacionComponent, {
+        data: `¿Esta seguro de actualizar los datos de la biblioteca?`
+      })
+      .afterClosed()
+      .subscribe((confirmado: Boolean) => {
+        if (confirmado) {
+          //confirmado
+          if (isNaN(parseInt(this.infoBiblioteca.diasHabilesPrestamo.toString())) || isNaN(parseFloat(this.infoBiblioteca.costoDiaMoroso.toString())) || isNaN(parseFloat(this.infoBiblioteca.costoGeneralPrestamo.toString()))) {
             //si sucede algun fallo, mostramos el error que envia la api
-            this.toastr.error(err.error.mensaje, 'Fail!', {
+            this.toastr.warning("Los valores para (Costos) deben ser numero validos \n y para los dias habiles de prestamo es necesario especificar un numero entero.", 'Advertencia!!!', {
               timeOut: 5000, positionClass: 'toast-top-center'
             });
-            //recargamos la pantalla, pero podriamos ir a otro lado
             this.router.navigate(['/info-biblioteca']);
-          }
-        );
+          } else {
+            const id = 1;
+            this.userService.updateInfoBiblioteca(id, this.infoBiblioteca).subscribe(
+              data => {
+                //si todo va bien
+                this.toastr.success('La información de biblioteca se actualizo correctamente!', 'Ok!', {
+                  timeOut: 5000, positionClass: 'toast-top-center'
+                });
+                //recargamos la pantalla, pero podriamos ir a otro lado
+                this.router.navigate(['/info-biblioteca']);
+              },
+              err => {
+                //si sucede algun fallo, mostramos el error que envia la api
+                this.toastr.error(err.error.mensaje, 'Fail!', {
+                  timeOut: 5000, positionClass: 'toast-top-center'
+                });
+                //recargamos la pantalla, pero podriamos ir a otro lado
+                this.router.navigate(['/info-biblioteca']);
+              }
+            );
 
-      }
-      
-    }
+          }
+
+        }
+      });
 
   }
 

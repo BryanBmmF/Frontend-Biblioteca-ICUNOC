@@ -9,6 +9,9 @@ import { ToastrService } from 'ngx-toastr';
 import { EmailBody } from '../models/EmailBody';
 import { InfoBiblioteca } from '../models/InfoBiblioteca';
 
+import { MatDialog } from '@angular/material/dialog';
+import { DialogoConfirmacionComponent } from "../dialogo-confirmacion/dialogo-confirmacion.component";
+
 @Component({
   selector: 'app-prestamo-libro',
   templateUrl: './prestamo-libro.component.html',
@@ -37,7 +40,8 @@ export class PrestamoLibroComponent implements OnInit {
     private librosService: LibrosService,
     private activatedRoute: ActivatedRoute,
     private toastr: ToastrService,
-    private userService: UsersService) { }
+    private userService: UsersService,
+    public dialogo: MatDialog) { }
 
   nombre: string;
   apellido: string;
@@ -58,29 +62,39 @@ export class PrestamoLibroComponent implements OnInit {
         if (this.libroVerificacion.stock >= 1) {
           this.nuevoStock = this.libroVerificacion.stock - 1;
           this.libroVerificacion.stock = this.nuevoStock;
-          if (confirm("¿Esta seguro de reservar este libro?")) {
-            const nuevoPrestamo = new Prestamo(this.nombre, this.apellido, this.DPI, this.carnet, this.carrera, '', '', '', 0, 'RESERVADO', this.codigoReservacionVar, false, 0, this.codigoVar);
-            this.prestamoService.save(nuevoPrestamo).subscribe(
-              data => {
-                this.toastr.success('Reservación Registrada', 'Ok!', {
-                  timeOut: 5000, positionClass: 'toast-top-center'
-                });
-                //En este punto actualizamos el stock del libro reservado
-                this.librosService.update(this.libroVerificacion.idLibro, this.libroVerificacion).subscribe(
+
+          //confirmar
+          this.dialogo
+            .open(DialogoConfirmacionComponent, {
+              data: `¿Esta seguro de reservar este libro?`
+            })
+            .afterClosed()
+            .subscribe((confirmado: Boolean) => {
+              if (confirmado) {
+                //confirmado
+                const nuevoPrestamo = new Prestamo(this.nombre, this.apellido, this.DPI, this.carnet, this.carrera, '', '', '', 0, 'RESERVADO', this.codigoReservacionVar, false, 0, this.codigoVar);
+                this.prestamoService.save(nuevoPrestamo).subscribe(
                   data => {
-                  });
-                //se envia el correo de confirmacion y se redirige a la vista para generar la boleta
-                this.enviarCorreoConfirmacion();
-                this.confirmarBoletaReservación(this.codigoReservacionVar);
-              },
-              err => {
-                this.toastr.error(err.error.mensaje, 'Hubo un Error!', {
-                  timeOut: 5000, positionClass: 'toast-top-center'
-                });
-                this.router.navigate(['/']);
+                    this.toastr.success('Reservación Registrada', 'Ok!', {
+                      timeOut: 5000, positionClass: 'toast-top-center'
+                    });
+                    //En este punto actualizamos el stock del libro reservado
+                    this.librosService.update(this.libroVerificacion.idLibro, this.libroVerificacion).subscribe(
+                      data => {
+                      });
+                    //se envia el correo de confirmacion y se redirige a la vista para generar la boleta
+                    this.enviarCorreoConfirmacion();
+                    this.confirmarBoletaReservación(this.codigoReservacionVar);
+                  },
+                  err => {
+                    this.toastr.error(err.error.mensaje, 'Hubo un Error!', {
+                      timeOut: 5000, positionClass: 'toast-top-center'
+                    });
+                    this.router.navigate(['/']);
+                  }
+                );
               }
-            );
-          }
+            });
         }
         //Si no hay suficientes libros emitimos una alerta al usuario.
         else {
