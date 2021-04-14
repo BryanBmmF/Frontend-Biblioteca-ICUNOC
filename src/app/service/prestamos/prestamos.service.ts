@@ -52,4 +52,8 @@ export class PrestamosService {
     return this.http.delete<any>(this.prestamosURL+'eliminar/'+`${id}`);
   }
 
+  public consultarPrestamosReservacionesActivas(dpi: string, carnet: string): Observable<number>{
+    return this.http.get<number>(this.prestamosURL+`verificacion/${dpi}/${carnet}`);
+  }
+
 }
