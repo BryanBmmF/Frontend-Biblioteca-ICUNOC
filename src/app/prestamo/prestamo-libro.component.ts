@@ -49,60 +49,74 @@ export class PrestamoLibroComponent implements OnInit {
   carnet: string;
   carrera: string;
   correo: string;
+  cantidadActivos: number;
 
   ngOnInit(): void {
     this.obtenerDatos();
   }
 
   async generarReservacion() {
-    this.librosService.detalle(Number(this.idLibroVar))
-      .subscribe(data => {
-        this.libroVerificacion = data;
-        //Verificamos en el momento de presionar el boton que exista stock suficiente del libro a reservar
-        if (this.libroVerificacion.stock >= 1) {
-          this.nuevoStock = this.libroVerificacion.stock - 1;
-          this.libroVerificacion.stock = this.nuevoStock;
 
-          //confirmar
-          this.dialogo
-            .open(DialogoConfirmacionComponent, {
-              data: `¿Esta seguro de reservar este libro?`
-            })
-            .afterClosed()
-            .subscribe((confirmado: Boolean) => {
-              if (confirmado) {
-                //confirmado
-                const nuevoPrestamo = new Prestamo(this.nombre, this.apellido, this.DPI, this.carnet, this.carrera, '', '', '', 0, 'RESERVADO', this.codigoReservacionVar, false, 0, this.codigoVar);
-                this.prestamoService.save(nuevoPrestamo).subscribe(
-                  data => {
-                    this.toastr.success('Reservación Registrada', 'Ok!', {
-                      timeOut: 5000, positionClass: 'toast-top-center'
-                    });
-                    //En este punto actualizamos el stock del libro reservado
-                    this.librosService.update(this.libroVerificacion.idLibro, this.libroVerificacion).subscribe(
-                      data => {
-                      });
-                    //se envia el correo de confirmacion y se redirige a la vista para generar la boleta
-                    this.enviarCorreoConfirmacion();
-                    this.confirmarBoletaReservación(this.codigoReservacionVar);
-                  },
-                  err => {
-                    this.toastr.error(err.error.mensaje, 'Hubo un Error!', {
-                      timeOut: 5000, positionClass: 'toast-top-center'
-                    });
-                    this.router.navigate(['/']);
-                  }
-                );
+    this.prestamoService.consultarPrestamosReservacionesActivas(this.DPI, this.carnet)
+      .subscribe(data => {
+        this.cantidadActivos = data;
+        if (this.cantidadActivos < 2) {
+          this.librosService.detalle(Number(this.idLibroVar))
+            .subscribe(data => {
+              this.libroVerificacion = data;
+              //Verificamos en el momento de presionar el boton que exista stock suficiente del libro a reservar
+              if (this.libroVerificacion.stock >= 1) {
+                this.nuevoStock = this.libroVerificacion.stock - 1;
+                this.libroVerificacion.stock = this.nuevoStock;
+
+                //confirmar
+                this.dialogo
+                  .open(DialogoConfirmacionComponent, {
+                    data: `¿Esta seguro de reservar este libro?`
+                  })
+                  .afterClosed()
+                  .subscribe((confirmado: Boolean) => {
+                    if (confirmado) {
+                      //confirmado
+                      const nuevoPrestamo = new Prestamo(this.nombre, this.apellido, this.DPI, this.carnet, this.carrera, '', '', '', 0, 'RESERVADO', this.codigoReservacionVar, false, 0, this.codigoVar);
+                      this.prestamoService.save(nuevoPrestamo).subscribe(
+                        data => {
+                          this.toastr.success('Reservación Registrada', 'Ok!', {
+                            timeOut: 5000, positionClass: 'toast-top-center'
+                          });
+                          //En este punto actualizamos el stock del libro reservado
+                          this.librosService.update(this.libroVerificacion.idLibro, this.libroVerificacion).subscribe(
+                            data => {
+                            });
+                          //se envia el correo de confirmacion y se redirige a la vista para generar la boleta
+                          this.enviarCorreoConfirmacion();
+                          this.confirmarBoletaReservación(this.codigoReservacionVar);
+                        },
+                        err => {
+                          this.toastr.error(err.error.mensaje, 'Hubo un Error!', {
+                            timeOut: 5000, positionClass: 'toast-top-center'
+                          });
+                          this.router.navigate(['/']);
+                        }
+                      );
+                    }
+                  });
               }
-            });
-        }
-        //Si no hay suficientes libros emitimos una alerta al usuario.
-        else {
-          this.toastr.error('Este libro ya no cuenta con existencias para reservar.', 'Ups!', {
+              //Si no hay suficientes libros emitimos una alerta al usuario.
+              else {
+                this.toastr.error('Este libro ya no cuenta con existencias para reservar.', 'Ups!', {
+                  timeOut: 5000, positionClass: 'toast-top-center'
+                });
+              }
+            })
+        } else {
+          this.toastr.error('Has superado el limite de reservaciones/prestamos activos.', 'Ups!', {
             timeOut: 5000, positionClass: 'toast-top-center'
           });
         }
       })
+
+
   }
 
   //Metodo para confirmar que la reservación fue realizada y redirigimos a la pagina para descarga de pdf
@@ -119,6 +133,7 @@ export class PrestamoLibroComponent implements OnInit {
     this.codigoVar = libroRcodigo;
     this.idLibroVar = libroRid;
     this.codigoReservacionVar = this.generaCodigoReserva();
+
   }
 
   //metodo para generar el codigo aleatorio, falta llamarlo donde corresponde
