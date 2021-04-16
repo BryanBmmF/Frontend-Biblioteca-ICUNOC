@@ -56,4 +56,19 @@ export class PrestamosService {
     return this.http.get<number>(this.prestamosURL+`verificacion/${dpi}/${carnet}`);
   }
 
+  public reporte2(): Observable<Prestamo[]>{
+    return this.http.get<Prestamo[]>(this.prestamosURL+'misPrestamos/0/FINALIZADO');
+  }
+
+  public reporte1(): Observable<Prestamo[]>{
+    return this.http.get<Prestamo[]>(this.prestamosURL+'misPrestamos/1/FINALIZADO');
+  }
+
+  public reporte1Cuota(): Observable<Object[]>{
+    return this.http.get<Object[]>(this.prestamosURL+'misPrestamos/reporte1');
+  }
+
+  public reporte3(): Observable<Object[]>{
+    return this.http.get<Object[]>(this.prestamosURL+'misPrestamos/reporte3');
+  }
 }
