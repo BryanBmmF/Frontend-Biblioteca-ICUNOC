@@ -100,55 +100,60 @@ export class EditarLibroComponent implements OnInit {
   onUpdate(): void {
     const id = this.activatedRoute.snapshot.params.id;
     const uploadData = new FormData();
-    if (this.selectedFile === undefined) {
-      this.libroService.update(id, this.libro).subscribe(
-        data => {
-          this.asignacionLibroService.deleteAssignations(this.libro.idLibro).subscribe()
-          this.categoriasElegidas.forEach((categoria) => {
-            this.asignacionLibroService.save(new AsignacionLibro(categoria.idCategoria, this.libro.idLibro)).subscribe()
-          })
-          this.toastr.success('Libro Actualizado', 'OK', {
-            timeOut: 3000, positionClass: 'toast-top-center'
-          });
-          this.router.navigate(['/listaLibro']);
-        },
-        err => {
-          this.toastr.error(err.error.mensaje, 'Fail', {
-            timeOut: 3000, positionClass: 'toast-top-center',
-          });
-          this.router.navigate(['/listaLibro']);
-        }
-      );
-    } else {
-      uploadData.append('imageFile', this.selectedFile, this.selectedFile.name);
-      this.selectedFile.imageName = this.selectedFile.name;
-      this.httpClient.post('http://localhost:8082/ingresoLibro/upload', uploadData, { observe: 'response' })
-        .subscribe((response) => {
-          if (response.status === 200) {
-            //---
-            this.libroService.update(id, this.libro).subscribe(
-              data => {
-                this.asignacionLibroService.deleteAssignations(this.libro.idLibro).subscribe()
-                this.categoriasElegidas.forEach((categoria) => {
-                  this.asignacionLibroService.save(new AsignacionLibro(categoria.idCategoria, this.libro.idLibro)).subscribe()
-                })
-                this.toastr.success('Libro Actualizado', 'OK', {
-                  timeOut: 3000, positionClass: 'toast-top-center'
-                });
-                this.router.navigate(['/listaLibro']);
-              },
-              err => {
-                this.toastr.error(err.error.mensaje, 'Fail', {
-                  timeOut: 3000, positionClass: 'toast-top-center',
-                });
-                this.router.navigate(['/listaLibro']);
-              }
-            );
-            //---
+    if(this.categoriasElegidas.length > 0)
+      if (this.selectedFile === undefined) {
+        this.libroService.update(id, this.libro).subscribe(
+          data => {
+            this.asignacionLibroService.deleteAssignations(this.libro.idLibro).subscribe()
+            this.categoriasElegidas.forEach((categoria) => {
+              this.asignacionLibroService.save(new AsignacionLibro(categoria.idCategoria, this.libro.idLibro)).subscribe()
+            })
+            this.toastr.success('Libro Actualizado', 'OK', {
+              timeOut: 3000, positionClass: 'toast-top-center'
+            });
+            this.router.navigate(['/listaLibro']);
+          },
+          err => {
+            this.toastr.error(err.error.mensaje, 'Fail', {
+              timeOut: 3000, positionClass: 'toast-top-center',
+            });
+            this.router.navigate(['/listaLibro']);
           }
-        }
         );
-    }
+      } else {
+        uploadData.append('imageFile', this.selectedFile, this.selectedFile.name);
+        this.selectedFile.imageName = this.selectedFile.name;
+        this.httpClient.post('http://localhost:8082/ingresoLibro/upload', uploadData, { observe: 'response' })
+          .subscribe((response) => {
+            if (response.status === 200) {
+              //---
+              this.libroService.update(id, this.libro).subscribe(
+                data => {
+                  this.asignacionLibroService.deleteAssignations(this.libro.idLibro).subscribe()
+                  this.categoriasElegidas.forEach((categoria) => {
+                    this.asignacionLibroService.save(new AsignacionLibro(categoria.idCategoria, this.libro.idLibro)).subscribe()
+                  })
+                  this.toastr.success('Libro Actualizado', 'OK', {
+                    timeOut: 3000, positionClass: 'toast-top-center'
+                  });
+                  this.router.navigate(['/listaLibro']);
+                },
+                err => {
+                  this.toastr.error(err.error.mensaje, 'Fail', {
+                    timeOut: 3000, positionClass: 'toast-top-center',
+                  });
+                  this.router.navigate(['/listaLibro']);
+                }
+              );
+              //---
+            }
+          }
+          );
+      }
+    else 
+      this.toastr.warning('No se colocó ninguna categoria', 'Advertencia', {
+        timeOut: 5000, positionClass: 'toast-top-center'
+      });
   }
 
   public onFileChanged(event) {
