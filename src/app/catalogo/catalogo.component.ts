@@ -2,13 +2,14 @@ import { Component, ViewChild} from '@angular/core';
 import {MatAccordion} from '@angular/material/expansion';
 import {MatListModule} from '@angular/material/list';
 import {MatTableModule} from '@angular/material/table';
-
+import { LibrosService } from '../service/libros/libros.service';
 import { UsersService } from "../service/users/users.service";
 import { Router } from '@angular/router';
 import { CategoryService } from '../service/category.service';
 import { Categoria } from '../models/categoria';
 import { AsignacionLibroService } from '../service/asignacion_libro/asignacion-libro.service';
-
+import { ToastrService } from 'ngx-toastr';
+import { Libro } from '../models/libro';
 
 @Component({
   selector: 'app-catalogo',
@@ -17,11 +18,14 @@ import { AsignacionLibroService } from '../service/asignacion_libro/asignacion-l
 })
 export class CatalogoComponent {
   constructor(
+    private libroService: LibrosService,
+    private asignacionLibro: AsignacionLibroService,
     public userService: UsersService, 
+    private toastr: ToastrService,
     public router: Router, 
     private categoryService: CategoryService,
     private asignacionLibroService: AsignacionLibroService) {}
-  
+    
   //metodo para salir del sistema
   logout(){
     //borramos el token de las cookies
@@ -36,6 +40,14 @@ export class CatalogoComponent {
   displayedColumns: string[] = ['name', 'author', 'edition', 'available'];
   panelOpenState = false;
   categories: Categoria[] = [];
+  filteredBooks: Libro[] = [];
+  stringBusqueda: string;
+  searchingBooks: boolean;
+  step:number = 0;
+
+  setStep(index: number) {
+    this.step = index;
+  }
 
   ngOnInit() {
     this.getCategories()
@@ -59,10 +71,39 @@ export class CatalogoComponent {
     )
   }
 
-  VerDetallesLibro(libroID){
+  cargarLibrosFiltrados(): void {
+    this.searchingBooks = true
+    this.libroService.busquedaFiltrada(this.stringBusqueda).subscribe(
+      data => {
+        if (data.length == 0) {
+          this.toastr.warning('No se encontró ningún libro. Intenta de nuevo', 'Ups!', {
+            timeOut: 2000, positionClass: 'toast-top-center'
+          });
+        } else {
+          this.filteredBooks = data
+        }
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+  restoreCategories(): void {
+    this.searchingBooks = false
+    this.stringBusqueda = ''
+  }
+
+  VerDetallesLibro(libro){
     //console.log(libroID.idLibro);
-    localStorage.setItem("idLibro", libroID.idLibro);
-    this.router.navigate(["detalleslibro"]);
+    if(libro.stock >0) {
+      localStorage.setItem("idLibro", libro.idLibro);
+      this.router.navigate(["detalleslibro"]);
+    } else {
+      this.toastr.error('Este libro no está disponible', 'Ups!', {
+        timeOut: 2000, positionClass: 'toast-top-center'
+      });
+    }
   }
  
 }

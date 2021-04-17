@@ -37,6 +37,104 @@
   </button>
 </mat-toolbar>
 
-<h1>REPORTES DE LOS PRESTAMOS</h1>
+<main>
+  <mat-card class="example-card">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>Mis Reportes (Prestamos Finalizados)</mat-card-title>
+    </mat-card-header>
+    <mat-card-header>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <mat-card-header>
+            <mat-card-title>Total Recaudado: </mat-card-title>
+              <form (ngSubmit)="verReporte1()" class="form-inline my-2 my-lg-0" novalidate #f="ngForm">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Ver Reporte</button>
+              </form>
+          </mat-card-header>
+          <mat-card-header>
+            <mat-card-title>Prestamos sin mora:</mat-card-title>
+              <form (ngSubmit)="verReporte2()" class="form-inline my-2 my-lg-0" novalidate #f="ngForm">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Ver Reporte</button>
+              </form>
+          </mat-card-header>
+          <mat-card-header>
+            <mat-card-title>Estudiantes mas morosos:</mat-card-title>
+              <form class="form-inline my-2 my-lg-0" >
+                <button class="btn btn-outline-info" routerLink="/reporte3"><i
+                    class="far fa-edit"></i>
+                    Ver Reporte</button>
+              </form>
+         </mat-card-header> 
+        </div>
+      </nav>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="col-auto" class="table-responsive">
+        <table class="table table-hover">
+          <thead class="thead-dark"> 
+            <tr>
+              <th scope="col">Total Registros</th>
+              <th scope="col">Total Recaudado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{totales[0]}}</td>
+              <td>Q. {{totales[1]}}</td>
+            </tr>
+          </tbody>
+      </table>
+        <table class="table table-hover">
+          <thead class="thead-dark"> 
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Nombres</th>
+              <th scope="col">Apellidos</th>
+              <th scope="col">DPI</th>
+              <th scope="col">Carnet</th>
+              <th scope="col">Carrera</th>
+              <th scope="col">Fecha Reservacion</th>
+              <th scope="col">Fecha Inicio</th>
+              <th scope="col">Estado</th>
+              <th scope="col">Codigo Reservacion</th>
+              <th scope="col">Mora</th>
+              <th scope="col">Costo</th>
+              <th scope="col">Codigo Libro</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let prestamo of prestamos">
+              <td>{{prestamo.id}}</td>
+              <td>{{prestamo.nombre}}</td>
+              <td>{{prestamo.apellido}}</td>
+              <td>{{prestamo.dpi}}</td>
+              <td>{{prestamo.carnet}}</td>
+              <td>{{prestamo.carrera}}</td>
+              <td>{{prestamo.fechaReservacion}}</td>
+              <td>{{prestamo.fechaInicio}}</td>
+              <td>{{prestamo.estado}}</td>
+              <td>{{prestamo.codigoReservacion}}</td>
+              <td>
+                <div class="spacer"></div>
+                  <div *ngIf="prestamo.mora==false ; else notAvailable" ><span  class="availableDot">
+                  </span>
+                  </div>
+                  <ng-template #notAvailable><span class="notAvailableDot">
+                    <br>
+                    {{prestamo.diasMoroso}} dias.
+                  </span></ng-template>
+              </td>
+              <td>Q. {{prestamo.costo}}</td>
+              <td><button class="btn btn-outline-info" routerLink="/detalleLibroC/{{prestamo.codigoLibro}}"><i
+                    class="far fa-edit"></i>
+                    {{prestamo.codigoLibro}}</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</main>
   
   
