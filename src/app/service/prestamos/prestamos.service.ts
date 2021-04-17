@@ -24,22 +24,6 @@ export class PrestamosService {
     return this.http.get<Prestamo[]>(this.prestamosURL+'listaPrestamo/'+`${estadoPrestamo}`);
   }
 
-  public listaxCodigoReservacion(codigoReservacion: string): Observable<Prestamo[]>{
-    return this.http.get<Prestamo[]>(this.prestamosURL+`codigoReservacion/${codigoReservacion}`);
-  }
-
-  public listaxDPI(dpi: string): Observable<Prestamo[]>{
-    return this.http.get<Prestamo[]>(this.prestamosURL+`dpi/${dpi}`);
-  }
-
-  public listaxCarnet(carnet: string): Observable<Prestamo[]>{
-    return this.http.get<Prestamo[]>(this.prestamosURL+`carnet/${carnet}`);
-  }
-
-  public listaxFechaInicio(fechaInicio: string): Observable<Prestamo[]>{
-    return this.http.get<Prestamo[]>(this.prestamosURL+`FechaInicio/${fechaInicio}`);
-  }
-
   public finalizarPrestamo(codigoReservacion:string, prestamo: Prestamo): Observable<any>{
     return this.http.put<any>(this.prestamosURL+`finalizar/${codigoReservacion}`,prestamo);
   }
@@ -54,6 +38,10 @@ export class PrestamosService {
 
   public consultarPrestamosReservacionesActivas(dpi: string, carnet: string): Observable<number>{
     return this.http.get<number>(this.prestamosURL+`verificacion/${dpi}/${carnet}`);
+  }
+
+  public busquedaFiltrada(busqueda: string, estado: string): Observable<Prestamo[]> {
+    return this.http.get<Prestamo[]>(this.prestamosURL + `prestamosFiltrados/${busqueda}/${estado}`);
   }
 
 }

@@ -1,0 +1,17 @@
+    {
+        "id": 1,
+        "nombre": "Jonathan Bryant Daniel",
+        "apellido": "Chiroy Rivera",
+        "dpi": "2222222222222",
+        "carnet": "201631722",
+        "carrera": "ODONTOLOGIA",
+        "fechaReservacion": "2021-04-17T06:00:00.000+00:00",
+        "fechaInicio": "2021-04-17T06:00:00.000+00:00",
+        "fechaFin": null,
+        "costo": 0.0,
+        "estado": "ACTIVO",
+        "codigoReservacion": "IQ486HO1",
+        "mora": false,
+        "diasMoroso": 0,
+        "codigoLibro": "067662"
+    }
