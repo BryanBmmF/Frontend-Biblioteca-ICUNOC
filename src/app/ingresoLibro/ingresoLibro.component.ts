@@ -79,29 +79,36 @@ export class IngresoLibroComponent implements OnInit {
 
   onCreate(): void {
     const uploadData = new FormData();
+
     uploadData.append('imageFile', this.selectedFile, this.selectedFile.name);
     this.selectedFile.imageName = this.selectedFile.name;
-    this.httpClient.post('http://localhost:8082/ingresoLibro/upload', uploadData, { observe: 'response' })
-      .subscribe((response) => {
-        if (response.status === 200) {
-          this.LibroService.save(new Libro(this.autor, this.codigo, this.edicion, this.fechaPublicacion, this.idioma, this.nombre, '', this.stock, this.categoria)).subscribe(
-            (book) => {
-              console.log(this.categoriasElegidas)
-              this.categoriasElegidas.forEach((categoria) => {
-                this.asignacionLibroService.save(new AsignacionLibro(categoria.idCategoria, book.idLibro)).subscribe()
-              })
-              this.bookAddedEvent.emit();
-              //si todo va bien
-              this.toastr.success('El libro se ha registrado!', 'Ok!', {
-                timeOut: 5000, positionClass: 'toast-top-center'
-              });
-              this.router.navigate(['/listaLibro']);
-            }
-          );
+    if(this.categoriasElegidas.length > 0) 
+      this.httpClient.post('http://localhost:8082/ingresoLibro/upload', uploadData, { observe: 'response' })
+        .subscribe((response) => {
+          if (response.status === 200) {
+            this.LibroService.save(new Libro(this.autor, this.codigo, this.edicion, this.fechaPublicacion, this.idioma, this.nombre, '', this.stock, this.categoria)).subscribe(
+              (book) => {
+                this.categoriasElegidas.forEach((categoria) => {
+                  this.asignacionLibroService.save(new AsignacionLibro(categoria.idCategoria, book.idLibro)).subscribe()
+                })
+                this.bookAddedEvent.emit();
+                //si todo va bien
+                this.toastr.success('El libro se ha registrado!', 'Ok!', {
+                  timeOut: 5000, positionClass: 'toast-top-center'
+                });
+                this.router.navigate(['/listaLibro']);
+              }
+            );
+          }
         }
-      }
       );
+    else 
+      this.toastr.warning('No se colocó ninguna categoria', 'Advertencia', {
+        timeOut: 5000, positionClass: 'toast-top-center'
+      });
   }
+
+  
 
   addCategoria(): void {
     if (this.categoriasElegidas.length === 5)
