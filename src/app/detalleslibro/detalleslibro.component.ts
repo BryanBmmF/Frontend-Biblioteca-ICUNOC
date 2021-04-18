@@ -18,13 +18,7 @@ export class DetalleslibroComponent implements OnInit {
   constructor(private router:Router, private service:LibrosService, private userService: UsersService) { }
 
   ngOnInit(): void {
-    this.mostrarDatos();
-  }
-
-  mostrarDatos(){
-    let libroR = localStorage.getItem("idLibro");
-    console.log(libroR);
-    
+    let libroR = localStorage.getItem("idLibro");    
     if (libroR !== null){
       this.service.getLibroId(libroR)
       .subscribe(data=>{

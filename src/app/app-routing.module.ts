@@ -14,11 +14,10 @@ import { EditarUserComponent } from './user/editar-user.component';
 import { DetalleslibroComponent } from './detalleslibro/detalleslibro.component';
 import { PrestamoLibroComponent } from './prestamo/prestamo-libro.component';
 import { ReservaLibroComponent } from './reserva/reserva-libro.component';
-import { RegistrarDevolucionComponent } from './devoluciones/registrar-devolucion/registrar-devolucion.component';
 import { RevisionPrestamoComponent } from './prestamos/revision-prestamo/revision-prestamo.component';
 import { CategoryListComponent } from './category-list/category-list.component'; 
-import {CategoryCreatorComponent} from './category-creator/category-creator.component';
-import {CategoryEditorComponent} from './category-editor/category-editor.component';
+import { CategoryCreatorComponent } from './category-creator/category-creator.component';
+import { CategoryEditorComponent } from './category-editor/category-editor.component';
 import { ResetPasswordComponent } from './user/reset-password/reset-password.component';
 import { SolicitudResetPasswordComponent } from './user/solicitud-reset-password/solicitud-reset-password.component';
 import { RevisionReservacionComponent } from './prestamos/revision-reservacion/revision-reservacion.component';
@@ -53,7 +52,6 @@ const routes: Routes = [
   { path: 'reservacionConfirmada', component: ReservaLibroComponent },
   { path: 'reportesPrestamo', component: ReportePrestamosComponent },
   { path: 'reporte3', component: ReporteAlumnosMorososComponent },
-  { path: 'registrarDevolucion', component: RegistrarDevolucionComponent },
   { path: 'revisarPrestamos', component: RevisionPrestamoComponent },
   { path: 'revisarReservaciones', component: RevisionReservacionComponent },
   { path: 'revisarReservacionesVencidas', component: RevisionReservacionVencidaComponent },
