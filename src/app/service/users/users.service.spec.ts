@@ -270,6 +270,14 @@ describe('UsersService', () => {
 
   });
 
+  it('getLoggedInUserRoleBibliotecario', () => {
+    //spy del metodo getItem para retornar un null
+    var spy = spyOn(sessionStorage, 'getItem').and.returnValue(null);
+
+    service.getLoggedInUserRoleBibliotecario();
+
+  });
+
   it('detailIdInfoBiblioteca', () => {
     //Arrage
     let idInfo: number;
