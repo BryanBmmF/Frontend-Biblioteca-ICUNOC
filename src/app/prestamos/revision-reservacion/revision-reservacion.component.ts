@@ -113,27 +113,11 @@ export class RevisionReservacionComponent implements OnInit {
 
   }
 
-  cargarPrestamoUnico(): void {
-    if (this.stringBusqueda.length == 8) {
-      this.cargarPrestamosxCodigoReservacion(this.stringBusqueda);
-    } else if (this.stringBusqueda.length == 13) {
-      this.cargarPrestamosxDPI(this.stringBusqueda);
-    } else if (this.stringBusqueda.length == 9) {
-      this.cargarPrestamosxCarnet(this.stringBusqueda);
-    } else if (this.stringBusqueda.length == 10) {
-      this.cargarPrestamosxFechaInicio(this.stringBusqueda);
-    } else {
-      this.toastr.error('Dato incorrecto! Intente de nuevo', 'Error!', {
-        timeOut: 2000, positionClass: 'toast-top-center'
-      });
-    }
-  }
-
-  cargarPrestamosxCodigoReservacion(codigoReservacion: string): void {
-    this.prestamoService.listaxCodigoReservacion(codigoReservacion).subscribe(
+  cargarPrestamosFiltrados(): void {
+    this.prestamoService.busquedaFiltrada(this.stringBusqueda, "RESERVADO").subscribe(
       data => {
         if (data.length == 0) {
-          this.toastr.warning('No hay registros! Intente de nuevo', 'Error!', {
+          this.toastr.warning('No se encontró ninguna reservación. Intenta de nuevo', 'Ups!', {
             timeOut: 2000, positionClass: 'toast-top-center'
           });
         } else {
@@ -144,57 +128,7 @@ export class RevisionReservacionComponent implements OnInit {
         console.log(err);
       }
     );
-  }
-
-  cargarPrestamosxDPI(dpi: string): void {
-    this.prestamoService.listaxDPI(dpi).subscribe(
-      data => {
-        if (data.length == 0) {
-          this.toastr.warning('No hay registros! Intente de nuevo', 'Error!', {
-            timeOut: 2000, positionClass: 'toast-top-center'
-          });
-        } else {
-          this.prestamos = data;
-        }
-      },
-      err => {
-        console.log(err);
-      }
-    );
-  }
-
-  cargarPrestamosxCarnet(carnet: string): void {
-    this.prestamoService.listaxCarnet(carnet).subscribe(
-      data => {
-        if (data.length == 0) {
-          this.toastr.warning('No hay registros! Intente de nuevo', 'Error!', {
-            timeOut: 2000, positionClass: 'toast-top-center'
-          });
-        } else {
-          this.prestamos = data;
-        }
-      },
-      err => {
-        console.log(err);
-      }
-    );
-  }
-
-  cargarPrestamosxFechaInicio(fechaInicio: string): void {
-    this.prestamoService.listaxFechaInicio(fechaInicio).subscribe(
-      data => {
-        if (data.length == 0) {
-          this.toastr.warning('No hay registros! Intente de nuevo', 'Error!', {
-            timeOut: 2000, positionClass: 'toast-top-center'
-          });
-        } else {
-          this.prestamos = data;
-        }
-      },
-      err => {
-        console.log(err);
-      }
-    );
+    this.stringBusqueda = "";
   }
 
   logout() {
