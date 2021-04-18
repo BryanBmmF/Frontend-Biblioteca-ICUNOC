@@ -17,7 +17,6 @@ export class SetDatosBibliotecaComponent implements OnInit {
   infoBiblioteca: InfoBiblioteca = null;
 
   constructor(private userService: UsersService,
-    private activatedRoute: ActivatedRoute,
     private toastr: ToastrService,
     private router: Router,
     public dialogo: MatDialog) { }

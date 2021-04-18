@@ -55,7 +55,6 @@
               <th scope="col">Usuario</th>
               <th scope="col">Correo</th>
               <th scope="col">Tipo</th>
-              <th scope="col">Ver</th>
               <th scope="col">Editar</th>
               <th scope="col">Borrar</th>
             </tr>
@@ -68,8 +67,6 @@
               <td>{{user.username}}</td>
               <td>{{user.correo}}</td>
               <td>{{user.tipo}}</td>
-              <td><button class="btn btn-outline-primary" routerLink="/detalle/{{user.id}}"><i class="far fa-eye"></i>
-                  Ver</button></td>
               <td><button class="btn btn-outline-warning" routerLink="/editar-usuario/{{user.id}}"><i
                     class="far fa-edit"></i>
                   Editar</button></td>
