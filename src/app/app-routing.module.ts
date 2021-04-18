@@ -8,7 +8,6 @@ import { ListaLibroComponent} from './ingresoLibro/lista-libro.component';
 import { DetalleLibroComponent} from './ingresoLibro/detalle-libro.component';
 import { EditarLibroComponent} from './ingresoLibro/editar-libro.component';
 import { ListaUserComponent } from './user/lista-user.component';
-import { DetalleUserComponent } from './user/detalle-user.component';
 import { NuevoUserComponent } from './user/nuevo-user.component';
 import { EditarUserComponent } from './user/editar-user.component';
 import { DetalleslibroComponent } from './detalleslibro/detalleslibro.component';
@@ -35,7 +34,6 @@ const routes: Routes = [
   { path: 'detalleslibro', component: DetalleslibroComponent },
   { path: 'usuarios', component: ListaUserComponent },
   { path: 'registro-usuario', component: NuevoUserComponent },
-  { path: 'detalle/:id', component: DetalleUserComponent },
   { path: 'editar-usuario/:id', component: EditarUserComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'solicitud-reset-password', component: SolicitudResetPasswordComponent },
