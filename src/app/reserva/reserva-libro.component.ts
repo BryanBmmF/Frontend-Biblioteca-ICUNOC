@@ -23,8 +23,8 @@ export class ReservaLibroComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.obtenerDatos();
-    console.log(this.codigoReservacionVar);
+    let codigoRecivido = localStorage.getItem("codigoReservacion");
+    this.codigoReservacionVar = codigoRecivido;
   }
 
   generarPDF(){
@@ -58,11 +58,6 @@ export class ReservaLibroComponent implements OnInit {
         });
       }
     );  
-  }
-  
-  obtenerDatos(){
-    let codigoRecivido = localStorage.getItem("codigoReservacion");
-    this.codigoReservacionVar = codigoRecivido;
   }
 
 }

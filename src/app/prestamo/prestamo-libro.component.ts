@@ -38,7 +38,6 @@ export class PrestamoLibroComponent implements OnInit {
   constructor(private router: Router,
     private prestamoService: PrestamosService,
     private librosService: LibrosService,
-    private activatedRoute: ActivatedRoute,
     private toastr: ToastrService,
     private userService: UsersService,
     public dialogo: MatDialog) { }
@@ -133,7 +132,6 @@ export class PrestamoLibroComponent implements OnInit {
     this.codigoVar = libroRcodigo;
     this.idLibroVar = libroRid;
     this.codigoReservacionVar = this.generaCodigoReserva();
-
   }
 
   //metodo para generar el codigo aleatorio, falta llamarlo donde corresponde
