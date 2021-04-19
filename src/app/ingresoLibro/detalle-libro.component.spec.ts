@@ -4,28 +4,17 @@ import { DetalleLibroComponent } from './detalle-libro.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { ActivatedRoute, convertToParamMap, Data, Router } from '@angular/router';
 import { UsersService } from '../service/users/users.service';
-import { ToastrService } from 'ngx-toastr';
-import { MatDialog } from '@angular/material/dialog';
-import { of, throwError } from 'rxjs';
-import { FormsModule } from '@angular/forms';
+import { Libro } from '../models/libro';
 import { LibrosService } from '../service/libros/libros.service';
+import { ToastrService } from 'ngx-toastr';
+import { AsignacionLibroService } from '../service/asignacion_libro/asignacion-libro.service';
 
-
-class LibrosServiceMock {
+class LibroServiceMock{
   detalleCodigo = jasmine.createSpy('detalleCodigo');
 }
 
-class UsersServiceMock {
-  getLoggedInUserRoleAdmin = jasmine.createSpy('getLoggedInUserRoleAdmin');
-  getLoggedInUserRoleBibliotecario = jasmine.createSpy('getLoggedInUserRoleBibliotecario');
-  getDatosUserLogueado = jasmine.createSpy('getDatosUserLogueado');
-  sendEmail = jasmine.createSpy('sendEmail');
-  logout = jasmine.createSpy('logout');
-  lista = jasmine.createSpy('lista');
-  delete = jasmine.createSpy('delete');
-}
 class ToastrServiceMock {
   //estos mocks son del toastr
   success = jasmine.createSpy('success');
@@ -33,18 +22,25 @@ class ToastrServiceMock {
   error = jasmine.createSpy('error');
 }
 
-class MatDialogMock {
-  //este es el mock del Dialogo, igual solo se declara porque hay dos escenarios
-  //open = jasmine.createSpy('open').and.returnValue({afterClosed: () => of(true)});
-  open = jasmine.createSpy('open');
+class UsersServiceMock{
+  //Mockeo los metodos que necesite en el component y que en teoria me va proveer el UserService
+  //solo los que necesito
+  getLoggedInUserRoleAdmin = jasmine.createSpy('getLoggedInUserRoleAdmin');
+  getLoggedInUserRoleBibliotecario = jasmine.createSpy('getLoggedInUserRoleBibliotecario');
+  logout = jasmine.createSpy('logout');
+}
+
+class AsignacionLibroServiceMock {
+  //estos mocks son del toastr
+  listaCategoria = jasmine.createSpy('listaCategoria');
 }
 
 describe('DetalleLibroComponent', () => {
   let component: DetalleLibroComponent;
-  let fixture: ComponentFixture<DetalleLibroComponent>;
+  let libroServiceMock: LibroServiceMock;
+  let toastrMock: ToastrServiceMock;
   let userServiceMock: UsersServiceMock;
-  let matDialogMock: MatDialogMock;
-  let toastrMock : ToastrServiceMock;
+  let asignacionLibroServiceMock : AsignacionLibroServiceMock;
 
   //el roter spy falso que emula las rutas
   const spyRouter = {
@@ -60,37 +56,70 @@ describe('DetalleLibroComponent', () => {
         RouterTestingModule
       ],
       declarations: [ DetalleLibroComponent ],
-      providers:[
+
+      //los mock que creamos
+      providers: [
         HttpClient,
         DetalleLibroComponent,
         {
-          provide: UsersService,
-          useClass: UsersServiceMock,
-        },
-        {
-          provide: Router,
-          useValue: spyRouter,
+          provide: LibrosService,
+          useValue: LibroServiceMock,
         },
         {
           provide: ToastrService,
           useClass: ToastrServiceMock,
         },
         {
-          provide: MatDialog,
-          useClass: MatDialogMock,
+          provide: UsersService,
+          useClass: UsersServiceMock,
         },
+        {
+          provide: AsignacionLibroService,
+          useClass: AsignacionLibroServiceMock,
+        },
+        {
+          provide: Router,
+          useValue: spyRouter,
+        },
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            snapshot: {
+              params: convertToParamMap({ id: '1' }),
+            },
+            params: {
+              subscribe: (fn: (value: Data) => void) => fn({
+              }),
+            }
+          }
+        }
       ]
-    })
+    });
     component = TestBed.get(DetalleLibroComponent);
-    userServiceMock = TestBed.get(UsersService);
-    matDialogMock = TestBed.get(MatDialog);
+    libroServiceMock = TestBed.get(LibrosService);
     toastrMock = TestBed.get(ToastrService);
+    userServiceMock = TestBed.get(UsersService);
+    asignacionLibroServiceMock = TestBed.get(AsignacionLibroService);
   });
 
-  // it('should create', () => {
-  //   expect(component).toBeTruthy();
-  // });
-  
+  it('should logout', () => {
+    //Arrage
 
+    //Act
+    component.logout();
 
+    //Spect
+    expect(spyRouter.navigateByUrl).toHaveBeenCalledWith('/login');
+  });
+
+  it('should validar menu loggedBibliotecario', () => {
+    //Arrage
+    userServiceMock.getLoggedInUserRoleBibliotecario.and.returnValue(true);
+
+    //Act
+    component.validarMenu();
+
+    //Expect
+    //continue
+  });
 });

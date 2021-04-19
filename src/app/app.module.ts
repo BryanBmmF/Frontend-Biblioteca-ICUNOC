@@ -86,7 +86,7 @@ import { ReporteAlumnosMorososComponent } from './reportes/reporte-alumnos-moros
     SetDatosBibliotecaComponent,
     ReportePrestamosComponent,
     DialogoConfirmacionComponent,
-    ReporteAlumnosMorososComponent,
+    ReporteAlumnosMorososComponent
   ],
   imports: [
     MatSliderModule,

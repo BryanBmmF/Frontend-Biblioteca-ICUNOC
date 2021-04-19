@@ -14,15 +14,28 @@ export class ReportePrestamosComponent implements OnInit {
   prestamos: Prestamo[] = [];
   total: Object[] = [];
   totales: String[]=[];
+  buttonUsers: boolean = false;
   constructor(private router:Router
   ,private userService: UsersService
   ,private prestamoService: PrestamosService
   ,private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.verReporte1();
+    //comprobar sesion
+    if (!(this.userService.getLoggedInUserRoleAdmin() || this.userService.getLoggedInUserRoleBibliotecario())) {
+      this.router.navigate(['/']);
+    } else {
+      /* Codigo que se quiera cargar al inicio */
+      this.validarMenu();
+      this.verReporte1();
+    }
   }
 
+  validarMenu() {
+    if (this.userService.getLoggedInUserRoleBibliotecario()) {
+      this.buttonUsers = !this.buttonUsers;
+    }
+  }
   verReporte1(): void {
     this.prestamoService.reporte1().subscribe(
       data => {
@@ -84,32 +97,6 @@ export class ReportePrestamosComponent implements OnInit {
     );
   }
 
-  verReporte3(): void {
-    this.totales=[];
-    this.prestamos=[];
-    this.prestamoService.reporte3().subscribe(
-      data => {
-        if (data.length == 0) {
-          this.toastr.warning('No hay registros! Intente de nuevo', 'Error!', {
-            timeOut: 2000, positionClass: 'toast-top-center'
-          });
-        } else {
-          this.total = data;
-          this.valoresR3();
-        }
-      },
-      err => {
-        console.log(err);
-      }
-    );
-  }
-  valoresR3(): void{
-    this.totales=this.total[0].toString().split(',',7);
-    var table: HTMLTableElement = <HTMLTableElement> document.getElementById("myTable");
-    for(let i=0; i<this.totales.length;i++){
-      var row = table.insertRow(i);
-    }
-  }
   logout(){
     //borramos el token de las cookies
     this.userService.logout();
