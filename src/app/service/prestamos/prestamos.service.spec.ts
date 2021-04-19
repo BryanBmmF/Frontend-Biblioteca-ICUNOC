@@ -164,4 +164,47 @@ describe('PrestamosService', () => {
     request.flush(prestamos);
   });
 
+  it('reporte2', () => {
+    //Act
+    service.reporte2().subscribe((result: Prestamo[]) => {
+      //se esperan dos valores en la lista
+      expect(result.length).toBe(2);
+    });
+    const request = httpMock.expectOne(`${service.prestamosURL + "misPrestamos/0/FINALIZADO" }`);
+    expect(request.request.method).toBe('GET');
+    request.flush(prestamos);
+  });
+
+  it('reporte1', () => {
+    //Act
+    service.reporte1().subscribe((result: Prestamo[]) => {
+      //se esperan dos valores en la lista
+      expect(result.length).toBe(2);
+    });
+    const request = httpMock.expectOne(`${service.prestamosURL + "misPrestamos/1/FINALIZADO" }`);
+    expect(request.request.method).toBe('GET');
+    request.flush(prestamos);
+  });
+
+  it('reporte1Cuota', () => {
+    //Act
+    service.reporte1Cuota().subscribe((result: Object[]) => {
+      //se esperan dos valores en la lista
+      expect(result.length).toBe(2);
+    });
+    const request = httpMock.expectOne(`${service.prestamosURL + "misPrestamos/reporte1" }`);
+    expect(request.request.method).toBe('GET');
+    request.flush(prestamos);
+  });
+
+  it('reporte3', () => {
+    //Act
+    service.reporte3().subscribe((result: Object[]) => {
+      //se esperan dos valores en la lista
+      expect(result.length).toBe(2);
+    });
+    const request = httpMock.expectOne(`${service.prestamosURL + "misPrestamos/reporte3" }`);
+    expect(request.request.method).toBe('GET');
+    request.flush(prestamos);
+  });
 });
