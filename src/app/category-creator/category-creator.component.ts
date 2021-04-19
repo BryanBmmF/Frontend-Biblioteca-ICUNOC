@@ -54,17 +54,16 @@ export class CategoryCreatorComponent {
               this.toastr.success('Categoría registrada', 'Ok!', {
                 timeOut: 5000, positionClass: 'toast-top-center'
               });
-              form.reset();
-              this.router.navigate(['/listaCategoriasAdmin']);
+              this.router.navigateByUrl('/listaCategoriasAdmin');
 
             },
             err => {
-              this.toastr.error(err.error.mensaje, 'Fail!', {
+              this.toastr.error('La categoria ya existe', 'Fail!', {
                 timeOut: 5000, positionClass: 'toast-top-center'
               });
               //recargamos la pantalla, pero podriamos ir a otro lado
               //form.reset();
-              this.router.navigate(['/crear-categoria']);
+              this.router.navigateByUrl('/crear-categoria');
             }
           );
 
