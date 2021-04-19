@@ -51,7 +51,13 @@ export class PrestamoLibroComponent implements OnInit {
   cantidadActivos: number;
 
   ngOnInit(): void {
-    this.obtenerDatos();
+    let libroRcodigo = localStorage.getItem("codigoLibro");
+    let libroRnombre = localStorage.getItem("nombreLibro");
+    let libroRid = localStorage.getItem("idLibro");
+    this.nombreVar = libroRnombre;
+    this.codigoVar = libroRcodigo;
+    this.idLibroVar = libroRid;
+    this.codigoReservacionVar = this.generaCodigoReserva();
   }
 
   async generarReservacion() {
@@ -114,24 +120,12 @@ export class PrestamoLibroComponent implements OnInit {
           });
         }
       })
-
-
   }
 
   //Metodo para confirmar que la reservación fue realizada y redirigimos a la pagina para descarga de pdf
   confirmarBoletaReservación(codigoReservacion) {
     localStorage.setItem("codigoReservacion", codigoReservacion);
     this.router.navigate(["reservacionConfirmada"]);
-  }
-
-  obtenerDatos() {
-    let libroRcodigo = localStorage.getItem("codigoLibro");
-    let libroRnombre = localStorage.getItem("nombreLibro");
-    let libroRid = localStorage.getItem("idLibro");
-    this.nombreVar = libroRnombre;
-    this.codigoVar = libroRcodigo;
-    this.idLibroVar = libroRid;
-    this.codigoReservacionVar = this.generaCodigoReserva();
   }
 
   //metodo para generar el codigo aleatorio, falta llamarlo donde corresponde
