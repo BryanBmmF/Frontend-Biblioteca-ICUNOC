@@ -19,6 +19,7 @@ export class NuevoUserComponent {
   password: string;
   confirmPassword: string;
   tipoUser: string;
+
   correo: string;
 
   constructor(private userService: UsersService,
@@ -54,7 +55,7 @@ export class NuevoUserComponent {
                   timeOut: 5000, positionClass: 'toast-top-center'
                 });
                 //recargamos la pantalla, pero podriamos ir a otro lado
-                form.reset();
+                //form.reset();
                 this.router.navigate(['/usuarios']);
 
               },

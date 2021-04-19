@@ -28,8 +28,8 @@ export class SolicitudResetPasswordComponent implements OnInit {
       /* Codigo que se quiera cargar al inicio */
       this.validarMenu();
     }
-    
   }
+  
   validarMenu() {
     if (this.userService.getLoggedInUserRoleBibliotecario()) {
       this.buttonUsers = !this.buttonUsers;

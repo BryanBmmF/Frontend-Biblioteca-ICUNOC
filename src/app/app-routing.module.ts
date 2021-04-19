@@ -8,17 +8,15 @@ import { ListaLibroComponent} from './ingresoLibro/lista-libro.component';
 import { DetalleLibroComponent} from './ingresoLibro/detalle-libro.component';
 import { EditarLibroComponent} from './ingresoLibro/editar-libro.component';
 import { ListaUserComponent } from './user/lista-user.component';
-import { DetalleUserComponent } from './user/detalle-user.component';
 import { NuevoUserComponent } from './user/nuevo-user.component';
 import { EditarUserComponent } from './user/editar-user.component';
 import { DetalleslibroComponent } from './detalleslibro/detalleslibro.component';
 import { PrestamoLibroComponent } from './prestamo/prestamo-libro.component';
 import { ReservaLibroComponent } from './reserva/reserva-libro.component';
-import { RegistrarDevolucionComponent } from './devoluciones/registrar-devolucion/registrar-devolucion.component';
 import { RevisionPrestamoComponent } from './prestamos/revision-prestamo/revision-prestamo.component';
 import { CategoryListComponent } from './category-list/category-list.component'; 
-import {CategoryCreatorComponent} from './category-creator/category-creator.component';
-import {CategoryEditorComponent} from './category-editor/category-editor.component';
+import { CategoryCreatorComponent } from './category-creator/category-creator.component';
+import { CategoryEditorComponent } from './category-editor/category-editor.component';
 import { ResetPasswordComponent } from './user/reset-password/reset-password.component';
 import { SolicitudResetPasswordComponent } from './user/solicitud-reset-password/solicitud-reset-password.component';
 import { RevisionReservacionComponent } from './prestamos/revision-reservacion/revision-reservacion.component';
@@ -36,7 +34,6 @@ const routes: Routes = [
   { path: 'detalleslibro', component: DetalleslibroComponent },
   { path: 'usuarios', component: ListaUserComponent },
   { path: 'registro-usuario', component: NuevoUserComponent },
-  { path: 'detalle/:id', component: DetalleUserComponent },
   { path: 'editar-usuario/:id', component: EditarUserComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'solicitud-reset-password', component: SolicitudResetPasswordComponent },
@@ -53,7 +50,6 @@ const routes: Routes = [
   { path: 'reservacionConfirmada', component: ReservaLibroComponent },
   { path: 'reportesPrestamo', component: ReportePrestamosComponent },
   { path: 'reporte3', component: ReporteAlumnosMorososComponent },
-  { path: 'registrarDevolucion', component: RegistrarDevolucionComponent },
   { path: 'revisarPrestamos', component: RevisionPrestamoComponent },
   { path: 'revisarReservaciones', component: RevisionReservacionComponent },
   { path: 'revisarReservacionesVencidas', component: RevisionReservacionVencidaComponent },
