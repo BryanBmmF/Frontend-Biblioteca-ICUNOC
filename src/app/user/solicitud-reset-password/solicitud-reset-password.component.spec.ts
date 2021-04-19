@@ -84,6 +84,7 @@ describe('SolicitudResetPasswordComponent', () => {
     //Expect
     //continue load users
   });
+  
   it('should validar menu loggedBibliotecario false', () => {
     //Arrage
     userServiceMock.getLoggedInUserRoleBibliotecario.and.returnValue(false);

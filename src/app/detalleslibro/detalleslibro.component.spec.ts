@@ -6,6 +6,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { UsersService } from '../service/users/users.service';
+import { Libro } from '../models/libro';
 
 class UsersServiceMock{
   //Mockeo los metodos que necesite en el component y que en teoria me va proveer el UserService
@@ -83,9 +84,10 @@ describe('DetalleslibroComponent', () => {
 
   it('should ngOnInit Libro NOT null', () => {
     //Arrage
-    //spyOn(window.localStorage, 'getItem').and.callFake(function() {
-		//	return JSON.stringify({"idLibro":"1"});
-		//});
+    spyOn(window.localStorage, 'getItem').and.callFake(function() {
+			return JSON.stringify({"idLibro":"1"});
+		});
+    let respuesta: Libro;
     //Act
     component.ngOnInit();
     //Spect
