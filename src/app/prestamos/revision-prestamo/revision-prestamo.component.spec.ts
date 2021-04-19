@@ -33,7 +33,7 @@ class PrestamoServiceMock {
 class LibroServiceMock {
   //estos mocks son del toastr
   detalleCodigo = jasmine.createSpy('detalleCodigo');
-  udapte = jasmine.createSpy('udapte');
+  update = jasmine.createSpy('update');
 }
 
 class ToastrServiceMock {
@@ -281,7 +281,7 @@ describe('RevisionPrestamoComponent', () => {
     var libroMock: Libro[] = libro;
     libroServiceMock.detalleCodigo.and.returnValue(of(libroMock));
 
-    libroServiceMock.udapte.and.returnValue(of(1));
+    libroServiceMock.update.and.returnValue(of(1));
 
     //Act
     component.actualizarStock("1");
