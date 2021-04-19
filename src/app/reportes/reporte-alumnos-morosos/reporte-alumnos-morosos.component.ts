@@ -16,13 +16,27 @@ export class ReporteAlumnosMorososComponent implements OnInit {
   total: Object[] = [];
   totales: String[]=[];
   reporte3: Reporte3[]=[];
+  buttonUsers: boolean = false;
   constructor(private router:Router
     ,private userService: UsersService
     ,private prestamoService: PrestamosService
     ,private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.verReporte3();
+    //comprobar sesion
+    if (!(this.userService.getLoggedInUserRoleAdmin() || this.userService.getLoggedInUserRoleBibliotecario())) {
+      this.router.navigate(['/']);
+    } else {
+      /* Codigo que se quiera cargar al inicio */
+      this.validarMenu();
+      this.verReporte3();
+    }    
+  }
+
+  validarMenu() {
+    if (this.userService.getLoggedInUserRoleBibliotecario()) {
+      this.buttonUsers = !this.buttonUsers;
+    }
   }
 
   verReporte3(): void {

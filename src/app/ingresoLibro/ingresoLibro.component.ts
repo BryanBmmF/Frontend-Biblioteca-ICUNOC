@@ -41,10 +41,8 @@ export class IngresoLibroComponent implements OnInit {
     private categoryService: CategoryService,
     private userService: UsersService,
     private toastr: ToastrService,
-    private activatedRoute: ActivatedRoute,
     private router: Router,
     private httpClient: HttpClient,
-    private zone: NgZone,
     private asignacionLibroService: AsignacionLibroService
   ) { }
 
