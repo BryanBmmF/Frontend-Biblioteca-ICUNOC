@@ -19,7 +19,6 @@ import { Libro } from '../models/libro';
 export class CatalogoComponent {
   constructor(
     private libroService: LibrosService,
-    private asignacionLibro: AsignacionLibroService,
     public userService: UsersService, 
     private toastr: ToastrService,
     public router: Router, 
@@ -95,10 +94,9 @@ export class CatalogoComponent {
   }
 
   VerDetallesLibro(libro){
-    //console.log(libroID.idLibro);
     if(libro.stock >0) {
       localStorage.setItem("idLibro", libro.idLibro);
-      this.router.navigate(["detalleslibro"]);
+      this.router.navigateByUrl("detalleslibro");
     } else {
       this.toastr.error('Este libro no está disponible', 'Ups!', {
         timeOut: 2000, positionClass: 'toast-top-center'

@@ -15,9 +15,9 @@ import { DialogoConfirmacionComponent } from "../dialogo-confirmacion/dialogo-co
 })
 export class CategoryEditorComponent implements OnInit {
 
-  category: Categoria = null;
+  category: Categoria = new Categoria('','',0);
   buttonUsers: boolean = false;
-
+  id: number;
   constructor(private userService: UsersService,
     private categoryService: CategoryService,
     private activatedRoute: ActivatedRoute,
@@ -32,19 +32,23 @@ export class CategoryEditorComponent implements OnInit {
     } else {
       /* Codigo que se quiera cargar al inicio */
       this.validarMenu();
-      const id = this.activatedRoute.snapshot.params.id;
-      this.categoryService.detailId(id).subscribe(
-        data => {
-          this.category = data;
-        },
-        err => {
-          //si sucede algun fallo, mostramos el error que envia la api
-          this.toastr.error(err.error.mensaje, 'Fail!', {
-            timeOut: 5000, positionClass: 'toast-top-center'
-          });
-        }
-      );
+      this.id = this.activatedRoute.snapshot.params.id;
+      this.cargarCategoria()
     }
+  }
+  
+  cargarCategoria() {
+    this.categoryService.detailId(this.id).subscribe(
+      data => {
+        this.category = data;
+      },
+      err => {
+        //si sucede algun fallo, mostramos el error que envia la api
+        this.toastr.error('No existe la categoria', 'Fail!', {
+          timeOut: 5000, positionClass: 'toast-top-center'
+        });
+      }
+    );
   }
 
   validarMenu() {
@@ -62,19 +66,18 @@ export class CategoryEditorComponent implements OnInit {
       .subscribe((confirmado: Boolean) => {
         if (confirmado) {
           //confirmado
-          const id = this.activatedRoute.snapshot.params.id;
-          this.categoryService.update(id, this.category).subscribe(
+          this.categoryService.update(this.id, this.category).subscribe(
             data => {
               this.toastr.success('Usuario actualizado!', 'Ok!', {
                 timeOut: 5000, positionClass: 'toast-top-center'
               });
-              this.router.navigate(['/listaCategoriasAdmin']);
+              this.router.navigateByUrl('/listaCategoriasAdmin');
             },
             err => {
               this.toastr.error(err.error.mensaje, 'Fail!', {
                 timeOut: 5000, positionClass: 'toast-top-center'
               });
-              this.router.navigate(['/actualizarCategoria']);
+              this.router.navigateByUrl('/actualizarCategoria');
             }
           );
 
