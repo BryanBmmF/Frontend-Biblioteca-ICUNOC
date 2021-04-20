@@ -108,4 +108,52 @@ describe('AsignacionLibroService', () => {
     expect(request.request.method).toBe('GET');
     request.flush(dummyPosts);
   });
+
+  it('should save an assignation', () => {
+    //arrange  
+    const assignation = new AsignacionLibro(0,0,0)
+    //act
+    service.save(assignation).subscribe(data => {
+
+    })
+    //assert
+    const request = httpMock.expectOne('http://localhost:8082/asignacionlibros/crearAsignacion')
+    expect(request.request.method).toBe('POST');
+  })
+
+  it('should search for a specific assignation', () => {
+    //arrange  
+    const assignation = new AsignacionLibro(0,0,0)
+    //act
+    service.detailId(1).subscribe(data => {
+
+    })
+    //assert
+    const request = httpMock.expectOne(`http://localhost:8082/asignacionlibros/lista/1`)
+    expect(request.request.method).toBe('GET');
+  })
+
+  it('should delete an assignation', () => {
+    //arrange  
+    const categoryId = 1
+    //act
+    service.delete(categoryId).subscribe(data => {
+
+    })
+    //assert
+    const request = httpMock.expectOne(`http://localhost:8082/asignacionlibros/eliminar/${categoryId}`)
+    expect(request.request.method).toBe('DELETE');
+  })
+
+  it('should delete the categories assignations of a book',() => {
+    //arrange  
+    const categoryId = 1
+    //act
+    service.deleteAssignations(categoryId).subscribe(data => {
+
+    })
+    //assert
+    const request = httpMock.expectOne(`http://localhost:8082/asignacionlibros/eliminarAsignaciones/${categoryId}`)
+    expect(request.request.method).toBe('DELETE');
+  })
 });
