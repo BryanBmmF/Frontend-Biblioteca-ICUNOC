@@ -14,6 +14,10 @@ import { of, throwError } from 'rxjs';
 import { CategoriaServiceMock } from '../service/category-service-mock';
 import { CategoryService } from '../service/category.service';
 import { AsignacionLibroService } from '../service/asignacion_libro/asignacion-libro.service';
+import { Categoria } from '../models/categoria';
+import { Libro } from '../models/libro';
+import libros from '../../test/fileTest/libros.json';
+import libro from '../test/fileTest/libro.json';
 
 
 class LibroServiceMock {
@@ -131,5 +135,19 @@ describe('IngresoLibroComponent', () => {
    //Expect
    //continue
  });
+
+ it('should ngOnInit confirm User Logged Admin|Bibliotecario', () => {
+  //Arrage
+  userServiceMock.getLoggedInUserRoleAdmin.and.returnValue(true);
+  //de una vez se prueba el metodo validar menu en su rama verdadera
+  userServiceMock.getLoggedInUserRoleBibliotecario.and.returnValue(true);
+  var reporteList: Categoria[] = [];
+  categoryServiceMock.lista.and.returnValue(of(reporteList));
+  //Act
+  component.ngOnInit();
+
+  //Expect
+  //continue load users
+});
 
 });
