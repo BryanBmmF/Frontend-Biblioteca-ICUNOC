@@ -26,18 +26,18 @@ export class AppComponent {
   panelOpenState = false;
   categories: Categoria[] = [];
   constructor(private categoryService: CategoryService, private service:LibrosService, private router:Router) {}
-  ngOnInit() {
-    this.getCategories()
-  }
+  // ngOnInit() {
+  //   this.getCategories()
+  // }
 
-  async getCategories() {
-    this.categoryService.lista().subscribe(
-      data => {
-        this.categories = data;
-      },
-      err => {
-        console.log(err)
-      }
-    )
-  }
+  // async getCategories() {
+  //   this.categoryService.lista().subscribe(
+  //     data => {
+  //       this.categories = data;
+  //     },
+  //     err => {
+  //       console.log(err)
+  //     }
+  //   )
+  // }
 }

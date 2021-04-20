@@ -21,6 +21,16 @@ module.exports = function (config) {
       fixWebpackSourcePaths: true
     },
     reporters: ['progress', 'kjhtml'],
+    //coverage limit
+    check: {
+      global: {
+        statements: 85,
+        branches: 75,
+        functions: 85,
+        lines: 85
+      }
+    },
+
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
