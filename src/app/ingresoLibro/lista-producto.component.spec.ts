@@ -7,8 +7,12 @@ import { ToastrService } from 'ngx-toastr';
 import { AsignacionLibroService } from '../service/asignacion_libro/asignacion-libro.service';
 import { LibrosService } from '../service/libros/libros.service';
 import { UsersService } from '../service/users/users.service';
-
 import { ListaLibroComponent } from './lista-libro.component';
+import { Libro } from '../models/libro';
+import { of, throwError } from 'rxjs';
+import libros from '../test/fileTest/libros.json';
+import libro from '../test/fileTest/libro.json';
+
 
 class LibroServiceMock {
   lista = jasmine.createSpy('lista');
@@ -124,4 +128,87 @@ describe('ListaLibroComponent', () => {
    //Expect
    //continue
  });
+
+ it('should ngOnInit confirm User Logged Admin|Bibliotecario', () => {
+  //Arrage
+  userServiceMock.getLoggedInUserRoleAdmin.and.returnValue(true);
+  //de una vez se prueba el metodo validar menu en su rama verdadera
+  userServiceMock.getLoggedInUserRoleBibliotecario.and.returnValue(true);
+  var reporteList: Libro[] = libros;
+  libroServiceMock.lista.and.returnValue(of(reporteList));
+  //Act
+  component.ngOnInit();
+
+  //Expect
+  //continue load users
+});
+
+ it('should ngOnInit NOT confirm User Logged Admin|Bibliotecario', () => {
+  //Arrage
+  userServiceMock.getLoggedInUserRoleAdmin.and.returnValue(false);
+
+  //Act
+  component.ngOnInit();
+
+  //Expect
+  expect(spyRouter.navigate).toHaveBeenCalledWith(['/']);
+});
+
+it('should cargarLibros with error', () => {
+  //Arrage
+  var listaReporte: Libro[] = [];
+  libroServiceMock.lista.and.returnValue(of(listaReporte));
+
+  //enviamos un user real
+  libroServiceMock.lista.and.returnValue(throwError({ status: 404, error: "error" }));
+
+  //Act
+  component.cargarLibros();
+
+  //Spect
+  //load users
+});
+
+it('should cargarLibrosFiltrados lenght 0', () => {
+  //Arrage
+  var listaReporte: Libro[] = [];
+  libroServiceMock.busquedaFiltrada.and.returnValue(of(listaReporte));
+
+  //Act
+  component.cargarLibrosFiltrados();
+
+  //Spect
+  //load users
+});
+
+it('should cargarLibrosFiltrados', () => {
+  //Arrage
+  var listaReporte: Libro[] = libros;
+  libroServiceMock.busquedaFiltrada.and.returnValue(of(listaReporte));
+
+  //Act
+  component.cargarLibrosFiltrados();
+
+  //Spect
+  //load users
+});
+
+
+it('should cargarLibrosFiltrados with error', () => {
+  //Arrage
+  var listaReporte: Libro[] = [];
+  libroServiceMock.busquedaFiltrada.and.returnValue(of(listaReporte));
+
+  //enviamos un user real
+  libroServiceMock.busquedaFiltrada.and.returnValue(throwError({ status: 404, error: "error" }));
+
+  //Act
+  component.cargarLibrosFiltrados();
+
+  //Spect
+  //load users
+});
+
+
+
 });

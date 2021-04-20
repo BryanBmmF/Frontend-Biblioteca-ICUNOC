@@ -10,6 +10,9 @@ import { Libro } from '../models/libro';
 import { LibrosService } from '../service/libros/libros.service';
 import { ToastrService } from 'ngx-toastr';
 import { AsignacionLibroService } from '../service/asignacion_libro/asignacion-libro.service';
+import libro from '../test/fileTest/libro.json';
+import { of, throwError } from 'rxjs';
+import { Categoria } from '../models/categoria';
 
 class LibroServiceMock{
   detalleCodigo = jasmine.createSpy('detalleCodigo');
@@ -85,7 +88,7 @@ describe('DetalleLibroComponent', () => {
           provide: ActivatedRoute,
           useValue: {
             snapshot: {
-              params: convertToParamMap({ id: '1' }),
+              params: convertToParamMap({ codigo: '067662' }),
             },
             params: {
               subscribe: (fn: (value: Data) => void) => fn({
@@ -111,15 +114,55 @@ describe('DetalleLibroComponent', () => {
     //Spect
     expect(spyRouter.navigateByUrl).toHaveBeenCalledWith('/login');
   });
-
+  
   it('should validar menu loggedBibliotecario', () => {
     //Arrage
     userServiceMock.getLoggedInUserRoleBibliotecario.and.returnValue(true);
-
+ 
     //Act
     component.validarMenu();
-
+ 
     //Expect
     //continue
+  });
+
+//  it('should ngOnInit confirm User Logged Admin|Bibliotecario', () => {
+    //Arrage
+ //   userServiceMock.getLoggedInUserRoleAdmin.and.returnValue(true);
+    //de una vez se prueba el metodo validar menu en su rama verdadera
+  //  userServiceMock.getLoggedInUserRoleBibliotecario.and.returnValue(true);
+   // var reporteList: Libro = libro;
+  //  libroServiceMock.detalleCodigo.and.returnValue(of(libro));
+  //Act
+  //  component.ngOnInit();
+  
+    //Expect
+    //continue load users
+  //});
+  
+  it('should ngOnInit NOT confirm User Logged Admin|Bibliotecario', () => {
+    //Arrage
+    userServiceMock.getLoggedInUserRoleAdmin.and.returnValue(false);
+  
+    //Act
+    component.ngOnInit();
+  
+    //Expect
+    expect(spyRouter.navigate).toHaveBeenCalledWith(['/']);
+  });
+
+  it('should listaCategorias with error', () => {
+    //Arrage
+    var listaReporte: Categoria[] = [];
+    asignacionLibroServiceMock.listaCategoria.and.returnValue(of(listaReporte));
+  
+    //enviamos un user real
+    asignacionLibroServiceMock.listaCategoria.and.returnValue(throwError({ status: 404, error: "error" }));
+  
+    //Act
+    component.volver();
+  
+    //Spect
+    //load users
   });
 });

@@ -12,6 +12,10 @@ import { EditarLibroComponent } from './editar-libro.component';
 import { of, throwError } from 'rxjs';
 import { CategoryService } from '../service/category.service';
 import { AsignacionLibroService } from '../service/asignacion_libro/asignacion-libro.service';
+import { Categoria } from '../models/categoria';
+import { Libro } from '../models/libro';
+import libros from '../../test/fileTest/libros.json';
+import libro from '../test/fileTest/libro.json';
 
 class UsersServiceMock {
   getLoggedInUserRoleAdmin = jasmine.createSpy('getLoggedInUserRoleAdmin');
@@ -22,6 +26,7 @@ class UsersServiceMock {
 class LibroServiceMock {
   //estos mocks son del toastr
   detalleCodigo = jasmine.createSpy('detalleCodigo');
+  detalle = jasmine.createSpy('detalle');
   update = jasmine.createSpy('update');
 }
 
@@ -32,7 +37,7 @@ class CategoryServiceMock {
 
 class AsignacionLibroServiceMock {
   //estos mocks son del toastr
-  listaCategoria = jasmine.createSpy('listaCategoria');
+  listaCategorias = jasmine.createSpy('listaCategorias');
   deleteAssignations = jasmine.createSpy('deleteAssignations');
   save = jasmine.createSpy('save');
 }
@@ -152,6 +157,58 @@ describe('EditarLibroComponent', () => {
 
     //Expect
     //continue
+  });
+
+  it('should ngOnInit with error', () => {
+    //Arrage
+    userServiceMock.getLoggedInUserRoleAdmin.and.returnValue(true);
+    userServiceMock.getLoggedInUserRoleBibliotecario.and.returnValue(true);
+    //category list
+    var reporteList: Categoria[] = [];
+    categoryServiceMock.lista.and.returnValue(of(reporteList));
+    //libro detalle
+    var libroDe: Libro = libro;
+    libroServiceMock.detalle.and.returnValue(of(libroDe));
+    //enviamos un user real
+    libroServiceMock.detalle.and.returnValue(throwError({ status: 404, error: "error" }));
+  
+    //Act
+    component.ngOnInit();
+  
+    //Expect
+    expect(spyRouter.navigate).toHaveBeenCalledWith(['/listaLibro']);
+  });
+
+  it('should ngOnInit confirm User Logged Admin|Bibliotecario', () => {
+    //Arrage
+    userServiceMock.getLoggedInUserRoleAdmin.and.returnValue(true);
+    userServiceMock.getLoggedInUserRoleBibliotecario.and.returnValue(true);
+    //category list
+    var reporteList: Categoria[] = [];
+    categoryServiceMock.lista.and.returnValue(of(reporteList));
+    //libro detalle
+    var libroDe: Libro = libro;
+    libroServiceMock.detalle.and.returnValue(of(libroDe));
+        //arrange
+     asignacionLibroServiceMock.listaCategorias.and.returnValue({subscribe: () => {}})
+    //Act
+    component.ngOnInit();
+  
+  });
+
+
+  it('should ngOnInit NOT confirm User Logged Admin|Bibliotecario', () => {
+    //Arrage
+    userServiceMock.getLoggedInUserRoleAdmin.and.returnValue(false);
+    userServiceMock.getLoggedInUserRoleBibliotecario.and.returnValue(false);
+  var reporteList: Categoria[] = [];
+  categoryServiceMock.lista.and.returnValue(of(reporteList));
+  
+    //Act
+    component.ngOnInit();
+  
+    //Expect
+    expect(spyRouter.navigate).toHaveBeenCalledWith(['/']);
   });
 
 });
