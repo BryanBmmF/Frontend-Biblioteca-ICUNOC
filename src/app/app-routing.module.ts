@@ -24,6 +24,7 @@ import { RevisionReservacionVencidaComponent } from './prestamos/revision-reserv
 import { SetDatosBibliotecaComponent } from './set-datos-biblioteca/set-datos-biblioteca.component';
 import { ReportePrestamosComponent } from './reportes/reporte-prestamos/reporte-prestamos.component'; 
 import { ReporteAlumnosMorososComponent} from './reportes/reporte-alumnos-morosos/reporte-alumnos-morosos.component';
+import { RevisionBitacoraComponent } from './prestamos/revision-bitacora/revision-bitacora.component';
 /**
  * Manejo de las diferentes rutas de la pagina
  */
@@ -31,6 +32,7 @@ const routes: Routes = [
   { path: '', component: IndexComponent },
   { path: 'login', component: LoginComponent },
   { path: 'catalogo', component: CatalogoComponent },
+  { path: 'solicitudes', component: RevisionBitacoraComponent },
   { path: 'detalleslibro', component: DetalleslibroComponent },
   { path: 'usuarios', component: ListaUserComponent },
   { path: 'registro-usuario', component: NuevoUserComponent },

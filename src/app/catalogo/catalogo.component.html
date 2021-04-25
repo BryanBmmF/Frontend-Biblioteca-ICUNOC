@@ -1,11 +1,13 @@
+<!--Menu de opciones-->
 <mat-toolbar color="primary">
   <img width="40" alt="USAC Logo"
     src="https://th.bing.com/th/id/R357b881f7404a7510172712ba8df9b7a?rik=1F6J6d8A%2bhOR5g&riu=http%3a%2f%2fcceeusac.com%2fasignaciones%2fImagenes%2flogo_usac.png&ehk=KplsqbdMJu2aTx%2bzT5h2DGcFKOP5faojo95W%2bTVxoPM%3d&risl=&pid=ImgRaw" />
   <span>Biblioteca Ingeniería</span>
   <span class="example-spacer"></span>
-  <button mat-button [matMenuTriggerFor]="afterMenu">Biblioteca</button>
-  <mat-menu #afterMenu="matMenu" xPosition="after">
+  <button mat-button [matMenuTriggerFor]="bibliotecaMenu">Biblioteca</button>
+  <mat-menu #bibliotecaMenu="matMenu" xPosition="after">
     <button routerLink="/catalogo" mat-menu-item>Catalogo</button>
+    <button routerLink="/solicitudes" mat-menu-item>Buscar solicitudes</button>
     <button routerLink="/login" mat-menu-item>Iniciar Sesion</button>
   </mat-menu>
   <button routerLink="/login" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
