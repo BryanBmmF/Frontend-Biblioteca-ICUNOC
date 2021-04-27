@@ -23,12 +23,12 @@
       </mat-card-header>
       <mat-card-header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <form class="form-inline">
             <span class="input-group-text" id="inputGroup-sizing-default">Escriba su número de carnet o DPI: </span>
-              <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="Busqueda" placeholder="ej: 200509787" [(ngModel)]="stringBusqueda" name="Busqueda">
+              <input class="form-control mr-sm-2" type="search" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="Busqueda" placeholder="ej: 200509787" [(ngModel)]="stringBusqueda" name="Busqueda">
               <button (click)="cargarPrestamosFiltrados()" class="btn btn-outline-success my-2 my-sm-0" >Buscar</button>
               <button (click)="limpiar()" class="btn btn-outline-danger my-2 my-sm-0" >Limpiar</button>
-          </div>
+          </form>
         </nav>
       </mat-card-header>
       <mat-card-content>
