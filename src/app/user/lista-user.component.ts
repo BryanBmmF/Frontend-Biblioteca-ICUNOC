@@ -35,6 +35,8 @@ export class ListaUserComponent implements OnInit {
     this.userService.lista().subscribe(
       data => {
         this.users = data;
+        //eliminamos el primer user que es el Admin de la lista para que no se pueda mostrar
+        this.users.shift();
       },
       err => {
         console.log(err);
