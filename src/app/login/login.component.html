@@ -35,7 +35,7 @@
         <input id="txtPassword" type="password" [(ngModel)]="password" name="password" matInput placeholder="mi contraseña">
         <mat-icon matSuffix id="show_password" type="button" onclick="mostrarPassword()">visibility</mat-icon>
       </mat-form-field>
-      <button type="submit" (click)="login()" mat-raised-button color="accent" style="display: block; width: 100%;">Ingresar</button>
+      <button name="login" type="submit" (click)="login()" mat-raised-button color="accent" style="display: block; width: 100%;">Ingresar</button>
     </form>
   </mat-card>  
 </main>
