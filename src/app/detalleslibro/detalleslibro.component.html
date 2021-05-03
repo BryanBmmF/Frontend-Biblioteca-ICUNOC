@@ -58,7 +58,7 @@
                     <div class="form-group">
                         <label for="">Fecha de Publicacion:</label>
                         <br>
-                        <label for="">{{ libroRecivido.fechaPublicacion }}</label>
+                        <label for="">{{ translateDate(libroRecivido.fechaPublicacion) }}</label>
                     </div>
                      <!--Aqui con metodos post y get podes mandar todos los datos necesarios
                     para la reserva y asi meterlos a la db. Ya no tenes que hacer nada de ruteo.
@@ -117,7 +117,7 @@
                         <mat-card-title>{{comentario.nombre}}</mat-card-title>
                         <mat-card-subtitle disabled=true>
                             <mat-star-rating style = "margin-left: -1%;" [rating]="comentario.puntuacion"  [starCount]="starCount" [color]="starColor"></mat-star-rating>
-                            <h4 style = "padding-top: 2%;margin-left: 0%;">Fecha: {{comentario.fecha}}</h4>
+                            <h4 style = "padding-top: 2%;margin-left: 0%;">{{translateDate(comentario.fecha)}}</h4>
                         </mat-card-subtitle>
                     </mat-card-header>
                     <mat-card-content>

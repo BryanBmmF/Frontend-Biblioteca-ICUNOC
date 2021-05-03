@@ -7,6 +7,7 @@ import { UsersService } from 'src/app/service/users/users.service';
 
 import { MatDialog } from '@angular/material/dialog';
 import { DialogoConfirmacionComponent } from "../../dialogo-confirmacion/dialogo-confirmacion.component";
+import moment from 'moment';
 
 @Component({
   selector: 'app-revision-reservacion',
@@ -35,6 +36,10 @@ export class RevisionReservacionComponent implements OnInit {
       this.validarMenu();
       this.cargarPrestamos();
     }
+  }
+
+  translateDate(date:any):any {
+    return moment(date).locale('es-mx').format('LL')
   }
 
   validarMenu() {

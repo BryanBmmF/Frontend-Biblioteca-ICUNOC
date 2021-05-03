@@ -6,6 +6,7 @@ import { LibrosService } from '../service/libros/libros.service';
 import { UsersService } from '../service/users/users.service';
 import { AsignacionLibroService} from '../service/asignacion_libro/asignacion-libro.service'
 import { Categoria } from '../models/categoria';
+import moment from 'moment';
 @Component({
   selector: 'app-detalle-libro',
   templateUrl: './detalle-libro.component.html',
@@ -53,6 +54,11 @@ export class DetalleLibroComponent implements OnInit {
     }
 
   }
+
+  translateDate(date:any):any {
+    return moment(date).locale('es-mx').format('LL')
+  }
+  
   validarMenu() {
     if (this.userService.getLoggedInUserRoleBibliotecario()) {
       this.buttonUsers = !this.buttonUsers;

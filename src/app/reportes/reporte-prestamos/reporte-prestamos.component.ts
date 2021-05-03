@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { Prestamo } from 'src/app/models/Prestamo';
 import { PrestamosService } from 'src/app/service/prestamos/prestamos.service';
@@ -31,6 +32,10 @@ export class ReportePrestamosComponent implements OnInit {
     }
   }
 
+  translateDate(date:any):any {
+    return moment(date).locale('es-mx').format('LL')
+  }
+  
   validarMenu() {
     if (this.userService.getLoggedInUserRoleBibliotecario()) {
       this.buttonUsers = !this.buttonUsers;

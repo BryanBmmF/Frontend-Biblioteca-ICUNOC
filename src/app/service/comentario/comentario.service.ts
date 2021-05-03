@@ -13,7 +13,6 @@ export class ComentarioService {
   constructor(private httpClient: HttpClient) { }
 
   public lista(id:string): Observable<Comentario[]> {
-    console.log(id)
     return this.httpClient.get<Comentario[]>(`http://localhost:8082/comentarios/lista/${id}`)
   }
 

@@ -41,7 +41,7 @@ export class DetalleslibroComponent implements OnInit {
     this.rating = 3
     this.starColor = '#AAAAAA'
     this.starCount = 5
-
+    console.log(this.translateDate('2020-05-02'));
     let libroR = localStorage.getItem("idLibro");   
     if (libroR !== null){
       this.service.getLibroId(libroR)
@@ -71,6 +71,10 @@ export class DetalleslibroComponent implements OnInit {
 
   pad(n) {
     return n<10 ? '0'+n : n
+  }
+
+  translateDate(date:any):any {
+    return moment(date).locale('es-mx').format('LL')
   }
 
   onCreate(form: NgForm): void {
