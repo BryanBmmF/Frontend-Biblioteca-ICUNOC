@@ -20,6 +20,10 @@ export class PrestamosService {
     return this.http.post<any>(this.prestamosURL+'crearReservacion',nuevaReservacion);
   }
 
+  public crearPrestamo(nuevoPrestamo: Prestamo): Observable<any>{
+    return this.http.post<any>(this.prestamosURL+'crearPrestamo',nuevoPrestamo);
+  }
+
   public listaxEstado(estadoPrestamo: string): Observable<Prestamo[]>{
     return this.http.get<Prestamo[]>(this.prestamosURL+'listaPrestamo/'+`${estadoPrestamo}`);
   }

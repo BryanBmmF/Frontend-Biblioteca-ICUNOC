@@ -56,6 +56,8 @@ import { DialogoConfirmacionComponent } from './dialogo-confirmacion/dialogo-con
 // Importar animaciones, los botones, el diálogo y el componente
 import { MatDialogModule } from '@angular/material/dialog';
 import { ReporteAlumnosMorososComponent } from './reportes/reporte-alumnos-morosos/reporte-alumnos-morosos.component';
+import { IdentificarLibroComponent } from './prestamo-presencial/identificar-libro/identificar-libro.component';
+import { FormularioPrestamoComponent } from './prestamo-presencial/formulario-prestamo/formulario-prestamo.component';
 import { RevisionBitacoraComponent } from './prestamos/revision-bitacora/revision-bitacora.component';
 
 
@@ -88,6 +90,8 @@ import { RevisionBitacoraComponent } from './prestamos/revision-bitacora/revisio
     ReportePrestamosComponent,
     DialogoConfirmacionComponent,
     ReporteAlumnosMorososComponent,
+    IdentificarLibroComponent,
+    FormularioPrestamoComponent,
     RevisionBitacoraComponent
   ],
   imports: [

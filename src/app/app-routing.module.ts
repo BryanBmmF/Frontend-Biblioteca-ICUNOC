@@ -24,6 +24,8 @@ import { RevisionReservacionVencidaComponent } from './prestamos/revision-reserv
 import { SetDatosBibliotecaComponent } from './set-datos-biblioteca/set-datos-biblioteca.component';
 import { ReportePrestamosComponent } from './reportes/reporte-prestamos/reporte-prestamos.component'; 
 import { ReporteAlumnosMorososComponent} from './reportes/reporte-alumnos-morosos/reporte-alumnos-morosos.component';
+import { FormularioPrestamoComponent } from './prestamo-presencial/formulario-prestamo/formulario-prestamo.component';
+import { IdentificarLibroComponent } from './prestamo-presencial/identificar-libro/identificar-libro.component';
 import { RevisionBitacoraComponent } from './prestamos/revision-bitacora/revision-bitacora.component';
 /**
  * Manejo de las diferentes rutas de la pagina
@@ -58,6 +60,8 @@ const routes: Routes = [
   { path: 'listaCategoriasAdmin', component: CategoryListComponent },
   { path: 'crear-categoria', component: CategoryCreatorComponent },
   { path: 'actualizarCategoria/:id', component: CategoryEditorComponent },
+  { path: 'formularioPrestamo/:codigo', component:FormularioPrestamoComponent },
+  { path: 'identificarLibro', component:IdentificarLibroComponent },
   //cualquier otro path inexistente, redireccionar a index va de ultimo siempre
   { path: '**', redirectTo:'', pathMatch: 'full' }
 ];
