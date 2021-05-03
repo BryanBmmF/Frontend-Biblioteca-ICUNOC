@@ -28,6 +28,10 @@ export class PrestamosService {
     return this.http.put<any>(this.prestamosURL+`finalizar/${codigoReservacion}`,prestamo);
   }
 
+  public cancelarReservacion(codigoReservacion:string, prestamo: Prestamo): Observable<any>{
+    return this.http.put<any>(this.prestamosURL+`cancelar/${codigoReservacion}`,prestamo);
+  }
+
   public iniciarPrestamo(codigoReservacion:string, prestamo: Prestamo): Observable<any>{
     return this.http.put<any>(this.prestamosURL+`iniciar/${codigoReservacion}`,prestamo);
   }

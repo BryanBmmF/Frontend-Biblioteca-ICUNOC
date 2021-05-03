@@ -25,6 +25,7 @@ import { SetDatosBibliotecaComponent } from './set-datos-biblioteca/set-datos-bi
 import { ReportePrestamosComponent } from './reportes/reporte-prestamos/reporte-prestamos.component'; 
 import { ReporteAlumnosMorososComponent} from './reportes/reporte-alumnos-morosos/reporte-alumnos-morosos.component';
 import { RevisionBitacoraComponent } from './prestamos/revision-bitacora/revision-bitacora.component';
+import { CancelarReservacionComponent } from './cancelar-reservacion/cancelar-reservacion.component';
 /**
  * Manejo de las diferentes rutas de la pagina
  */
@@ -50,6 +51,7 @@ const routes: Routes = [
 
   { path: 'prestamo', component: PrestamoLibroComponent },
   { path: 'reservacionConfirmada', component: ReservaLibroComponent },
+  { path: 'cancelarReservacion', component: CancelarReservacionComponent },
   { path: 'reportesPrestamo', component: ReportePrestamosComponent },
   { path: 'reporte3', component: ReporteAlumnosMorososComponent },
   { path: 'revisarPrestamos', component: RevisionPrestamoComponent },

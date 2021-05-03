@@ -57,6 +57,7 @@ import { DialogoConfirmacionComponent } from './dialogo-confirmacion/dialogo-con
 import { MatDialogModule } from '@angular/material/dialog';
 import { ReporteAlumnosMorososComponent } from './reportes/reporte-alumnos-morosos/reporte-alumnos-morosos.component';
 import { RevisionBitacoraComponent } from './prestamos/revision-bitacora/revision-bitacora.component';
+import { CancelarReservacionComponent } from './cancelar-reservacion/cancelar-reservacion.component';
 
 
 
@@ -88,7 +89,8 @@ import { RevisionBitacoraComponent } from './prestamos/revision-bitacora/revisio
     ReportePrestamosComponent,
     DialogoConfirmacionComponent,
     ReporteAlumnosMorososComponent,
-    RevisionBitacoraComponent
+    RevisionBitacoraComponent,
+    CancelarReservacionComponent
   ],
   imports: [
     MatSliderModule,
