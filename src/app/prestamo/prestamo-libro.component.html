@@ -19,9 +19,9 @@
             <div class="card-body">
                 <div style="text-align: center">
                     <h1>
-                            Formulario de Reservacion
+                        Formulario de Reservacion
                     </h1>
-                    <h2>Libro: {{ nombreVar }}</h2>                   
+                    <h2>Libro: {{ nombreVar }}</h2>
                 </div>
                 <ul>
                     <li>Recuerda que tu reservación se confirmará hasta el momento en que envies este formulario.</li>
@@ -34,24 +34,29 @@
                     </div>
                     <div class="form-group">
                         <label for="">Apelllidos:</label>
-                        <input type="text" class="form-control" id="Apelllidos" [(ngModel)]="apellido" name="apelllidos" required>
+                        <input type="text" class="form-control" id="Apelllidos" [(ngModel)]="apellido" name="apelllidos"
+                            required>
                     </div>
                     <div class="form-group">
                         <label for="">Carnet:</label>
-                        <input type="text" class="form-control" id="carnet" [(ngModel)]="carnet" name="carnet" maxlength="9" required><br>
+                        <input type="text" class="form-control" id="carnet" [(ngModel)]="carnet" name="carnet"
+                            maxlength="9" required><br>
                     </div>
                     <div class="form-group">
                         <label for="">DPI:</label>
-                        <input type="text" class="form-control" id="DPI" [(ngModel)]="DPI" name="DPI" maxlength="13" required><br>
+                        <input type="text" class="form-control" id="DPI" [(ngModel)]="DPI" name="DPI" maxlength="13"
+                            required><br>
                     </div>
                     <div class="form-group">
                         <label for="">Correo para notificación:</label>
-                        <input type="email" class="form-control" id="correo" [(ngModel)]="correo" name="correo" maxlength="50" required><br>
+                        <input type="email" class="form-control" id="correo" [(ngModel)]="correo" name="correo"
+                            maxlength="50" required><br>
                     </div>
                     <div class="form-group">
                         <label for="">Carrera:</label>
-                       <!--  <input type="text" class="form-control" id="Carrera" [(ngModel)]="carrera" name="carrera" required><br> -->
-                        <select class="form-select" aria-label="Default select example" id="Carrera" [(ngModel)]="carrera" name="carrera" required>
+                        <!--  <input type="text" class="form-control" id="Carrera" [(ngModel)]="carrera" name="carrera" required><br> -->
+                        <select class="form-select" aria-label="Default select example" id="Carrera"
+                            [(ngModel)]="carrera" name="carrera" required>
                             <option value="INGENIERIA CIVIL">INGENIERIA CIVIL</option>
                             <option value="INGENIERIA MECANICA">INGENIERIA MECANICA</option>
                             <option value="INGENIERIA INDUSTRIAL">INGENIERIA INDUSTRIAL</option>
@@ -76,7 +81,9 @@
                     </div>
 
                     <div class="form-group">
-                        <input type="checkbox"  onclick="confirmarReserva.disabled=!this.checked"> Acepto los <a href="url">Terminos y Condiciones</a>  <br>
+                        <input type="checkbox" onclick="confirmarReserva.disabled=!this.checked"> Acepto los <a
+                            data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="color:#3467eb">Términos y
+                            Condiciones</a> <br>
                     </div>
                     <button id="confirmarReserva" disabled class="btn btn-danger">Reservar</button>
                 </form>
@@ -86,3 +93,32 @@
 </div>
 
 <br><br>
+
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="staticBackdropLabel"><strong>Términos y Condiciones</strong></h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <ol class="list-group list-group-numbered">
+                    <li class="list-group-item">1. Las reservaciones tienen vigencia de 1 día calendario; luego de ese
+                        tiempo su reservación será liberada.</li>
+                    <li class="list-group-item">2. Debe presentar al menos uno de los dos documentos de identificación
+                        (DPI/Carné) al momento de recoger el libro.</li>
+                    <li class="list-group-item">3. Únicamente se entregará el libro si el documento de identificación
+                        que presente conincide con el registro de su reservación.</li>
+                    <li class="list-group-item">4. Si retorna el libro luego del tiempo indicado puede incurrir en un
+                        cobro por mora.</li>
+                </ol>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Enterado</button>
+            </div>
+        </div>
+    </div>
+</div>

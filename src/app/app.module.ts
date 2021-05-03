@@ -56,6 +56,8 @@ import { DialogoConfirmacionComponent } from './dialogo-confirmacion/dialogo-con
 // Importar animaciones, los botones, el diálogo y el componente
 import { MatDialogModule } from '@angular/material/dialog';
 import { ReporteAlumnosMorososComponent } from './reportes/reporte-alumnos-morosos/reporte-alumnos-morosos.component';
+import { IdentificarLibroComponent } from './prestamo-presencial/identificar-libro/identificar-libro.component';
+import { FormularioPrestamoComponent } from './prestamo-presencial/formulario-prestamo/formulario-prestamo.component';
 
 
 
@@ -86,7 +88,9 @@ import { ReporteAlumnosMorososComponent } from './reportes/reporte-alumnos-moros
     SetDatosBibliotecaComponent,
     ReportePrestamosComponent,
     DialogoConfirmacionComponent,
-    ReporteAlumnosMorososComponent
+    ReporteAlumnosMorososComponent,
+    IdentificarLibroComponent,
+    FormularioPrestamoComponent
   ],
   imports: [
     MatSliderModule,
