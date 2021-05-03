@@ -27,6 +27,7 @@ import { ReporteAlumnosMorososComponent} from './reportes/reporte-alumnos-moroso
 import { FormularioPrestamoComponent } from './prestamo-presencial/formulario-prestamo/formulario-prestamo.component';
 import { IdentificarLibroComponent } from './prestamo-presencial/identificar-libro/identificar-libro.component';
 import { RevisionBitacoraComponent } from './prestamos/revision-bitacora/revision-bitacora.component';
+import { CancelarReservacionComponent } from './cancelar-reservacion/cancelar-reservacion.component';
 /**
  * Manejo de las diferentes rutas de la pagina
  */
@@ -52,6 +53,7 @@ const routes: Routes = [
 
   { path: 'prestamo', component: PrestamoLibroComponent },
   { path: 'reservacionConfirmada', component: ReservaLibroComponent },
+  { path: 'cancelarReservacion', component: CancelarReservacionComponent },
   { path: 'reportesPrestamo', component: ReportePrestamosComponent },
   { path: 'reporte3', component: ReporteAlumnosMorososComponent },
   { path: 'revisarPrestamos', component: RevisionPrestamoComponent },

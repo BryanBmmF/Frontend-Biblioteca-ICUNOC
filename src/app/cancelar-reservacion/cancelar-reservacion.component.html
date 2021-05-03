@@ -15,54 +15,58 @@
       <mat-icon>login</mat-icon>
     </button>
   </mat-toolbar>
-  
+
   <main>
     <mat-card class="example-card">
       <mat-card-header>
         <div mat-card-avatar class="example-header-image"></div>
-        <mat-card-title>Listado de prestamos realizados</mat-card-title>
+        <mat-card-title>Buscar reservacion</mat-card-title>
       </mat-card-header>
       <mat-card-header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <form class="form-inline">
-            <span class="input-group-text" id="inputGroup-sizing-default">Escriba su número de carnet o DPI: </span>
-              <input class="form-control mr-sm-2" type="search" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="Busqueda" placeholder="ej: 200509787" [(ngModel)]="stringBusqueda" name="Busqueda">
-              <button (click)="cargarPrestamosFiltrados()" class="btn btn-outline-success my-2 my-sm-0" >Buscar</button>
-              <button (click)="limpiar()" class="btn btn-outline-danger my-2 my-sm-0" >Limpiar</button>
-          </form>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <form (ngSubmit)="cargarReservacion()" class="form-inline my-2 my-lg-0" novalidate #f="ngForm">
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-default">Buscar: </span>
+                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="Busqueda" placeholder="Codigo Reservacion" [(ngModel)]="stringBusqueda" name="Busqueda">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+              </div> 
+            </form>
+          </div>
         </nav>
       </mat-card-header>
       <mat-card-content>
         <div class="col-auto" class="table-responsive">
           <table class="table table-hover">
-            <thead class="thead-dark">
+            <thead class="thead-dark"> 
               <tr>
-                <th scope="col">ID</th>
                 <th scope="col">Nombres</th>
                 <th scope="col">Apellidos</th>
                 <th scope="col">DPI</th>
                 <th scope="col">Carnet</th>
                 <th scope="col">Carrera</th>
-                <th scope="col">Fecha</th>
-                <th scope="col">Codigo de Libro</th>
-                <th scope="col">Mora</th>
-                <th scope="col">Costo</th>
+                <th scope="col">Fecha Reservacion</th>
                 <th scope="col">Estado</th>
+                <th scope="col">Codigo Reservacion</th>
+                <th scope="col">Codigo Libro</th>
+                <th scope="col">Cancelar Reservacion</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let prestamo of prestamos">
-                <td>{{prestamo.id}}</td>
                 <td>{{prestamo.nombre}}</td>
                 <td>{{prestamo.apellido}}</td>
                 <td>{{prestamo.dpi}}</td>
                 <td>{{prestamo.carnet}}</td>
                 <td>{{prestamo.carrera}}</td>
                 <td>{{prestamo.fechaReservacion}}</td>
-                <td>{{prestamo.codigoLibro}}</td>
-                <td>{{prestamo.diasMoroso}} dias.</td>
-                <td>Q. {{prestamo.costo}}</td>
                 <td>{{prestamo.estado}}</td>
+                <td>{{prestamo.codigoReservacion}}</td>
+                <td>{{prestamo.codigoLibro}}</td>
+                <td><button class="btn btn-outline-danger" (click)="onUpdate(prestamo.codigoReservacion, prestamo.dpi, prestamo.carnet,prestamo.codigoLibro)"><i
+                      class="far fa-trash-alt"></i>
+                    Cancelar</button>
+                </td>
               </tr>
             </tbody>
           </table>

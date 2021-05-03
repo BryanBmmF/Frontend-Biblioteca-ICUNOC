@@ -59,6 +59,7 @@ import { ReporteAlumnosMorososComponent } from './reportes/reporte-alumnos-moros
 import { IdentificarLibroComponent } from './prestamo-presencial/identificar-libro/identificar-libro.component';
 import { FormularioPrestamoComponent } from './prestamo-presencial/formulario-prestamo/formulario-prestamo.component';
 import { RevisionBitacoraComponent } from './prestamos/revision-bitacora/revision-bitacora.component';
+import { CancelarReservacionComponent } from './cancelar-reservacion/cancelar-reservacion.component';
 
 
 
