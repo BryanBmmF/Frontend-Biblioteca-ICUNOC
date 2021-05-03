@@ -58,6 +58,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ReporteAlumnosMorososComponent } from './reportes/reporte-alumnos-morosos/reporte-alumnos-morosos.component';
 import { IdentificarLibroComponent } from './prestamo-presencial/identificar-libro/identificar-libro.component';
 import { FormularioPrestamoComponent } from './prestamo-presencial/formulario-prestamo/formulario-prestamo.component';
+import { RevisionBitacoraComponent } from './prestamos/revision-bitacora/revision-bitacora.component';
 
 
 
@@ -90,7 +91,8 @@ import { FormularioPrestamoComponent } from './prestamo-presencial/formulario-pr
     DialogoConfirmacionComponent,
     ReporteAlumnosMorososComponent,
     IdentificarLibroComponent,
-    FormularioPrestamoComponent
+    FormularioPrestamoComponent,
+    RevisionBitacoraComponent
   ],
   imports: [
     MatSliderModule,

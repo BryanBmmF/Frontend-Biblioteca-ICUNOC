@@ -25,7 +25,7 @@ module.exports = function (config) {
     check: {
       global: {
         statements: 85,
-        branches: 75,
+        branches: 70,
         functions: 85,
         lines: 85
       }
@@ -37,6 +37,6 @@ module.exports = function (config) {
     autoWatch: true,
     browsers: ['Chrome'],
     singleRun: false,
-    //restartOnFileChange: true
+    restartOnFileChange: true
   });
 };

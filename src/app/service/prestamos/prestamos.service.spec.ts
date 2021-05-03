@@ -164,6 +164,21 @@ describe('PrestamosService', () => {
     request.flush(prestamos);
   });
 
+  it('busquedaBitacora', () => {
+    //Arrage
+    let strBusqueda: string;
+    strBusqueda = "6";
+
+    //Act
+    service.busquedaBitacora(strBusqueda).subscribe((result: Prestamo[]) => {
+      //se esperan dos valores en la lista
+      expect(result.length).toBe(2);
+    });
+    const request = httpMock.expectOne(`${service.prestamosURL + "bitacoraPrestamos/" + strBusqueda}`);
+    expect(request.request.method).toBe('GET');
+    request.flush(prestamos);
+  });
+
   it('reporte2', () => {
     //Act
     service.reporte2().subscribe((result: Prestamo[]) => {

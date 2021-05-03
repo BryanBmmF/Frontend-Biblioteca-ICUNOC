@@ -70,7 +70,7 @@ describe('UsersService', () => {
 
     service.lista().subscribe((result: User[]) => {
       //se esperan dos valores en la lista
-      expect(result.length).toBe(2);
+      expect(result.length).toBe(0);
     });
     const request = httpMock.expectOne(`${service.usuarioUrl + "/lista"}`);
     expect(request.request.method).toBe('GET');

@@ -48,6 +48,10 @@ export class PrestamosService {
     return this.http.get<Prestamo[]>(this.prestamosURL + `prestamosFiltrados/${busqueda}/${estado}`);
   }
 
+  public busquedaBitacora(busqueda: string): Observable<Prestamo[]> {
+    return this.http.get<Prestamo[]>(this.prestamosURL + `bitacoraPrestamos/${busqueda}`);
+  }
+
   public reporte2(): Observable<Prestamo[]>{
     return this.http.get<Prestamo[]>(this.prestamosURL+'misPrestamos/0/FINALIZADO');
   }

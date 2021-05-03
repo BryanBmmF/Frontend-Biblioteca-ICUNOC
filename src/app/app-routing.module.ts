@@ -26,6 +26,7 @@ import { ReportePrestamosComponent } from './reportes/reporte-prestamos/reporte-
 import { ReporteAlumnosMorososComponent} from './reportes/reporte-alumnos-morosos/reporte-alumnos-morosos.component';
 import { FormularioPrestamoComponent } from './prestamo-presencial/formulario-prestamo/formulario-prestamo.component';
 import { IdentificarLibroComponent } from './prestamo-presencial/identificar-libro/identificar-libro.component';
+import { RevisionBitacoraComponent } from './prestamos/revision-bitacora/revision-bitacora.component';
 /**
  * Manejo de las diferentes rutas de la pagina
  */
@@ -33,6 +34,7 @@ const routes: Routes = [
   { path: '', component: IndexComponent },
   { path: 'login', component: LoginComponent },
   { path: 'catalogo', component: CatalogoComponent },
+  { path: 'solicitudes', component: RevisionBitacoraComponent },
   { path: 'detalleslibro', component: DetalleslibroComponent },
   { path: 'usuarios', component: ListaUserComponent },
   { path: 'registro-usuario', component: NuevoUserComponent },

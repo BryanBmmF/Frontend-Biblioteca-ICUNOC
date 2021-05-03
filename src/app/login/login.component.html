@@ -6,13 +6,14 @@
   <span>Biblioteca Ingeniería</span>
   <span class="example-spacer"></span>
   <button mat-button [matMenuTriggerFor]="bibliotecaMenu">Biblioteca</button>
-    <mat-menu #bibliotecaMenu="matMenu" xPosition="after">
-      <button routerLink="/catalogo" mat-menu-item>Catalogo</button>
-      <button routerLink="/login" mat-menu-item>Iniciar Sesion</button>
-    </mat-menu>
-    <button routerLink="/login" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-      <mat-icon>login</mat-icon>
-    </button>
+  <mat-menu #bibliotecaMenu="matMenu" xPosition="after">
+    <button routerLink="/catalogo" mat-menu-item>Catalogo</button>
+    <button routerLink="/solicitudes" mat-menu-item>Buscar solicitudes</button>
+    <button routerLink="/login" mat-menu-item>Iniciar Sesion</button>
+  </mat-menu>
+  <button routerLink="/login" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+    <mat-icon>login</mat-icon>
+  </button>
 </mat-toolbar>
 
 <!--Card para formulario de login-->
@@ -34,7 +35,7 @@
         <input id="txtPassword" type="password" [(ngModel)]="password" name="password" matInput placeholder="mi contraseña">
         <mat-icon matSuffix id="show_password" type="button" onclick="mostrarPassword()">visibility</mat-icon>
       </mat-form-field>
-      <button type="submit" (click)="login()" mat-raised-button color="accent" style="display: block; width: 100%;">Ingresar</button>
+      <button name="login" type="submit" (click)="login()" mat-raised-button color="accent" style="display: block; width: 100%;">Ingresar</button>
     </form>
   </mat-card>  
 </main>
