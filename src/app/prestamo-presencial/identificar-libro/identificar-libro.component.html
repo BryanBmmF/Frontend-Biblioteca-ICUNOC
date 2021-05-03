@@ -1,0 +1,103 @@
+<mat-toolbar color="primary">
+    <img width="40" alt="USAC Logo"
+        src="https://th.bing.com/th/id/R357b881f7404a7510172712ba8df9b7a?rik=1F6J6d8A%2bhOR5g&riu=http%3a%2f%2fcceeusac.com%2fasignaciones%2fImagenes%2flogo_usac.png&ehk=KplsqbdMJu2aTx%2bzT5h2DGcFKOP5faojo95W%2bTVxoPM%3d&risl=&pid=ImgRaw" />
+    <span>Biblioteca Ingeniería</span>
+    <span class="example-spacer"></span>
+    <button mat-button [matMenuTriggerFor]="prestamosMenu">Prestamos</button>
+    <mat-menu #prestamosMenu="matMenu" yPosition="above">
+        <button routerLink="/identificarLibro" mat-menu-item>Nuevo Prestamo</button>
+        <button routerLink="/revisarPrestamos" mat-menu-item>Revisar Prestamos</button>
+        <button routerLink="/reportesPrestamo" mat-menu-item>Reportes Prestamo</button>
+    </mat-menu>
+    <button mat-button [matMenuTriggerFor]="devolucionesMenu">Reservaciones</button>
+    <mat-menu #devolucionesMenu="matMenu" yPosition="below">
+        <button routerLink="/revisarReservaciones" mat-menu-item>Reservaciones Activas</button>
+        <button routerLink="/revisarReservacionesVencidas" mat-menu-item>Reservaciones Expiradas</button>
+    </mat-menu>
+    <button mat-button [matMenuTriggerFor]="bibliotecaMenu">Biblioteca</button>
+    <mat-menu #bibliotecaMenu="matMenu" xPosition="before">
+        <button routerLink="/listaLibro" mat-menu-item>Listado de Libros</button>
+        <button routerLink="/ingresoLibro" mat-menu-item>Registrar Libro</button>
+        <button routerLink="/listaCategoriasAdmin" mat-menu-item>Lista de Categorias</button>
+    </mat-menu>
+    <button mat-button [matMenuTriggerFor]="perfilMenu">Perfil</button>
+    <mat-menu #perfilMenu="matMenu" xPosition="after">
+        <button routerLink="/solicitud-reset-password" mat-menu-item>Mis Datos</button>
+        <button routerLink="/solicitud-reset-password" mat-menu-item>Cambiar mi Contraseña</button>
+    </mat-menu>
+    <button [disabled]="buttonUsers" mat-button [matMenuTriggerFor]="usuariosMenu">Administración</button>
+    <mat-menu #usuariosMenu="matMenu" xPosition="after">
+        <button routerLink="/usuarios" mat-menu-item>Lista de Usuarios</button>
+        <button routerLink="/registro-usuario" mat-menu-item>Registrar Usuario</button>
+        <button routerLink="/info-biblioteca" mat-menu-item>Información de Biblioteca</button>
+    </mat-menu>
+    <!--Boton para cerrar sesion-->
+    <button (click)="logout()" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+        <mat-icon>logout</mat-icon>
+    </button>
+</mat-toolbar>
+
+<main>
+    <mat-card class="example-card">
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>
+                <h1>Consultar Disponibilidad de Libro: </h1>
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-header>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <form (ngSubmit)="cargarLibrosFiltrados()" class="form-inline my-2 my-lg-0" novalidate #f="ngForm">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Buscar: </span>
+                            <input type="text" class="form-control" aria-label="Sizing example input"
+                                aria-describedby="inputGroup-sizing-default" id="Busqueda"
+                                placeholder="Titulo/Autor/Codigo" [(ngModel)]="stringBusqueda" name="Busqueda">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+                            <button class="btn btn-outline-danger my-2 my-sm-0" type="reset">Limpiar</button>
+                        </div>
+                    </form>
+                    <form type="reset" (ngSubmit)="cargarLibros()" class="form-inline my-2 my-lg-1" novalidate
+                        #f="ngForm">
+                        <div class="input-group mb-3">
+                            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Ver Todo</button>
+                        </div>
+                    </form>
+                </div>
+            </nav>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="col-auto">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Codigo</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Autor</th>
+                            <th scope="col">Edicion</th>
+                            <th scope="col">Stock</th>
+                            <th scope="col">Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let libro of libros">
+                            <td>{{libro.codigo}}</td>
+                            <td>{{libro.nombre}}</td>
+                            <td>{{libro.autor}}</td>
+                            <td>{{libro.edicion}}</td>
+                            <td>{{libro.stock}}</td>
+                            <td><button class="btn btn-outline-success"
+                                    routerLink="/formularioPrestamo/{{libro.codigo}}"><i class="far fa-edit"></i>
+                                    Prestar</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</main>
+<button routerLink="/ingresoLibro" class="button-absolute-position" color="primary" mat-fab
+    aria-label="Example icon-button with a heart icon">
+    <mat-icon>add</mat-icon>
+</button>

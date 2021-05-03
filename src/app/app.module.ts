@@ -56,6 +56,8 @@ import { DialogoConfirmacionComponent } from './dialogo-confirmacion/dialogo-con
 // Importar animaciones, los botones, el diálogo y el componente
 import { MatDialogModule } from '@angular/material/dialog';
 import { ReporteAlumnosMorososComponent } from './reportes/reporte-alumnos-morosos/reporte-alumnos-morosos.component';
+import { IdentificarLibroComponent } from './prestamo-presencial/identificar-libro/identificar-libro.component';
+import { FormularioPrestamoComponent } from './prestamo-presencial/formulario-prestamo/formulario-prestamo.component';
 import { RevisionBitacoraComponent } from './prestamos/revision-bitacora/revision-bitacora.component';
 import { CancelarReservacionComponent } from './cancelar-reservacion/cancelar-reservacion.component';
 
@@ -89,8 +91,9 @@ import { CancelarReservacionComponent } from './cancelar-reservacion/cancelar-re
     ReportePrestamosComponent,
     DialogoConfirmacionComponent,
     ReporteAlumnosMorososComponent,
-    RevisionBitacoraComponent,
-    CancelarReservacionComponent
+    IdentificarLibroComponent,
+    FormularioPrestamoComponent,
+    RevisionBitacoraComponent
   ],
   imports: [
     MatSliderModule,

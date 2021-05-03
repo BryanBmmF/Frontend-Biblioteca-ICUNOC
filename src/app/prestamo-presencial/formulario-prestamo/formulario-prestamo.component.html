@@ -1,0 +1,122 @@
+<!--Menu de opciones-->
+<mat-toolbar color="primary">
+    <img width="40" alt="USAC Logo"
+        src="https://th.bing.com/th/id/R357b881f7404a7510172712ba8df9b7a?rik=1F6J6d8A%2bhOR5g&riu=http%3a%2f%2fcceeusac.com%2fasignaciones%2fImagenes%2flogo_usac.png&ehk=KplsqbdMJu2aTx%2bzT5h2DGcFKOP5faojo95W%2bTVxoPM%3d&risl=&pid=ImgRaw" />
+    <span>Biblioteca Ingeniería</span>
+    <span class="example-spacer"></span>
+    <button mat-button [matMenuTriggerFor]="prestamosMenu">Prestamos</button>
+    <mat-menu #prestamosMenu="matMenu" yPosition="above">
+        <button routerLink="/identificarLibro" mat-menu-item>Nuevo Prestamo</button>
+        <button routerLink="/revisarPrestamos" mat-menu-item>Revisar Prestamos</button>
+        <button routerLink="/reportesPrestamo" mat-menu-item>Reportes Prestamo</button>
+    </mat-menu>
+    <button mat-button [matMenuTriggerFor]="devolucionesMenu">Reservaciones</button>
+    <mat-menu #devolucionesMenu="matMenu" yPosition="below">
+        <button routerLink="/revisarReservaciones" mat-menu-item>Reservaciones Activas</button>
+        <button routerLink="/revisarReservacionesVencidas" mat-menu-item>Reservaciones Expiradas</button>
+    </mat-menu>
+    <button mat-button [matMenuTriggerFor]="bibliotecaMenu">Biblioteca</button>
+    <mat-menu #bibliotecaMenu="matMenu" xPosition="before">
+        <button routerLink="/listaLibro" mat-menu-item>Listado de Libros</button>
+        <button routerLink="/ingresoLibro" mat-menu-item>Registrar Libro</button>
+        <button routerLink="/listaCategoriasAdmin" mat-menu-item>Lista de Categorias</button>
+    </mat-menu>
+    <button mat-button [matMenuTriggerFor]="perfilMenu">Perfil</button>
+    <mat-menu #perfilMenu="matMenu" xPosition="after">
+        <button routerLink="/solicitud-reset-password" mat-menu-item>Mis Datos</button>
+        <button routerLink="/solicitud-reset-password" mat-menu-item>Cambiar mi Contraseña</button>
+    </mat-menu>
+    <button [disabled]="buttonUsers" mat-button [matMenuTriggerFor]="usuariosMenu">Administración</button>
+    <mat-menu #usuariosMenu="matMenu" xPosition="after">
+        <button routerLink="/usuarios" mat-menu-item>Lista de Usuarios</button>
+        <button routerLink="/registro-usuario" mat-menu-item>Registrar Usuario</button>
+        <button routerLink="/info-biblioteca" mat-menu-item>Información de Biblioteca</button>
+    </mat-menu>
+    <!--Boton para cerrar sesion-->
+    <button (click)="logout()" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+        <mat-icon>logout</mat-icon>
+    </button>
+</mat-toolbar>
+
+
+<div class="content" role="main">
+    <div class="container col-md-6"><br>
+        <div class="card">
+            <div class="card-header">
+                <h3>Ingrese el número del documento de identificación presentado:</h3>
+            </div>
+            <div class="card-body">
+                <div>
+                    <h1>
+                        <strong>Verifica el Documento de Identificación: </strong>
+                    </h1>
+                    <div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Carné</span>
+                            <input [disabled]="inputCarnet" type="text" maxlength="9" class="form-control" aria-label="Sizing example input"
+                                aria-describedby="inputGroup-sizing-default" id="Busqueda" placeholder="Carné"
+                                [(ngModel)]="carnet" name="carnet">
+                            <button class="btn btn-outline-success my-2 my-sm-0"
+                                (click)="verificarID()">Verificar</button>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="inputGroup-sizing-default">DPI</span>
+                            <input [disabled]="inputDPI" type="text" maxlength="13" class="form-control" aria-label="Sizing example input"
+                                aria-describedby="inputGroup-sizing-default" id="DPI" placeholder="DPI"
+                                [(ngModel)]="DPI" name="DPI">
+                            <button class="btn btn-outline-success my-2 my-sm-0"
+                                (click)="verificarID()">Verificar</button>
+                        </div>
+                        <h1>
+                            <strong>Formulario de Datos Personales: </strong>
+                        </h1>
+                        <form (ngSubmit)="generarReservacion()" novalidate #f="ngForm">
+
+                            <div class="form-group">
+                                <label for="">Nombres:</label>
+                                <input [disabled]="inputNombre" type="text" class="form-control" id="Nombre" [(ngModel)]="nombre" name="nombre"
+                                    required>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Apellidos:</label>
+                                <input [disabled]="inputApellido" type="text" class="form-control" id="Apelllidos" [(ngModel)]="apellido"
+                                    name="apelllidos" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">Carrera:</label>
+                                <!--  <input type="text" class="form-control" id="Carrera" [(ngModel)]="carrera" name="carrera" required><br> -->
+                                <select [disabled]="inputCarrera" class="form-select" aria-label="Default select example" id="Carrera"
+                                    [(ngModel)]="carrera" name="carrera" required>
+                                    <option value="INGENIERIA CIVIL">INGENIERIA CIVIL</option>
+                                    <option value="INGENIERIA MECANICA">INGENIERIA MECANICA</option>
+                                    <option value="INGENIERIA INDUSTRIAL">INGENIERIA INDUSTRIAL</option>
+                                    <option value="INGENIERIA EN CIENCIAS Y SISTEMAS">INGENIERIA EN CIENCIAS Y SISTEMAS</option>
+                                    <option value="INGENIERIA MECANICA INDUSTRIAL">INGENIERIA MECANICA INDUSTRIAL</option>
+                                    <option value="CC. JURIDICAS Y SOCIALES">CC. JURIDICAS Y SOCIALES</option>
+                                    <option value="ECONOMIA">ECONOMIA</option>
+                                    <option value="ADMINISTRACION DE EMPRESAS">ADMINISTRACION DE EMPRESAS</option>
+                                    <option value="AUDITORIA Y CONTADURIA PUBLICA">AUDITORIA Y CONTADURIA PUBLICA</option>
+                                    <option value="PSICOLOGIA">PSICOLOGIA</option>
+                                    <option value="TRABAJO SOCIAL">TRABAJO SOCIAL</option>
+                                    <option value="PEDAGOGIA ">PEDAGOGIA </option>
+                                    <option value="P.E.M. EN MATEMATICA Y FISICA">P.E.M. EN MATEMATICA Y FISICA</option>
+                                    <option value="MEDICO Y CIRUJANO">MEDICO Y CIRUJANO</option>
+                                    <option value="LIC. EN ENFERMERIA">LIC. EN ENFERMERIA</option>
+                                    <option value="AGRONOMIA">AGRONOMIA</option>
+                                    <option value="AGRIMENSURA">AGRIMENSURA</option>
+                                    <option value="INGENIERIA EN GESTION AMBIENTAL">INGENIERIA EN GESTION AMBIENTAL</option>
+                                    <option value="ARQUITECTURA">ARQUITECTURA</option>
+                                    <option value="ODONTOLOGIA">ODONTOLOGIA</option>
+                                </select>
+                            </div>
+                            <button id="confirmarReserva" disabled class="btn btn-outline-success" [disabled]="!f.valid">Registrar Prestamo</button>
+                            <button class="btn btn-outline-danger"
+                                (click)="resetearBusqueda()">Resetear</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

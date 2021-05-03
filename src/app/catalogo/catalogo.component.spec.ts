@@ -14,6 +14,7 @@ import { of, throwError } from 'rxjs';
 import { AsignacionLibroService } from '../service/asignacion_libro/asignacion-libro.service';
 import { Libro } from '../models/libro';
 import { LibrosService } from '../service/libros/libros.service';
+
 describe('CatalogoComponent', () => {
   let component: CatalogoComponent;
   let fixture: ComponentFixture<CatalogoComponent>;
