@@ -16,10 +16,10 @@
   </mat-toolbar>
 
 <div class="content" role="main">
-    <div class="container col-md-6">
+    <div style="margin-top: 3%;" class="container col-md-6">
         <div class="card">
             <div class="card-header">
-                <h3>Información del Libro</h3>
+                <h2>Información del Libro</h2>
             </div>
             <div class="card-body">
                 <div style="text-align: center">
@@ -65,6 +65,67 @@
                     Ya esta conectado todo, solo tenes que mandar los datos. -->
                     <button class="btn btn-success"  (click)='reservarLibro(libroRecivido)'>Reservar Libro</button>
                 </form>
+            </div>
+            <br>
+            
+        </div>
+        <div style="margin-top: 5%;" class="card" >
+            <div class="card-header">
+                <h2>Reseñas</h2>
+            </div>
+            <div class="card-body">
+                <form (ngSubmit)="onCreate(myForm)" novalidate #myForm="ngForm">
+                    <mat-card style="margin-bottom: 5%;" [class.mat-elevation-z8]="true">
+                        <mat-card-title style="padding: 1%;">Deja un comentario</mat-card-title>
+                        <mat-card-header style="margin-left: -5.5%;">
+                            <table class="example-full-width " cellspacing="0">
+                                <tr>
+                                    <td>
+                                        <mat-form-field >
+                                            <mat-label>Nombre</mat-label>
+                                            <input name="name" matInput placeholder="Juan Perez" required [(ngModel)]="nombre">
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field >
+                                            <mat-label>Documento de identificación</mat-label>
+                                            <input name="id" matInput placeholder="201031456 | 3182987520901" required [(ngModel)]="identificacion">
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field >
+                                            <mat-label>Puntuacion</mat-label>
+                                            <input name="punctuation" matInput type="number" [(ngModel)]="puntuacion" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "1" placeholder="1 - 5" required>
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
+                            </table>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Comentario</mat-label>
+                                <textarea name="comment" matInput placeholder="Deja una reseña de este libro" required [(ngModel)]="comentario"></textarea>
+                            </mat-form-field>
+                            <button [disabled]="!myForm.valid" mat-raised-button color="accent"
+                                style="display: block; width: 100%;">Comentar</button>
+                        </mat-card-content>
+                    </mat-card>
+                </form>
+                <mat-card style="margin-bottom: 5%;" [class.mat-elevation-z8]="true" *ngFor="let comentario of comentarios">
+                    <mat-card-header>
+                        <div mat-card-avatar class="example-header-image"></div>
+                        <mat-card-title>{{comentario.nombre}}</mat-card-title>
+                        <mat-card-subtitle disabled=true>
+                            <mat-star-rating style = "margin-left: -1%;" [rating]="comentario.puntuacion"  [starCount]="starCount" [color]="starColor"></mat-star-rating>
+                            <h4 style = "padding-top: 2%;margin-left: 0%;">Fecha: {{comentario.fecha}}</h4>
+                        </mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <p>
+                            {{comentario.comentario}}
+                        </p>
+                    </mat-card-content>
+                </mat-card>
             </div>
         </div>
     </div>
