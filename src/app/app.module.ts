@@ -93,7 +93,8 @@ import { CancelarReservacionComponent } from './cancelar-reservacion/cancelar-re
     ReporteAlumnosMorososComponent,
     IdentificarLibroComponent,
     FormularioPrestamoComponent,
-    RevisionBitacoraComponent
+    RevisionBitacoraComponent,
+    CancelarReservacionComponent
   ],
   imports: [
     MatSliderModule,
