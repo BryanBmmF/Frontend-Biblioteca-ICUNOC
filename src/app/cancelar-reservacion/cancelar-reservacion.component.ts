@@ -8,6 +8,7 @@ import { PrestamosService } from '../service/prestamos/prestamos.service';
 import { UsersService } from '../service/users/users.service';
 import { DialogoConfirmacionComponent } from "../dialogo-confirmacion/dialogo-confirmacion.component";
 import { Libro } from '../models/libro';
+import moment from 'moment';
 
 @Component({
   selector: 'app-cancelar-reservacion',
@@ -30,6 +31,9 @@ export class CancelarReservacionComponent implements OnInit {
   dpi: string;
   ngOnInit(): void {
   }
+  translateDate(date:any):any {
+    return moment(date).locale('es-mx').format('LL')
+  }
 
   cargarReservacion(): void {
     this.prestamoService.busquedaFiltrada(this.stringBusqueda, "RESERVADO").subscribe(
@@ -41,8 +45,8 @@ export class CancelarReservacionComponent implements OnInit {
         } else {
           if(data[0].dpi==this.dpi){
             this.prestamos = data;
-            this.dpi="";
-            this.stringBusqueda = "";
+            //this.dpi="";
+            //this.stringBusqueda = "";
           }else{
             this.toastr.warning('El DPI ingresado no coincide con los datos guardados. Intenta de nuevo', 'Ups!', {
               timeOut: 2000, positionClass: 'toast-top-center'

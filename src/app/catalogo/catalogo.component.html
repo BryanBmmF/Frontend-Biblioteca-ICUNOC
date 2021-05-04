@@ -6,10 +6,11 @@
   <span class="example-spacer"></span>
   <button mat-button [matMenuTriggerFor]="bibliotecaMenu">Biblioteca</button>
   <mat-menu #bibliotecaMenu="matMenu" xPosition="after">
-    <button routerLink="/catalogo" mat-menu-item>Catalogo</button>
+    <button routerLink="/catalogo" mat-menu-item>Catalogo de libros</button>
     <button routerLink="/solicitudes" mat-menu-item>Buscar solicitudes</button>
-    <button routerLink="/cancelarReservacion" mat-menu-item>Cancelar Reservacion</button>
-    <button routerLink="/login" mat-menu-item>Iniciar Sesion</button>
+    <button routerLink="/cancelarReservacion" mat-menu-item>Cancelar Reservación</button>
+    <button routerLink="/login" mat-menu-item>Iniciar Sesión</button>
+    <button routerLink="/" mat-menu-item>Volver al inicio</button>
   </mat-menu>
   <button routerLink="/login" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
     <mat-icon>login</mat-icon>
@@ -23,89 +24,82 @@
       src="https://th.bing.com/th/id/R357b881f7404a7510172712ba8df9b7a?rik=1F6J6d8A%2bhOR5g&riu=http%3a%2f%2fcceeusac.com%2fasignaciones%2fImagenes%2flogo_usac.png&ehk=KplsqbdMJu2aTx%2bzT5h2DGcFKOP5faojo95W%2bTVxoPM%3d&risl=&pid=ImgRaw"
       width="90">
 
-    <h2>Catálogo</h2>
+    <h2>Catálogo de libros disponibles</h2>
+</div>
 
-
-
-  </div>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light" >
-    <div class="collapse navbar-collapse" id="navbarSupportedContent" style="flex-direction: column; align-items: center;">
-      <form (ngSubmit)="cargarLibrosFiltrados()" class="form-inline my-2 my-lg-0" novalidate #f="ngForm">
-        <div class="input-group mb-3">
-          <span class="input-group-text" id="inputGroup-sizing-default">Buscar: </span>
-          <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="Busqueda" placeholder="Titulo/Autor/Codigo" [(ngModel)]="stringBusqueda" name="Busqueda">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
-        </div> 
-      </form>
-      <form type="reset" (ngSubmit)="restoreCategories()" class="form-inline my-2 my-lg-1" novalidate #f="ngForm">
-        <div class="input-group mb-3">
-          <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Ver Todo</button>
-        </div>
-      </form>
-    </div>
-  </nav>
-  <mat-accordion *ngIf="!searchingBooks">
-    <mat-expansion-panel *ngFor="let category of categories; let i = index">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          {{category.nombre}}
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <mat-list role="list" *ngFor="let book of category.libros; let j = index">
-        <mat-list-item role="listitem"><a (click)='VerDetallesLibro(book)' >{{book.nombre}}, {{book.autor}}, {{book.edicion}} edición.</a>
-        <div class="spacer"></div>
-        <div *ngIf="book.stock > 0; else notAvailable">Disponibilidad: <span class="availableDot"></span></div>
-        <ng-template #notAvailable>
-          Disponibilidad: <span class="notAvailableDot"></span>
-        </ng-template>
-        </mat-list-item>
-      </mat-list>
-    </mat-expansion-panel>
-  </mat-accordion>
-    <mat-accordion *ngIf="searchingBooks">
-      <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Resultados de Busqueda de "{{stringBusqueda}}"
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <mat-list role="list" *ngFor="let book of filteredBooks; let j = index">
-          <mat-list-item role="listitem"><a (click)='VerDetallesLibro(book)' >{{book.nombre}}, {{book.autor}}, {{book.edicion}} edición.</a>
+<main>
+  <mat-card class="example-card">
+    <mat-card-header>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light" >
+        <form (ngSubmit)="cargarLibrosFiltrados()" class="form-inline my-2 my-lg-0" novalidate #f="ngForm">
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">Buscar: </span>
+            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="Busqueda" placeholder="Titulo/Autor/Codigo" [(ngModel)]="stringBusqueda" name="Busqueda">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+          </div> 
+        </form>
+        <form type="reset" (ngSubmit)="restoreCategories()" class="form-inline my-2 my-lg-1" novalidate #f="ngForm">
+          <div class="input-group mb-3">
+            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Ver Todo</button>
+          </div>
+        </form>
+      </nav>
+    </mat-card-header>
+    <br>
+    <mat-card-content>
+      <mat-accordion *ngIf="!searchingBooks">
+        <mat-expansion-panel *ngFor="let category of categories; let i = index">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{category.nombre}}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-list role="list" *ngFor="let book of category.libros; let j = index">
+            <mat-list-item role="listitem"><a (click)='VerDetallesLibro(book)' >{{book.nombre}}, {{book.autor}}, {{book.edicion}} edición.</a>
             <div class="spacer"></div>
             <div *ngIf="book.stock > 0; else notAvailable">Disponibilidad: <span class="availableDot"></span></div>
             <ng-template #notAvailable>
               Disponibilidad: <span class="notAvailableDot"></span>
             </ng-template>
-          </mat-list-item>
-        </mat-list>
-      </mat-expansion-panel>
-    </mat-accordion>
-</div>
+            </mat-list-item>
+          </mat-list>
+        </mat-expansion-panel>
+      </mat-accordion>
+        <mat-accordion *ngIf="searchingBooks">
+          <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Resultados de Busqueda de "{{stringBusqueda}}"
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-list role="list" *ngFor="let book of filteredBooks; let j = index">
+              <mat-list-item role="listitem"><a (click)='VerDetallesLibro(book)' >{{book.nombre}}, {{book.autor}}, {{book.edicion}} edición.</a>
+                <div class="spacer"></div>
+                <div *ngIf="book.stock > 0; else notAvailable">Disponibilidad: <span class="availableDot"></span></div>
+                <ng-template #notAvailable>
+                  Disponibilidad: <span class="notAvailableDot"></span>
+                </ng-template>
+              </mat-list-item>
+            </mat-list>
+          </mat-expansion-panel>
+        </mat-accordion>
+    </mat-card-content>
+  </mat-card>
+</main>
+
 
 <!-- Footer -->
-<footer>
-  Te gusta esta biblioteca?&nbsp;
-  <a href="https://github.com/BryanBmmF/Frontend-Biblioteca-ICUNOC" target="_blank" rel="noopener"> Apoyanos y danos una
-    estrella en GitHub
-    <div class="github-star-badge">
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-        <path d="M0 0h24v24H0z" fill="none" />
-        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-      </svg>
-      Star
-    </div>
-  </a>
-  <a href="https://github.com/BryanBmmF/Frontend-Biblioteca-ICUNOC" target="_blank" rel="noopener">
-    <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-      <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" fill="#1976d2" />
-      <path d="M0 0h24v24H0z" fill="none" />
+<footer class="page-footer font-small blue">
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© 2021 Copyright:
+    <a href="http://www.ingenieria.cunoc.usac.edu.gt/portal/"> IngenieriaCunoc.edu.gt</a>
+    <svg id="clouds" alt="Gray Clouds Background" xmlns="http://www.w3.org/2000/svg" width="auto" height="auto"
+      viewBox="0 0 2611.084 485.677">
+      <path id="Path_39" data-name="Path 39"
+        d="M2379.709,863.793c10-93-77-171-168-149-52-114-225-105-264,15-75,3-140,59-152,133-30,2.83-66.725,9.829-93.5,26.25-26.771-16.421-63.5-23.42-93.5-26.25-12-74-77-130-152-133-39-120-212-129-264-15-54.084-13.075-106.753,9.173-138.488,48.9-31.734-39.726-84.4-61.974-138.487-48.9-52-114-225-105-264,15a162.027,162.027,0,0,0-103.147,43.044c-30.633-45.365-87.1-72.091-145.206-58.044-52-114-225-105-264,15-75,3-140,59-152,133-53,5-127,23-130,83-2,42,35,72,70,86,49,20,106,18,157,5a165.625,165.625,0,0,0,120,0c47,94,178,113,251,33,61.112,8.015,113.854-5.72,150.492-29.764a165.62,165.62,0,0,0,110.861-3.236c47,94,178,113,251,33,31.385,4.116,60.563,2.495,86.487-3.311,25.924,5.806,55.1,7.427,86.488,3.311,73,80,204,61,251-33a165.625,165.625,0,0,0,120,0c51,13,108,15,157-5a147.188,147.188,0,0,0,33.5-18.694,147.217,147.217,0,0,0,33.5,18.694c49,20,106,18,157,5a165.625,165.625,0,0,0,120,0c47,94,178,113,251,33C2446.709,1093.793,2554.709,922.793,2379.709,863.793Z"
+        transform="translate(142.69 -634.312)" fill="#eee" />
     </svg>
-  </a>
+  </div>
+  <!-- Copyright -->
 </footer>
-
-<svg id="clouds" alt="Gray Clouds Background" xmlns="http://www.w3.org/2000/svg" width="2611.084" height="485.677"
-  viewBox="0 0 2611.084 485.677">
-  <path id="Path_39" data-name="Path 39"
-    d="M2379.709,863.793c10-93-77-171-168-149-52-114-225-105-264,15-75,3-140,59-152,133-30,2.83-66.725,9.829-93.5,26.25-26.771-16.421-63.5-23.42-93.5-26.25-12-74-77-130-152-133-39-120-212-129-264-15-54.084-13.075-106.753,9.173-138.488,48.9-31.734-39.726-84.4-61.974-138.487-48.9-52-114-225-105-264,15a162.027,162.027,0,0,0-103.147,43.044c-30.633-45.365-87.1-72.091-145.206-58.044-52-114-225-105-264,15-75,3-140,59-152,133-53,5-127,23-130,83-2,42,35,72,70,86,49,20,106,18,157,5a165.625,165.625,0,0,0,120,0c47,94,178,113,251,33,61.112,8.015,113.854-5.72,150.492-29.764a165.62,165.62,0,0,0,110.861-3.236c47,94,178,113,251,33,31.385,4.116,60.563,2.495,86.487-3.311,25.924,5.806,55.1,7.427,86.488,3.311,73,80,204,61,251-33a165.625,165.625,0,0,0,120,0c51,13,108,15,157-5a147.188,147.188,0,0,0,33.5-18.694,147.217,147.217,0,0,0,33.5,18.694c49,20,106,18,157,5a165.625,165.625,0,0,0,120,0c47,94,178,113,251,33C2446.709,1093.793,2554.709,922.793,2379.709,863.793Z"
-    transform="translate(142.69 -634.312)" fill="#eee" />
-</svg>
+<!-- Footer -->

@@ -46,21 +46,19 @@
       </mat-card-header>
       <mat-card-header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <form (ngSubmit)="cargarPrestamosFiltrados()" class="form-inline my-2 my-lg-0" novalidate #f="ngForm">
-              <div class="input-group mb-3">
-                <span class="input-group-text" id="inputGroup-sizing-default">Buscar: </span>
-                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="Busqueda" placeholder="DPI/Carne/Reservacion" [(ngModel)]="stringBusqueda" name="Busqueda">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
-                <button class="btn btn-outline-danger my-2 my-sm-0" type="reset">Limpiar</button>
-              </div> 
-            </form>
-            <form type="reset" (ngSubmit)="cargarPrestamos()" class="form-inline my-2 my-lg-1" novalidate #f="ngForm">
-              <div class="input-group mb-3">
-                <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Ver Todo</button>
-              </div>
-            </form>
-          </div>
+          <form (ngSubmit)="cargarPrestamosFiltrados()" class="form-inline my-2 my-lg-0" novalidate #f="ngForm">
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="inputGroup-sizing-default">Buscar: </span>
+              <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="Busqueda" placeholder="DPI/Carne/Reservacion" [(ngModel)]="stringBusqueda" name="Busqueda">
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+              <button class="btn btn-outline-danger my-2 my-sm-0" type="reset">Limpiar</button>
+            </div> 
+          </form>
+          <form type="reset" (ngSubmit)="cargarPrestamos()" class="form-inline my-2 my-lg-1" novalidate #f="ngForm">
+            <div class="input-group mb-3">
+              <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Ver Todo</button>
+            </div>
+          </form>
         </nav>
       </mat-card-header>
       <mat-card-content>
