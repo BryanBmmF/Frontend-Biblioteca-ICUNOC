@@ -1,4 +1,3 @@
-
 <!--Menu de opciones-->
 <mat-toolbar color="primary">
   <img width="40" alt="USAC Logo"
@@ -7,10 +6,11 @@
   <span class="example-spacer"></span>
   <button mat-button [matMenuTriggerFor]="bibliotecaMenu">Biblioteca</button>
   <mat-menu #bibliotecaMenu="matMenu" xPosition="after">
-    <button routerLink="/catalogo" mat-menu-item>Catalogo</button>
+    <button routerLink="/catalogo" mat-menu-item>Catalogo de libros</button>
     <button routerLink="/solicitudes" mat-menu-item>Buscar solicitudes</button>
-    <button routerLink="/cancelarReservacion" mat-menu-item>Cancelar Reservacion</button>
-    <button routerLink="/login" mat-menu-item>Iniciar Sesion</button>
+    <button routerLink="/cancelarReservacion" mat-menu-item>Cancelar Reservación</button>
+    <button routerLink="/login" mat-menu-item>Iniciar Sesión</button>
+    <button routerLink="/" mat-menu-item>Volver al inicio</button>
   </mat-menu>
   <button routerLink="/login" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
     <mat-icon>login</mat-icon>
