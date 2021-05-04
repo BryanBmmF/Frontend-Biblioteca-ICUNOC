@@ -2,6 +2,6 @@ import { Comentario } from './comentario';
 
 describe('Comentario', () => {
   it('should create an instance', () => {
-    expect(new Comentario()).toBeTruthy();
+    expect(new Comentario('','','','',1,'')).toBeTruthy();
   });
 });

@@ -7,7 +7,6 @@ import { StarRatingComponent } from '../star-rating/star-rating.component'
 import { ToastrService } from 'ngx-toastr';
 import { NgForm } from '@angular/forms';
 import { ComentarioService } from '../service/comentario/comentario.service'
-import { MatDialog } from '@angular/material/dialog';
 import { DialogoConfirmacionComponent } from "../dialogo-confirmacion/dialogo-confirmacion.component";
 import { Comentario } from '../models/comentario';
 import * as moment from 'moment';
@@ -35,7 +34,7 @@ export class DetalleslibroComponent implements OnInit {
   bookId: string;
   
 
-  constructor(private router:Router, private service:LibrosService, private userService: UsersService, private commentService: ComentarioService,public dialogo: MatDialog,private toastr: ToastrService,) { }
+  constructor(private router:Router, private service:LibrosService, private userService: UsersService, private commentService: ComentarioService,private toastr: ToastrService,) { }
 
   ngOnInit(): void {
     this.rating = 3
