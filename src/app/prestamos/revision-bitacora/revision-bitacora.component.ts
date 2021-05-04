@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { Prestamo } from 'src/app/models/Prestamo';
 import { PrestamosService } from 'src/app/service/prestamos/prestamos.service';
@@ -22,6 +23,10 @@ export class RevisionBitacoraComponent implements OnInit {
   stringBusqueda: string;
   ngOnInit(): void {
     
+  }
+
+  translateDate(date:any):any {
+    return moment(date).locale('es-mx').format('LL')
   }
 
   cargarPrestamosFiltrados(): void {
