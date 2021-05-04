@@ -9,6 +9,10 @@ import { UsersService } from '../service/users/users.service';
 import { Libro } from '../models/libro';
 import { ComentarioService} from '../service/comentario/comentario.service'
 import { ToastrService } from 'ngx-toastr';
+import { LibrosService } from '../service/libros/libros.service';
+import { NgForm } from '@angular/forms';
+import { throwError } from 'rxjs';
+import moment from 'moment';
 class UsersServiceMock{
   //Mockeo los metodos que necesite en el component y que en teoria me va proveer el UserService
   //solo los que necesito
@@ -16,17 +20,18 @@ class UsersServiceMock{
   logout = jasmine.createSpy('logout');
 }
 
-class CommentServiceMock {
-  lista = jasmine.createSpy('lista');
-  save = jasmine.createSpy('save')
-}
-
-
 
 describe('DetalleslibroComponent', () => {
   let component: DetalleslibroComponent;
   let fixture: ComponentFixture<DetalleslibroComponent>;
   let userServiceMock: UsersServiceMock;
+  let librosService = {
+    getLibroId : (id) => {return {subscribe: () => {} } },
+  }
+  let commentServiceMock = {
+    lista: (id) => {return {subscribe: () => {} } },
+    save: (comment) => {return {subscribe: () => {} } }
+  }
   let toastrServiceMock = {
     info: (message?: string, title?: string, override?: any) =>{return {}},
     error: (message?: string, title?: string, override?: any) =>{return {error: {mensaje: 'test'}}},
@@ -64,7 +69,11 @@ describe('DetalleslibroComponent', () => {
         },
         {
           provide: ComentarioService,
-          useValue: CommentServiceMock
+          useValue: commentServiceMock
+        },
+        {
+          provide: LibrosService,
+          useValue: librosService
         }
       ]
     });
@@ -73,6 +82,7 @@ describe('DetalleslibroComponent', () => {
   }
   
   );
+  
 
   // it('should create', () => {
   //   expect(component).toBeTruthy();
@@ -99,10 +109,54 @@ describe('DetalleslibroComponent', () => {
 
   it('should ngOnInit Libro null', () => {
     //Arrage
+    spyOn(librosService,'getLibroId').and.returnValue({subscribe: () => {} })
+    spyOn(commentServiceMock,'lista').and.returnValue({subscribe: () => {} })
     //Act
     component.ngOnInit();
-    //Spect
+    //assert
   });
+
+  it('should translate date', () => {
+      //arrange
+      
+      //act
+      const result = component.translateDate("2020-12-12")
+      //assert
+      expect(result).toBe(moment("2020-12-12").locale('es-mx').format('LL'))
+  })
+
+  it('should pad the date', () => {
+    //arrange
+    //act
+    const result = component.pad(5)
+    const result2 = component.pad(10)
+    //assert
+    expect(result).toBe("05")
+    expect(result2).toBe(10)
+  })
+
+  it('should create a comment',() => {
+    //arrange
+    let form: NgForm
+    spyOn(commentServiceMock,'save').and.returnValue({subscribe: () => {} })
+    spyOn(toastrServiceMock,'success').and.callThrough()
+    //act
+    component.onCreate(form)
+    //assert
+    expect(commentServiceMock.save).toHaveBeenCalled()
+
+  })
+
+  it('should run method onCreate and throw an error',() => {
+    //arrange
+    let form: NgForm
+    spyOn(commentServiceMock,'save').and.returnValue(throwError({status: 404}))
+    spyOn(toastrServiceMock,'error').and.stub()
+    //act
+    component.onCreate(form)
+    //assert
+    expect(commentServiceMock.save).toHaveBeenCalled()
+  })
 
 
   it('should ngOnInit Libro NOT null', () => {
