@@ -49,7 +49,7 @@ export class ReservaLibroComponent implements OnInit {
         doc.text('Codigo de Reservacion: '+this.prestamoDetalles.codigoReservacion,30, 95);
         doc.text('Codigo del Libro: '+this.prestamoDetalles.codigoLibro,30, 105); 
         doc.setFontSize(9)  
-        doc.text('*Recuerda presentar al menos un documento de identifiación para poder recibir el libro en biblioteca.*',35, 118);
+        doc.text('*Recuerda presentar al menos un documento de identificación para poder recibir el libro en biblioteca.*',35, 118);
         doc.save(this.prestamoDetalles.nombre+'_Reservacion_'+this.codigoReservacionVar+'.pdf');
       },
       err => {

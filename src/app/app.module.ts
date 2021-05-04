@@ -6,7 +6,8 @@ import { AppComponent } from './app.component';
 
 //external toastr
 import { ToastrModule } from 'ngx-toastr';
-
+//rating stars component import
+import { BarRatingModule } from "ngx-bar-rating";
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { FormsModule } from '@angular/forms';
@@ -34,6 +35,7 @@ import { IngresoLibroComponent } from './ingresoLibro/ingresoLibro.component';
 import { ListaUserComponent } from './user/lista-user.component';
 import { NuevoUserComponent } from './user/nuevo-user.component';
 import { EditarUserComponent } from './user/editar-user.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar'
 
 import { PrestamoLibroComponent } from './prestamo/prestamo-libro.component';
 import { ReservaLibroComponent } from './reserva/reserva-libro.component'; 
@@ -59,8 +61,8 @@ import { ReporteAlumnosMorososComponent } from './reportes/reporte-alumnos-moros
 import { IdentificarLibroComponent } from './prestamo-presencial/identificar-libro/identificar-libro.component';
 import { FormularioPrestamoComponent } from './prestamo-presencial/formulario-prestamo/formulario-prestamo.component';
 import { RevisionBitacoraComponent } from './prestamos/revision-bitacora/revision-bitacora.component';
+import { StarRatingComponent } from './star-rating/star-rating.component';
 import { CancelarReservacionComponent } from './cancelar-reservacion/cancelar-reservacion.component';
-
 
 
 @NgModule({
@@ -93,6 +95,7 @@ import { CancelarReservacionComponent } from './cancelar-reservacion/cancelar-re
     ReporteAlumnosMorososComponent,
     IdentificarLibroComponent,
     FormularioPrestamoComponent,
+    StarRatingComponent,
     RevisionBitacoraComponent,
     CancelarReservacionComponent
   ],
@@ -102,10 +105,12 @@ import { CancelarReservacionComponent } from './cancelar-reservacion/cancelar-re
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    MatSnackBarModule,
     FormsModule,
     MatExpansionModule,
     MatListModule,
     MatTableModule,
+    BarRatingModule,
     MatGridListModule,
     MatButtonModule,
     MatMenuModule,
