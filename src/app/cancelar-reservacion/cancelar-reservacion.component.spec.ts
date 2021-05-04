@@ -11,6 +11,7 @@ import { LibrosService } from '../service/libros/libros.service';
 import { PrestamosService } from '../service/prestamos/prestamos.service';
 import libro from '../test/fileTest/libro.json';
 import reservacion from '../test/fileTest/reservacion.json';
+import prestamoVacio from '../test/fileTest/prestamoVacio.json';
 import { CancelarReservacionComponent } from './cancelar-reservacion.component';
 
 class PrestamosServiceMock{
@@ -129,6 +130,18 @@ describe('CancelarReservacionComponent', () => {
     //Act
     component.onUpdate("1","Nombre",5,"1");
 
+    //Spect
+    //load users
+  });
+
+  it('should cargarReservacion with length 0', () => {
+    //Arrage
+    var listaReporte: Prestamo[] = prestamoVacio;
+    prestamoServiceMock.busquedaFiltrada.and.returnValue(of(listaReporte));
+  
+    //Act
+    component.cargarReservacion();
+  
     //Spect
     //load users
   });

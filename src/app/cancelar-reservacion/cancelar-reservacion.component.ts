@@ -27,6 +27,7 @@ export class CancelarReservacionComponent implements OnInit {
     public dialogo: MatDialog) { }
 
   stringBusqueda: string;
+  dpi: string;
   ngOnInit(): void {
   }
 
@@ -34,18 +35,25 @@ export class CancelarReservacionComponent implements OnInit {
     this.prestamoService.busquedaFiltrada(this.stringBusqueda, "RESERVADO").subscribe(
       data => {
         if (data.length == 0) {
-          this.toastr.warning('No se encontró ninguna reservación. Intenta de nuevo', 'Ups!', {
+          this.toastr.warning('No se encontró ninguna reservación con el codigo ingresado. Intenta de nuevo', 'Ups!', {
             timeOut: 2000, positionClass: 'toast-top-center'
           });
         } else {
-          this.prestamos = data;
+          if(data[0].dpi==this.dpi){
+            this.prestamos = data;
+            this.dpi="";
+            this.stringBusqueda = "";
+          }else{
+            this.toastr.warning('El DPI ingresado no coincide con los datos guardados. Intenta de nuevo', 'Ups!', {
+              timeOut: 2000, positionClass: 'toast-top-center'
+            });  
+          }
         }
       },
       err => {
         console.log(err);
       }
     );
-    this.stringBusqueda = "";
   }
 
   async actualizarStock(codigoLibro: string) {
@@ -65,8 +73,7 @@ export class CancelarReservacionComponent implements OnInit {
     //confirmacion
     this.dialogo
       .open(DialogoConfirmacionComponent, {
-        data: `Verifica tus datos ` +
-        `DPI: ` + dpi + ` y Carné: ` + carnet
+        data: `Estas seguro de cancelar la reservacion? `
       })
       .afterClosed()
       .subscribe((confirmado: Boolean) => {

@@ -95,7 +95,7 @@
                                     <td>
                                         <mat-form-field >
                                             <mat-label>Puntuacion</mat-label>
-                                            <input name="punctuation" matInput type="number" [(ngModel)]="puntuacion" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "1" placeholder="1 - 5" required>
+                                            <input name="punctuation" matInput type="number"  [(ngModel)]="puntuacion" min="1" max="5" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "1" placeholder="1 - 5" required>
                                         </mat-form-field>
                                     </td>
                                 </tr>
