@@ -267,4 +267,12 @@ it('should verificarID when user have more than 2 reservations', () => {
   //Expect
 });
 
+it('should generaCodigoReserva', () => {
+  //Arrage
+  //Act
+  let codigo: string = component.generaCodigoReserva();
+  //Expect
+  expect(codigo).toEqual(codigo);
+});
+
 });
