@@ -7,8 +7,8 @@
   <button mat-button [matMenuTriggerFor]="prestamosMenu" name="prestamosMenu" id="prestamosMenu">Prestamos</button>
   <mat-menu #prestamosMenu="matMenu" yPosition="above">
     <button routerLink="/identificarLibro" id="nuevoPrestamo" name="nuevoPrestamo" mat-menu-item>Nuevo Prestamo</button>
-    <button routerLink="/revisarPrestamos" id="revisarPrestamo" mat-menu-item>Revisar Prestamos</button>
-    <button routerLink="/reportesPrestamo" id="reportesPrestamo" mat-menu-item>Reportes Prestamo</button>
+    <button routerLink="/revisarPrestamos" id="revisarPrestamo" name="revisarPrestamo" mat-menu-item>Revisar Prestamos</button>
+    <button routerLink="/reportesPrestamo" id="reportesPrestamo" name="reportesPrestamo" mat-menu-item>Reportes Prestamo</button>
   </mat-menu>
   <button mat-button [matMenuTriggerFor]="devolucionesMenu" id="reservacionesMenu" name="reservacionesMenu">Reservaciones</button>
   <mat-menu #devolucionesMenu="matMenu" yPosition="below">
