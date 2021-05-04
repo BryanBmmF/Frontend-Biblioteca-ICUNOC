@@ -76,7 +76,7 @@ export class RevisionPrestamoComponent implements OnInit {
           this.prestamoService.finalizarPrestamo(codigoReservacion, this.prestamoCodigo).subscribe(
             data => {
               this.actualizarStock(codigoLibro);
-              this.toastr.success('Pretamo Finalizado!', 'Ok!', {
+              this.toastr.success('Prestamo Finalizado!', 'Ok!', {
                 timeOut: 2000, positionClass: 'toast-top-center'
               });
               this.cargarPrestamos();

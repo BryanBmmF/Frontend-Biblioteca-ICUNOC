@@ -100,6 +100,20 @@ describe('PrestamosService', () => {
     request.flush(prestamo);
   });
 
+  it('cancelarReservacion', () => {
+    //Arrage
+    let codigoReservacion: string = "IQ486HO1";
+    //Act
+    service.cancelarReservacion(codigoReservacion, prestamo).subscribe((result: Prestamo) => {
+      expect(result.carnet).toBe("201631722");
+    });
+
+    //expect
+    const request = httpMock.expectOne(`${service.prestamosURL + "cancelar/"+codigoReservacion}`, prestamo);
+    expect(request.request.method).toBe('PUT');
+    request.flush(prestamo);
+  });
+
   it('iniciarPrestamo', () => {
     //Arrage
     let codigoReservacion: string = "IQ486HO1";

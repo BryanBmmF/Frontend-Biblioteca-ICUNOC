@@ -58,9 +58,11 @@ import { DialogoConfirmacionComponent } from './dialogo-confirmacion/dialogo-con
 // Importar animaciones, los botones, el diálogo y el componente
 import { MatDialogModule } from '@angular/material/dialog';
 import { ReporteAlumnosMorososComponent } from './reportes/reporte-alumnos-morosos/reporte-alumnos-morosos.component';
+import { IdentificarLibroComponent } from './prestamo-presencial/identificar-libro/identificar-libro.component';
+import { FormularioPrestamoComponent } from './prestamo-presencial/formulario-prestamo/formulario-prestamo.component';
 import { RevisionBitacoraComponent } from './prestamos/revision-bitacora/revision-bitacora.component';
 import { StarRatingComponent } from './star-rating/star-rating.component';
-
+import { CancelarReservacionComponent } from './cancelar-reservacion/cancelar-reservacion.component';
 
 
 @NgModule({
@@ -91,8 +93,11 @@ import { StarRatingComponent } from './star-rating/star-rating.component';
     ReportePrestamosComponent,
     DialogoConfirmacionComponent,
     ReporteAlumnosMorososComponent,
+    IdentificarLibroComponent,
+    FormularioPrestamoComponent,
+    StarRatingComponent,
     RevisionBitacoraComponent,
-    StarRatingComponent
+    CancelarReservacionComponent
   ],
   imports: [
     MatSliderModule,
