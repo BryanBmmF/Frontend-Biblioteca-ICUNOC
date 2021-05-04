@@ -4,15 +4,15 @@
     src="https://th.bing.com/th/id/R357b881f7404a7510172712ba8df9b7a?rik=1F6J6d8A%2bhOR5g&riu=http%3a%2f%2fcceeusac.com%2fasignaciones%2fImagenes%2flogo_usac.png&ehk=KplsqbdMJu2aTx%2bzT5h2DGcFKOP5faojo95W%2bTVxoPM%3d&risl=&pid=ImgRaw" />
   <span>Biblioteca Ingeniería</span>
   <span class="example-spacer"></span>
-  <button mat-button [matMenuTriggerFor]="prestamosMenu">Prestamos</button>
+  <button mat-button [matMenuTriggerFor]="prestamosMenu" name="prestamosMenu" id="prestamosMenu">Prestamos</button>
   <mat-menu #prestamosMenu="matMenu" yPosition="above">
-    <button routerLink="/identificarLibro" mat-menu-item>Nuevo Prestamo</button>
+    <button routerLink="/identificarLibro" id="nuevoPrestamo" name="nuevoPrestamo" mat-menu-item>Nuevo Prestamo</button>
     <button routerLink="/revisarPrestamos" mat-menu-item>Revisar Prestamos</button>
     <button routerLink="/reportesPrestamo" mat-menu-item>Reportes Prestamo</button>
   </mat-menu>
-  <button mat-button [matMenuTriggerFor]="devolucionesMenu">Reservaciones</button>
+  <button mat-button [matMenuTriggerFor]="devolucionesMenu" id="reservacionesMenu" name="reservacionesMenu">Reservaciones</button>
   <mat-menu #devolucionesMenu="matMenu" yPosition="below">
-    <button routerLink="/revisarReservaciones" mat-menu-item>Reservaciones Activas</button>
+    <button routerLink="/revisarReservaciones" id="reservacionesActivas" name="reservacionesActivas" mat-menu-item >Reservaciones Activas</button>
     <button routerLink="/revisarReservacionesVencidas" mat-menu-item>Reservaciones Expiradas</button>
   </mat-menu>
   <button mat-button [matMenuTriggerFor]="bibliotecaMenu">Biblioteca</button>
