@@ -1,6 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { StarRatingComponent } from './star-rating.component';
+
+class MatSnackBarMock {
+  lista = jasmine.createSpy('lista');
+  save = jasmine.createSpy('save')
+}
 
 describe('StarRatingComponent', () => {
   let component: StarRatingComponent;
@@ -8,7 +14,13 @@ describe('StarRatingComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ StarRatingComponent ]
+      declarations: [ StarRatingComponent ],
+      providers: [
+        {
+            provide: MatSnackBar,
+            useValue: MatSnackBarMock
+        }
+      ]
     })
     .compileComponents();
   }));

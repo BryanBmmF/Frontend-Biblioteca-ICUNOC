@@ -7,7 +7,8 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { UsersService } from '../service/users/users.service';
 import { Libro } from '../models/libro';
-
+import { ComentarioService} from '../service/comentario/comentario.service'
+import { ToastrService } from 'ngx-toastr';
 class UsersServiceMock{
   //Mockeo los metodos que necesite en el component y que en teoria me va proveer el UserService
   //solo los que necesito
@@ -15,11 +16,22 @@ class UsersServiceMock{
   logout = jasmine.createSpy('logout');
 }
 
+class CommentServiceMock {
+  lista = jasmine.createSpy('lista');
+  save = jasmine.createSpy('save')
+}
+
+
+
 describe('DetalleslibroComponent', () => {
   let component: DetalleslibroComponent;
   let fixture: ComponentFixture<DetalleslibroComponent>;
   let userServiceMock: UsersServiceMock;
-
+  let toastrServiceMock = {
+    info: (message?: string, title?: string, override?: any) =>{return {}},
+    error: (message?: string, title?: string, override?: any) =>{return {error: {mensaje: 'test'}}},
+    success: (message?: string, title?: string, override?: any) =>{return {}}
+  }
   //el roter spy falso que emula las rutas
   const spyRouter = {
     navigate: jasmine.createSpy('navigate'),
@@ -44,14 +56,23 @@ describe('DetalleslibroComponent', () => {
           useClass: UsersServiceMock,
         },
         {
+          provide: ToastrService,
+          useValue: toastrServiceMock,
+        },{
           provide: Router,
           useValue: spyRouter,
         },
+        {
+          provide: ComentarioService,
+          useValue: CommentServiceMock
+        }
       ]
     });
     component = TestBed.get(DetalleslibroComponent);
     userServiceMock = TestBed.get(UsersService);
-  });
+  }
+  
+  );
 
   // it('should create', () => {
   //   expect(component).toBeTruthy();
@@ -59,6 +80,7 @@ describe('DetalleslibroComponent', () => {
 
   it('should logout', () => {
     //Arrage
+    
     //Act
     component.logout();
     //Spect
@@ -81,6 +103,7 @@ describe('DetalleslibroComponent', () => {
     component.ngOnInit();
     //Spect
   });
+
 
   it('should ngOnInit Libro NOT null', () => {
     //Arrage
