@@ -114,6 +114,16 @@ export class FormularioPrestamoComponent implements OnInit {
     this.apellido = "";
   }
 
+  generaCodigoReserva() {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    const charactersLength = characters.length;
+    for (let i = 0; i < 8; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  }
+
   async generarReservacion() {
     this.prestamoService.consultarPrestamosReservacionesActivas(this.DPI, this.carnet)
       .subscribe(data => {
@@ -136,7 +146,7 @@ export class FormularioPrestamoComponent implements OnInit {
                   .subscribe((confirmado: Boolean) => {
                     if (confirmado) {
                       //confirmado
-                      const nuevoPrestamo = new Prestamo(this.nombre, this.apellido, this.DPI, this.carnet, this.carrera, '', '', '', 0, 'ACTIVO', 'NA', false, 0, this.idLibroVar);
+                      const nuevoPrestamo = new Prestamo(this.nombre, this.apellido, this.DPI, this.carnet, this.carrera, '', '', '', 0, 'ACTIVO', this.generaCodigoReserva(), false, 0, this.idLibroVar);
                       this.prestamoService.crearPrestamo(nuevoPrestamo).subscribe(
                         data => {
                           this.toastr.success('Prestamo Registrado', 'Ok!', {
