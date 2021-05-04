@@ -1,4 +1,38 @@
+table {
+  /*separacion entre componenntes*/
+  margin-top: 2rem; 
+}
+.example-spacer {
+  flex: 1 1 auto;
+}
+main {
+  /*ancho*/
+  width: 100%;
+  /*separacion entre componentes*/
+  margin-top: 2rem;
+  /*alineacion*/
+  text-align: center;
 
+}
+
+mat-card {
+  /*auto para que este centrado*/
+  margin: auto;
+  /*ancho*/
+  width: 80%;
+  /*componentes uno bajo al otro*/
+  display: block;
+  /*separacion entre componenntes*/
+  margin-top: 2rem;
+}
+.example-card {
+  max-width: auto;
+}
+
+.example-header-image {
+  background-image: url('https://th.bing.com/th/id/R357b881f7404a7510172712ba8df9b7a?rik=1F6J6d8A%2bhOR5g&riu=http%3a%2f%2fcceeusac.com%2fasignaciones%2fImagenes%2flogo_usac.png&ehk=KplsqbdMJu2aTx%2bzT5h2DGcFKOP5faojo95W%2bTVxoPM%3d&risl=&pid=ImgRaw');
+  background-size: cover;
+}
    :host {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     font-size: 14px;

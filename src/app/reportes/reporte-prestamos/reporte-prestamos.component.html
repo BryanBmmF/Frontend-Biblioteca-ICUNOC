@@ -26,13 +26,13 @@
     <button routerLink="/solicitud-reset-password" mat-menu-item>Mis Datos</button>
     <button routerLink="/solicitud-reset-password" mat-menu-item>Cambiar mi Contraseña</button>
   </mat-menu>
- <!-- <button [disabled]="buttonUsers" mat-button [matMenuTriggerFor]="usuariosMenu">Administración</button>
+  <button [disabled]="buttonUsers" mat-button [matMenuTriggerFor]="usuariosMenu">Administración</button>
   <mat-menu #usuariosMenu="matMenu" xPosition="after">
     <button routerLink="/usuarios" mat-menu-item>Lista de Usuarios</button>
     <button routerLink="/registro-usuario" mat-menu-item>Registrar Usuario</button>
     <button routerLink="/info-biblioteca" mat-menu-item>Información de Biblioteca</button>
   </mat-menu>
-  Boton para cerrar sesion-->
+  <!--Boton para cerrar sesion-->
   <button (click)="logout()" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
     <mat-icon>logout</mat-icon>
   </button>
@@ -46,28 +46,26 @@
     </mat-card-header>
     <mat-card-header>
       <nav class="navbar navbar-expand-lg navbar-light bg-light">      
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <mat-card-header>
-            <mat-card-title>Total Recaudado: </mat-card-title>
-              <form (ngSubmit)="verReporte1()" class="form-inline my-2 my-lg-0" novalidate #f="ngForm">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Ver Reporte</button>
-              </form>
-          </mat-card-header>
-          <mat-card-header>
-            <mat-card-title>Prestamos sin mora:</mat-card-title>
-              <form (ngSubmit)="verReporte2()" class="form-inline my-2 my-lg-0" novalidate #f="ngForm">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Ver Reporte</button>
-              </form>
-          </mat-card-header>
-          <mat-card-header>
-            <mat-card-title>Estudiantes mas morosos:</mat-card-title>
-              <form class="form-inline my-2 my-lg-0" >
-                <button class="btn btn-outline-info" routerLink="/reporte3"><i
-                    class="far fa-edit"></i>
-                    Ver Reporte</button>
-              </form>
-         </mat-card-header> 
-        </div>
+        <mat-card-header>
+          <mat-card-title>Total Recaudado: </mat-card-title>
+            <form (ngSubmit)="verReporte1()" class="form-inline my-2 my-lg-0" novalidate #f="ngForm">
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Ver Reporte</button>
+            </form>
+        </mat-card-header>
+        <mat-card-header>
+          <mat-card-title>Prestamos sin mora:</mat-card-title>
+            <form (ngSubmit)="verReporte2()" class="form-inline my-2 my-lg-0" novalidate #f="ngForm">
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Ver Reporte</button>
+            </form>
+        </mat-card-header>
+        <mat-card-header>
+          <mat-card-title>Estudiantes mas morosos:</mat-card-title>
+            <form class="form-inline my-2 my-lg-0" >
+              <button class="btn btn-outline-info" routerLink="/reporte3"><i
+                  class="far fa-edit"></i>
+                  Ver Reporte</button>
+            </form>
+       </mat-card-header> 
       </nav>
     </mat-card-header>
     <mat-card-content>
